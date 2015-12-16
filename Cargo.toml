@@ -1,3 +1,5 @@
 [package]
 name = "litmus"
 version = "0.1.0"
+edition = "2021"
+description = "A nondeterminism / flaky-test laboratory: run a command repeatedly under controlled conditions, normalize and fingerprint outcomes, and report divergence."
