@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" role="img"
+     aria-labelledby="heroTitle heroDesc" font-family="'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+  <title id="heroTitle">litmus: many runs diverging into outcome fingerprints</title>
+  <desc id="heroDesc">A single command is dispatched as repeated runs; identical waveforms collapse
+  into one stable fingerprint while a divergent run fans out into a distinct outcome fingerprint.</desc>
