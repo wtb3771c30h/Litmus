@@ -8,3 +8,8 @@
     <linearGradient id="bench" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#fbf3e7"/>
       <stop offset="1" stop-color="#f4e7d2"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
