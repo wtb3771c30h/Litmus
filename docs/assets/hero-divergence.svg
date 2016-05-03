@@ -13,3 +13,9 @@
       <feGaussianBlur stdDeviation="1.6" result="b"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto">
+      <path d="M0 0 L6 3 L0 6 z" fill="#c9b48f"/>
+    </marker>
+    <style>
+      .ink{fill:#243049}.muted{fill:#6b6152}.cream{fill:#fbf3e7}
+      .wave{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
