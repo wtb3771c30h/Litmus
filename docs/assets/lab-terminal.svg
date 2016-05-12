@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" role="img"
+     aria-labelledby="termTitle termDesc" font-family="'Cascadia Code','JetBrains Mono',Consolas,monospace">
+  <title id="termTitle">litmus laboratory terminal: stable and diverged evidence</title>
+  <desc id="termDesc">A lab-notebook terminal printing a litmus report: a stable scenario collapsing to
+  one outcome group, and a flaky scenario fanning out into four outcome groups with frequency bars.</desc>
