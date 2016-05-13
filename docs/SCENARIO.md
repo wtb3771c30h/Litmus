@@ -1,0 +1,9 @@
+# Scenario File Reference (`.litmus`)
+
+A scenario file tells `litmus` **what command to run**, **how many times**,
+**under what conditions**, **how to normalize its output**, and **what you
+expect** (stability vs. flakiness). The format is a tiny, dependency-free
+`key = value` dialect with `[section]` headers — comparable to INI.
+
+## Quick example
+
