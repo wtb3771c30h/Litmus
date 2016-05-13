@@ -3,3 +3,9 @@
   <title id="termTitle">litmus laboratory terminal: stable and diverged evidence</title>
   <desc id="termDesc">A lab-notebook terminal printing a litmus report: a stable scenario collapsing to
   one outcome group, and a flaky scenario fanning out into four outcome groups with frequency bars.</desc>
+
+  <defs>
+    <linearGradient id="scr" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbf3e7"/><stop offset="1" stop-color="#f6ecda"/>
+    </linearGradient>
+    <style>
