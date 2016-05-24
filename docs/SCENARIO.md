@@ -7,3 +7,12 @@ expect** (stability vs. flakiness). The format is a tiny, dependency-free
 
 ## Quick example
 
+```ini
+name = my-scenario
+description = one sentence describing what this checks
+
+[run]
+command = node -e "console.log('hello')"
+runs = 20
+timeout_ms = 5000
+seed = 12345
