@@ -1,0 +1,12 @@
+{
+  "schema": "litmus/evidence@1",
+  "scenario": "normalized-timestamp",
+  "description": "Raw output varies by wall-clock time, but is stable after normalization.",
+  "command": [
+    "node",
+    "-e",
+    "process.stdout.write('event at ' + new Date().toISOString() + ' processed\\n')"
+  ],
+  "total_runs": 15,
+  "distinct_outcomes": 1,
+  "expectation": "deterministic",
