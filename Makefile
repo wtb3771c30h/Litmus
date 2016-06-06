@@ -1,0 +1,4 @@
+.PHONY: all build test fmt fmt-check lint clippy ts-build ts-test tools demo emit clean help
+
+# Default: build and test everything.
+all: build ts-build test ts-test
