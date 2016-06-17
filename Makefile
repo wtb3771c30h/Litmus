@@ -2,3 +2,7 @@
 
 # Default: build and test everything.
 all: build ts-build test ts-test
+
+## Rust ----------------------------------------------------------------------
+
+build: ## Build the Rust CLI (release).
