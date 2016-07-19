@@ -6,3 +6,7 @@ all: build ts-build test ts-test
 ## Rust ----------------------------------------------------------------------
 
 build: ## Build the Rust CLI (release).
+	cargo build --release
+
+test: ## Run all Rust tests (unit + integration).
+	cargo test
