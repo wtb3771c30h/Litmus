@@ -1,2 +1,3 @@
 # A genuinely FLAKY command: it emits one of several outcomes at random and
 # occasionally exits non-zero. Even after normalization the payload differs,
+# so litmus reports divergence. We disable timestamp/hex stripping here because
