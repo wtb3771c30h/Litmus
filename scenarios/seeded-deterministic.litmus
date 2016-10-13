@@ -1,0 +1,2 @@
+# A command that is random UNLESS you pin its seed. litmus injects a per-run
+# seed as the environment variable `LITMUS_SEED`. Here the base seed is fixed
