@@ -1,3 +1,4 @@
 # The FIX for `set-order-flaky.litmus`. The command still shuffles, but it now
 # prints each element on its own line and litmus normalizes with
 # `sort_lines = true`, canonicalizing order. All runs then fingerprint the same
+# and the scenario is deterministic.
