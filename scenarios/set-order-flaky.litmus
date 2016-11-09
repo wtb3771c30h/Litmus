@@ -1,1 +1,2 @@
 # A classic real-world flakiness source: relying on unordered iteration.
+# In many languages, iterating a set/dict yields a nondeterministic order
