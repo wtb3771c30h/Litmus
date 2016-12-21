@@ -14,3 +14,8 @@ pub fn fingerprint(bytes: &[u8]) -> String {
         hash ^= b as u64;
         hash = hash.wrapping_mul(PRIME);
     }
+    format!("{hash:016x}")
+}
+
+/// A minimal SplitMix64 PRNG. Deterministic given a seed; used for env-order
+/// shuffling and any controlled jitter so that runs are reproducible.
