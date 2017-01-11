@@ -18,3 +18,24 @@ pub fn normalize(input: &str, opts: &NormalizeOptions) -> String {
         }
         if opts.strip_timestamps {
             *line = mask_timestamps(line);
+        }
+        if opts.strip_temp_paths {
+            *line = mask_temp_paths(line);
+        }
+        if opts.trim_trailing_ws {
+            let trimmed = line.trim_end();
+            if trimmed.len() != line.len() {
+                *line = trimmed.to_string();
+            }
+        }
+    }
+
+    if !opts.drop_substrings.is_empty() {
+        lines.retain(|l| !opts.drop_substrings.iter().any(|d| l.contains(d.as_str())));
+    }
+
+    if opts.sort_lines {
+        lines.sort();
+    }
+
+    let mut out = lines.join("\n");
