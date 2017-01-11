@@ -28,3 +28,19 @@ fn main() -> ExitCode {
     let args: Vec<String> = std::env::args().skip(1).collect();
     match run(&args) {
         Ok(code) => code,
+        Err(e) => {
+            eprintln!("litmus: error: {e}");
+            ExitCode::from(2)
+        }
+    }
+}
+
+struct Options {
+    scenario_path: String,
+    runs: Option<u32>,
+    timeout_ms: Option<u64>,
+    seed: Option<u64>,
+    json: bool,
+    out: Option<String>,
+    color: bool,
+    sample_lines: usize,
