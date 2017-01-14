@@ -59,3 +59,24 @@ fn mask_hex(line: &str) -> String {
             let mut j = i + 2;
             while j < bytes.len() && bytes[j].is_ascii_hexdigit() {
                 j += 1;
+            }
+            if j - (i + 2) >= 3 {
+                out.push_str("<hex>");
+                i = j;
+                continue;
+            }
+        }
+        // Bare hex run, only when isolated by non-alphanumeric boundaries.
+        if bytes[i].is_ascii_hexdigit() {
+            let start = i;
+            let mut j = i;
+            while j < bytes.len() && bytes[j].is_ascii_hexdigit() {
+                j += 1;
+            }
+            let run_len = j - start;
+            let left_ok = start == 0 || !is_word_char(bytes[start - 1]);
+            let right_ok = j >= bytes.len() || !is_word_char(bytes[j]);
+            let has_letter = bytes[start..j].iter().any(|c| c.is_ascii_alphabetic());
+            if run_len >= 6 && left_ok && right_ok && has_letter {
+                out.push_str("<hex>");
+                i = j;
