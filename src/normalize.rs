@@ -39,3 +39,23 @@ pub fn normalize(input: &str, opts: &NormalizeOptions) -> String {
     }
 
     let mut out = lines.join("\n");
+    // Ensure a single trailing newline so "foo" and "foo\n" canonicalize equal.
+    out.push('\n');
+    out
+}
+
+/// Replace hexadecimal runs (typically pointers like `0x7ffee3b1`) with `<hex>`.
+///
+/// A "hex run" is a `0x` prefix followed by at least three hex digits, or a
+/// bare run of six or more hex digits (to catch addresses printed without the
+/// prefix) that is not part of a larger alphanumeric word.
+fn mask_hex(line: &str) -> String {
+    let bytes: Vec<char> = line.chars().collect();
+    let mut out = String::with_capacity(line.len());
+    let mut i = 0;
+    while i < bytes.len() {
+        // 0x-prefixed form.
+        if bytes[i] == '0' && i + 1 < bytes.len() && (bytes[i + 1] == 'x' || bytes[i + 1] == 'X') {
+            let mut j = i + 2;
+            while j < bytes.len() && bytes[j].is_ascii_hexdigit() {
+                j += 1;
