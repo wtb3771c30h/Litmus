@@ -27,3 +27,32 @@ pub struct Outcome {
 }
 
 /// A group of runs that shared the same fingerprint.
+#[derive(Debug, Clone)]
+pub struct OutcomeGroup {
+    pub fingerprint: String,
+    pub count: u32,
+    /// Run indices (0-based) that produced this fingerprint.
+    pub run_indices: Vec<u32>,
+    /// A representative canonical output for this group.
+    pub sample: String,
+}
+
+/// Whether the observed behavior satisfied the scenario's expectation.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Verdict {
+    /// All runs identical (and this matched the expectation, if any).
+    Stable,
+    /// Runs diverged (and this matched the expectation, if any).
+    Diverged,
+    /// Observation contradicted the stated `expect`.
+    ExpectationViolated,
+}
+
+impl Verdict {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            Verdict::Stable => "stable",
+            Verdict::Diverged => "diverged",
+            Verdict::ExpectationViolated => "expectation_violated",
+        }
+    }
