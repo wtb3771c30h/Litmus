@@ -20,3 +20,25 @@
 //! expect = deterministic        # optional: deterministic | flaky (assertion)
 //!
 //! [env]
+//! GREETING = hello              # extra environment variables (repeatable)
+//!
+//! [normalize]
+//! strip_timestamps = true
+//! strip_hex = true
+//! strip_temp_paths = true
+//! trim_trailing_ws = true
+//! sort_lines = false
+//! ```
+//!
+//! Lists (such as multiple `arg =` entries) accumulate in order.
+
+use std::collections::BTreeMap;
+use std::fmt;
+
+/// What we assert about a scenario's stability.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Expectation {
+    /// Every run must produce the same normalized fingerprint.
+    Deterministic,
+    /// Runs are expected to diverge (at least two distinct fingerprints).
+    Flaky,
