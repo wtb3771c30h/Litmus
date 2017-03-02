@@ -42,3 +42,26 @@ pub enum Expectation {
     Deterministic,
     /// Runs are expected to diverge (at least two distinct fingerprints).
     Flaky,
+    /// No assertion; just report what happens.
+    Unspecified,
+}
+
+impl Expectation {
+    fn parse(s: &str) -> Result<Expectation, ParseError> {
+        match s.trim().to_ascii_lowercase().as_str() {
+            "deterministic" | "stable" => Ok(Expectation::Deterministic),
+            "flaky" | "nondeterministic" => Ok(Expectation::Flaky),
+            "" | "any" | "unspecified" => Ok(Expectation::Unspecified),
+            other => Err(ParseError::new(format!("unknown expectation: {other:?}"))),
+        }
+    }
+}
+
+impl fmt::Display for Expectation {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let s = match self {
+            Expectation::Deterministic => "deterministic",
+            Expectation::Flaky => "flaky",
+            Expectation::Unspecified => "unspecified",
+        };
+        f.write_str(s)
