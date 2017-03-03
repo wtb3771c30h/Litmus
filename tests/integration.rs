@@ -4,3 +4,9 @@
 
 use litmus::report::investigate;
 use litmus::{render_text, Scenario, Verdict};
+
+/// Build a scenario whose command is a portable shell invocation.
+fn scenario_with_command(header: &str, shell_cmd: &str) -> Scenario {
+    let command_line = if cfg!(windows) {
+        format!("command = cmd /C \"{shell_cmd}\"")
+    } else {
