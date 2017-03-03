@@ -65,3 +65,25 @@ impl fmt::Display for Expectation {
             Expectation::Unspecified => "unspecified",
         };
         f.write_str(s)
+    }
+}
+
+/// Options controlling output normalization before fingerprinting.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct NormalizeOptions {
+    pub strip_timestamps: bool,
+    pub strip_hex: bool,
+    pub strip_temp_paths: bool,
+    pub trim_trailing_ws: bool,
+    pub sort_lines: bool,
+    /// Drop lines matching any of these literal substrings.
+    pub drop_substrings: Vec<String>,
+}
+
+impl Default for NormalizeOptions {
+    fn default() -> Self {
+        NormalizeOptions {
+            strip_timestamps: true,
+            strip_hex: true,
+            strip_temp_paths: true,
+            trim_trailing_ws: true,
