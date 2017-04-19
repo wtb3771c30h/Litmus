@@ -4,3 +4,10 @@
  * generated (e.g. from a test matrix) and written out as `.litmus` files.
  */
 
+export type Expectation = "deterministic" | "flaky" | "unspecified";
+
+export interface NormalizeSpec {
+  strip_timestamps?: boolean;
+  strip_hex?: boolean;
+  strip_temp_paths?: boolean;
+  trim_trailing_ws?: boolean;
