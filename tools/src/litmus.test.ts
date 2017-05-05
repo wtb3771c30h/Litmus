@@ -19,3 +19,14 @@ const VALID = JSON.stringify({
   total_runs: 4,
   distinct_outcomes: 2,
   expectation: "flaky",
+  verdict: "diverged",
+  timeouts: 0,
+  min_duration_ms: 1,
+  max_duration_ms: 3,
+  groups: [
+    {
+      fingerprint: "aa",
+      count: 3,
+      run_indices: [0, 1, 2],
+      sample: "out a",
+    },
