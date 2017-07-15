@@ -19,3 +19,9 @@ pub fn fingerprint(bytes: &[u8]) -> String {
 
 /// A minimal SplitMix64 PRNG. Deterministic given a seed; used for env-order
 /// shuffling and any controlled jitter so that runs are reproducible.
+#[derive(Debug, Clone)]
+pub struct Rng {
+    state: u64,
+}
+
+impl Rng {
