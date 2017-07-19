@@ -9,3 +9,8 @@
       <stop offset="0" stop-color="#fbf3e7"/><stop offset="1" stop-color="#f6ecda"/>
     </linearGradient>
     <style>
+      .bar{transform-origin:left center;animation:grow 2.4s ease-out infinite}
+      @keyframes grow{0%{transform:scaleX(0)}30%{transform:scaleX(1)}100%{transform:scaleX(1)}}
+      .cursor{animation:blink 1.05s steps(2) infinite}
+      @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+      .type{animation:type 5s steps(40) infinite}
