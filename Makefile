@@ -10,3 +10,7 @@ build: ## Build the Rust CLI (release).
 
 test: ## Run all Rust tests (unit + integration).
 	cargo test
+
+fmt: ## Format Rust code.
+	cargo fmt
+
