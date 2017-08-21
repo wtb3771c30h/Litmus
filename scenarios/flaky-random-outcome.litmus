@@ -2,3 +2,4 @@
 # occasionally exits non-zero. Even after normalization the payload differs,
 # so litmus reports divergence. We disable timestamp/hex stripping here because
 # the randomness is the *content*, not noise.
+#
