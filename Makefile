@@ -14,3 +14,7 @@ test: ## Run all Rust tests (unit + integration).
 fmt: ## Format Rust code.
 	cargo fmt
 
+fmt-check: ## Check Rust formatting without modifying files.
+	cargo fmt --check
+
+clippy: ## Run clippy with warnings denied.
