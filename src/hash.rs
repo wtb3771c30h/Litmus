@@ -25,3 +25,8 @@ pub struct Rng {
 }
 
 impl Rng {
+    pub fn new(seed: u64) -> Rng {
+        // Avoid the degenerate all-zero state.
+        Rng {
+            state: seed ^ 0x9e3779b97f4a7c15,
+        }
