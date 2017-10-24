@@ -1,2 +1,4 @@
 # A command that is random UNLESS you pin its seed. litmus injects a per-run
 # seed as the environment variable `LITMUS_SEED`. Here the base seed is fixed
+# and never changes across runs (we set runs' derived seed from a constant
+# base), and the program uses LITMUS_SEED as its PRNG seed.
