@@ -14,3 +14,11 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { parseEvidence } from "./parse.js";
 import { renderHtml, renderText } from "./render.js";
 
+const HELP = `litmus-report — render litmus evidence
+
+USAGE:
+  litmus-report html <evidence.json> [--out FILE]
+  litmus-report text <evidence.json>
+  litmus-report --help
+
+ARGS:
