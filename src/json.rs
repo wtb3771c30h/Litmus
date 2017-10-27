@@ -13,3 +13,18 @@ pub enum Json {
     Bool(bool),
     /// Integer number.
     Int(i64),
+    /// Unsigned number (used for durations / counts).
+    UInt(u64),
+    Str(String),
+    Array(Vec<Json>),
+    /// Object with insertion-ordered keys for stable, diff-friendly output.
+    Object(Vec<(String, Json)>),
+}
+
+impl Json {
+    pub fn str(s: impl Into<String>) -> Json {
+        Json::Str(s.into())
+    }
+
+    /// Serialize to a pretty-printed string with 2-space indentation.
+    pub fn to_pretty(&self) -> String {
