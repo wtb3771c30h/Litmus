@@ -80,3 +80,24 @@ fn mask_hex(line: &str) -> String {
             if run_len >= 6 && left_ok && right_ok && has_letter {
                 out.push_str("<hex>");
                 i = j;
+                continue;
+            }
+        }
+        out.push(bytes[i]);
+        i += 1;
+    }
+    out
+}
+
+fn is_word_char(c: char) -> bool {
+    c.is_ascii_alphanumeric() || c == '_'
+}
+
+/// Replace ISO-8601-ish timestamps and `HH:MM:SS` clocks with `<ts>`.
+///
+/// Recognizes:
+///   * `2026-08-31T21:41:39` (optionally with fractional seconds and zone)
+///   * `2026-08-31 21:41:39`
+///   * standalone `21:41:39` clocks
+fn mask_timestamps(line: &str) -> String {
+    let chars: Vec<char> = line.chars().collect();
