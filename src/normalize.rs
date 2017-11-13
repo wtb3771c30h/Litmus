@@ -101,3 +101,23 @@ fn is_word_char(c: char) -> bool {
 ///   * standalone `21:41:39` clocks
 fn mask_timestamps(line: &str) -> String {
     let chars: Vec<char> = line.chars().collect();
+    let mut out = String::with_capacity(line.len());
+    let mut i = 0;
+    while i < chars.len() {
+        if let Some(end) = match_date(&chars, i) {
+            out.push_str("<ts>");
+            i = end;
+            continue;
+        }
+        if let Some(end) = match_clock(&chars, i) {
+            // Only mask a bare clock if not immediately preceded by a digit
+            // (which would indicate it is part of something already handled).
+            out.push_str("<ts>");
+            i = end;
+            continue;
+        }
+        out.push(chars[i]);
+        i += 1;
+    }
+    out
+}
