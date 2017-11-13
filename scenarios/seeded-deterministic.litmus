@@ -2,3 +2,6 @@
 # seed as the environment variable `LITMUS_SEED`. Here the base seed is fixed
 # and never changes across runs (we set runs' derived seed from a constant
 # base), and the program uses LITMUS_SEED as its PRNG seed.
+#
+# Because `seed = 7` is fixed and the derived per-run seed = base + run_index,
+# each run gets a DIFFERENT but DETERMINISTIC seed. To make every run identical
