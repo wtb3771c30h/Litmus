@@ -56,3 +56,32 @@ impl Verdict {
             Verdict::ExpectationViolated => "expectation_violated",
         }
     }
+}
+
+/// The full analysis of a scenario.
+#[derive(Debug, Clone)]
+pub struct Report {
+    pub scenario_name: String,
+    pub description: String,
+    pub command: Vec<String>,
+    pub total_runs: u32,
+    pub distinct_outcomes: u32,
+    pub expectation: Expectation,
+    pub verdict: Verdict,
+    pub groups: Vec<OutcomeGroup>,
+    pub outcomes: Vec<Outcome>,
+    pub min_duration_ms: u128,
+    pub max_duration_ms: u128,
+    pub timeouts: u32,
+}
+
+impl Report {
+    /// True if the process should exit non-zero (a CI-actionable failure).
+    pub fn is_failure(&self) -> bool {
+        self.verdict == Verdict::ExpectationViolated
+    }
+
+    /// Serialize the report to a [`Json`] value for evidence emission.
+    pub fn to_json(&self) -> Json {
+        let groups = self
+            .groups
