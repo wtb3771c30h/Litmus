@@ -16,3 +16,12 @@ command = node -e "console.log('hello')"
 runs = 20
 timeout_ms = 5000
 seed = 12345
+shuffle_env = true
+workdir = .
+expect = deterministic
+
+[env]
+GREETING = hello
+API_MODE = offline
+
+[normalize]
