@@ -16,3 +16,9 @@ fn scenario_with_command(header: &str, shell_cmd: &str) -> Scenario {
     Scenario::parse(&text).expect("scenario should parse")
 }
 
+#[test]
+fn deterministic_command_is_stable() {
+    let s = scenario_with_command("name = det\n#", "echo litmus");
+    // Override runs via the struct since our header does not set it.
+    let mut s = s;
+    s.runs = 6;
