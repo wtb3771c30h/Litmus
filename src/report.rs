@@ -85,3 +85,32 @@ impl Report {
     pub fn to_json(&self) -> Json {
         let groups = self
             .groups
+            .iter()
+            .map(|g| {
+                Json::Object(vec![
+                    ("fingerprint".into(), Json::str(&g.fingerprint)),
+                    ("count".into(), Json::UInt(g.count as u64)),
+                    (
+                        "run_indices".into(),
+                        Json::Array(
+                            g.run_indices
+                                .iter()
+                                .map(|i| Json::UInt(*i as u64))
+                                .collect(),
+                        ),
+                    ),
+                    ("sample".into(), Json::str(&g.sample)),
+                ])
+            })
+            .collect();
+
+        let outcomes = self
+            .outcomes
+            .iter()
+            .map(|o| {
+                Json::Object(vec![
+                    ("run_index".into(), Json::UInt(o.run_index as u64)),
+                    ("seed".into(), Json::UInt(o.seed)),
+                    ("fingerprint".into(), Json::str(&o.fingerprint)),
+                    (
+                        "exit_code".into(),
