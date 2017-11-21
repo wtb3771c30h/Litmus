@@ -6,3 +6,7 @@
  */
 
 export type Verdict = "stable" | "diverged" | "expectation_violated";
+
+export type Expectation = "deterministic" | "flaky" | "unspecified";
+
+export interface OutcomeGroup {
