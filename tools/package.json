@@ -1,2 +1,4 @@
 {
   "name": "litmus-report",
+  "version": "0.1.0",
+  "description": "Dependency-free renderer and scenario authoring helper for litmus evidence.",
