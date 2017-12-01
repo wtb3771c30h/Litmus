@@ -38,3 +38,13 @@ jobs:
       - name: Format check
         run: cargo fmt --check
 
+      - name: Clippy
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: Build
+        run: cargo build --release --verbose
+
+      - name: Test
+        run: cargo test --verbose
+
+      - name: Smoke-test the CLI on the example scenarios
