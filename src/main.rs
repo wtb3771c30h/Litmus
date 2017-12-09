@@ -44,3 +44,18 @@ struct Options {
     out: Option<String>,
     color: bool,
     sample_lines: usize,
+}
+
+enum Mode {
+    Run,
+    Check,
+    Emit,
+    Explain,
+}
+
+fn run(args: &[String]) -> Result<ExitCode, String> {
+    let command = match args.first().map(String::as_str) {
+        None | Some("help") | Some("-h") | Some("--help") => {
+            print_help();
+            return Ok(ExitCode::SUCCESS);
+        }
