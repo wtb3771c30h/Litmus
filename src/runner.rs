@@ -53,3 +53,30 @@ pub fn run_once(cfg: &RunConfig) -> std::io::Result<RunOutput> {
     }
     cmd.stdin(Stdio::null());
     cmd.stdout(Stdio::piped());
+    cmd.stderr(Stdio::piped());
+
+    let start = Instant::now();
+    let mut child = cmd.spawn()?;
+
+    // Drain stdout/stderr on separate threads so a large output cannot deadlock
+    // against a full pipe buffer while we wait.
+    let mut out_handle = child.stdout.take();
+    let mut err_handle = child.stderr.take();
+
+    let (out_tx, out_rx) = mpsc::channel();
+    let (err_tx, err_rx) = mpsc::channel();
+
+    let out_thread = thread::spawn(move || {
+        let mut buf = Vec::new();
+        if let Some(ref mut h) = out_handle {
+            let _ = h.read_to_end(&mut buf);
+        }
+        let _ = out_tx.send(buf);
+    });
+    let err_thread = thread::spawn(move || {
+        let mut buf = Vec::new();
+        if let Some(ref mut h) = err_handle {
+            let _ = h.read_to_end(&mut buf);
+        }
+        let _ = err_tx.send(buf);
+    });
