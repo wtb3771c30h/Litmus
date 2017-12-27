@@ -87,3 +87,25 @@ impl Default for NormalizeOptions {
             strip_hex: true,
             strip_temp_paths: true,
             trim_trailing_ws: true,
+            sort_lines: false,
+            drop_substrings: Vec::new(),
+        }
+    }
+}
+
+/// A fully parsed scenario, ready to be executed by the runner.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Scenario {
+    pub name: String,
+    pub description: String,
+    /// The command: first element is the program, rest are arguments.
+    pub command: Vec<String>,
+    pub runs: u32,
+    pub timeout_ms: Option<u64>,
+    pub shuffle_env: bool,
+    pub seed: u64,
+    pub workdir: Option<String>,
+    pub expect: Expectation,
+    pub env: BTreeMap<String, String>,
+    pub normalize: NormalizeOptions,
+}
