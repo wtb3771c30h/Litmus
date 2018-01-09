@@ -4,3 +4,4 @@
 # the randomness is the *content*, not noise.
 #
 # Because randomness is real, `expect = flaky` asserts that we DO observe more
+# than one distinct outcome across the runs.
