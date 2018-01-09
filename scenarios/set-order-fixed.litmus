@@ -3,3 +3,4 @@
 # `sort_lines = true`, canonicalizing order. All runs then fingerprint the same
 # and the scenario is deterministic.
 #
+# Lesson: sometimes flakiness lives in the *assertion*, not the code. Sorting
