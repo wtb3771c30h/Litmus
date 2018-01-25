@@ -59,3 +59,18 @@ fn run(args: &[String]) -> Result<ExitCode, String> {
             print_help();
             return Ok(ExitCode::SUCCESS);
         }
+        Some("version") | Some("-V") | Some("--version") => {
+            println!("litmus {}", env!("CARGO_PKG_VERSION"));
+            return Ok(ExitCode::SUCCESS);
+        }
+        Some("run") => Mode::Run,
+        Some("check") => Mode::Check,
+        Some("emit") => Mode::Emit,
+        Some("explain") => Mode::Explain,
+        Some(other) => return Err(format!("unknown command {other:?} (try `litmus help`)")),
+    };
+
+    let opts = parse_options(&args[1..])?;
+
+    let source = std::fs::read_to_string(&opts.scenario_path)
+        .map_err(|e| format!("cannot read {}: {e}", opts.scenario_path))?;
