@@ -109,3 +109,26 @@ pub struct Scenario {
     pub env: BTreeMap<String, String>,
     pub normalize: NormalizeOptions,
 }
+
+impl Scenario {
+    /// Parse a scenario from raw text.
+    pub fn parse(input: &str) -> Result<Scenario, ParseError> {
+        let mut name = String::new();
+        let mut description = String::new();
+        let mut command: Vec<String> = Vec::new();
+        let mut runs: u32 = 10;
+        let mut timeout_ms: Option<u64> = None;
+        let mut shuffle_env = false;
+        let mut seed: u64 = 0;
+        let mut workdir: Option<String> = None;
+        let mut expect = Expectation::Unspecified;
+        let mut env: BTreeMap<String, String> = BTreeMap::new();
+        let mut normalize = NormalizeOptions::default();
+
+        let mut section = String::new();
+
+        for (idx, raw_line) in input.lines().enumerate() {
+            let lineno = idx + 1;
+            let line = strip_comment(raw_line).trim();
+            if line.is_empty() {
+                continue;
