@@ -30,3 +30,13 @@ const VALID = JSON.stringify({
       run_indices: [0, 1, 2],
       sample: "out a",
     },
+    {
+      fingerprint: "bb",
+      count: 1,
+      run_indices: [3],
+      sample: "out b",
+    },
+  ],
+  outcomes: [
+    {
+      run_index: 0,
