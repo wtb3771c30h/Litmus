@@ -24,3 +24,10 @@ export interface ScenarioSpec {
   timeout_ms?: number;
   seed?: number;
   shuffle_env?: boolean;
+  workdir?: string;
+  expect?: Expectation;
+  env?: Readonly<Record<string, string>>;
+  normalize?: NormalizeSpec;
+}
+
+/** Quote a command token if it contains whitespace or quote characters. */
