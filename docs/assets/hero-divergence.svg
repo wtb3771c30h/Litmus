@@ -19,3 +19,8 @@
     <style>
       .ink{fill:#243049}.muted{fill:#6b6152}.cream{fill:#fbf3e7}
       .wave{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+      .dash{stroke-dasharray:560;stroke-dashoffset:560;animation:draw 3.6s ease-in-out infinite}
+      .d2{animation-delay:.4s}.d3{animation-delay:.8s}.d4{animation-delay:1.2s}
+      @keyframes draw{0%{stroke-dashoffset:560}
+        35%{stroke-dashoffset:0}75%{stroke-dashoffset:0;opacity:1}
+        92%{opacity:.15}100%{stroke-dashoffset:560;opacity:0}}
