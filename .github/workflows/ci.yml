@@ -48,3 +48,13 @@ jobs:
         run: cargo test --verbose
 
       - name: Smoke-test the CLI on the example scenarios
+        shell: bash
+        run: |
+          bin=./target/release/litmus
+          [ -f "$bin.exe" ] && bin="$bin.exe"
+          "$bin" check scenarios/deterministic-echo.litmus
+          "$bin" check scenarios/normalized-timestamp.litmus
+          "$bin" check scenarios/set-order-fixed.litmus
+          "$bin" run   scenarios/set-order-flaky.litmus
+
+  typescript:
