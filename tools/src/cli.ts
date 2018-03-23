@@ -22,3 +22,12 @@ USAGE:
   litmus-report --help
 
 ARGS:
+  <evidence.json>   Path to a litmus evidence file, or "-" for stdin.
+
+OPTIONS:
+  --out FILE        Write output to FILE instead of stdout (html mode).
+`;
+
+function readInput(path: string): string {
+  if (path === "-") {
+    return readFileSync(0, "utf8");
