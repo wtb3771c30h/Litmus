@@ -114,3 +114,32 @@ impl Report {
                     ("fingerprint".into(), Json::str(&o.fingerprint)),
                     (
                         "exit_code".into(),
+                        match o.exit_code {
+                            Some(c) => Json::Int(c as i64),
+                            None => Json::Null,
+                        },
+                    ),
+                    ("timed_out".into(), Json::Bool(o.timed_out)),
+                    ("duration_ms".into(), Json::UInt(o.duration_ms as u64)),
+                ])
+            })
+            .collect();
+
+        Json::Object(vec![
+            ("schema".into(), Json::str("litmus/evidence@1")),
+            ("scenario".into(), Json::str(&self.scenario_name)),
+            ("description".into(), Json::str(&self.description)),
+            (
+                "command".into(),
+                Json::Array(self.command.iter().map(Json::str).collect()),
+            ),
+            ("total_runs".into(), Json::UInt(self.total_runs as u64)),
+            (
+                "distinct_outcomes".into(),
+                Json::UInt(self.distinct_outcomes as u64),
+            ),
+            (
+                "expectation".into(),
+                Json::str(self.expectation.to_string()),
+            ),
+            ("verdict".into(), Json::str(self.verdict.as_str())),
