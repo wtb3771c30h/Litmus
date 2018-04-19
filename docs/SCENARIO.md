@@ -25,3 +25,13 @@ GREETING = hello
 API_MODE = offline
 
 [normalize]
+strip_timestamps = true
+strip_hex = true
+strip_temp_paths = true
+trim_trailing_ws = true
+sort_lines = false
+drop_substring = pid=
+```
+
+## Syntax rules
+
