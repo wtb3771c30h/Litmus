@@ -80,3 +80,31 @@ pub fn run_once(cfg: &RunConfig) -> std::io::Result<RunOutput> {
         }
         let _ = err_tx.send(buf);
     });
+
+    let mut timed_out = false;
+    let status = match cfg.timeout {
+        None => child.wait()?,
+        Some(limit) => loop {
+            match child.try_wait()? {
+                Some(status) => break status,
+                None => {
+                    if start.elapsed() >= limit {
+                        let _ = child.kill();
+                        timed_out = true;
+                        break child.wait()?;
+                    }
+                    thread::sleep(poll_interval(limit));
+                }
+            }
+        },
+    };
+
+    let duration_ms = start.elapsed().as_millis();
+
+    // Threads finish once the pipes close (which happens when the child exits
+    // or is killed). Join them and collect the buffers.
+    let stdout_bytes = out_rx.recv().unwrap_or_default();
+    let stderr_bytes = err_rx.recv().unwrap_or_default();
+    let _ = out_thread.join();
+    let _ = err_thread.join();
+
