@@ -14,3 +14,9 @@
       .cursor{animation:blink 1.05s steps(2) infinite}
       @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
       .type{animation:type 5s steps(40) infinite}
+      @keyframes type{0%{width:0}22%{width:16.5em}100%{width:16.5em}}
+      .fade{opacity:0;animation:fade 5s ease-out infinite}
+      .f2{animation-delay:.3s}.f3{animation-delay:.6s}.f4{animation-delay:.9s}
+      .f5{animation-delay:1.2s}.f6{animation-delay:1.6s}
+      @keyframes fade{0%,10%{opacity:0}25%{opacity:1}100%{opacity:1}}
+      t{font-size:13px}
