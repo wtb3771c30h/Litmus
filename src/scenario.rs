@@ -132,3 +132,25 @@ impl Scenario {
             let line = strip_comment(raw_line).trim();
             if line.is_empty() {
                 continue;
+            }
+            if let Some(sec) = line.strip_prefix('[').and_then(|s| s.strip_suffix(']')) {
+                section = sec.trim().to_ascii_lowercase();
+                continue;
+            }
+            let (key, value) = split_kv(line).ok_or_else(|| {
+                ParseError::at(lineno, format!("expected `key = value`, got {line:?}"))
+            })?;
+            let key = key.to_ascii_lowercase();
+
+            match section.as_str() {
+                "" => match key.as_str() {
+                    "name" => name = value.to_string(),
+                    "description" => description = value.to_string(),
+                    other => {
+                        return Err(ParseError::at(
+                            lineno,
+                            format!("unknown top-level key: {other:?}"),
+                        ))
+                    }
+                },
+                "run" => match key.as_str() {
