@@ -154,3 +154,25 @@ impl Scenario {
                     }
                 },
                 "run" => match key.as_str() {
+                    "command" => command = tokenize_command(value)?,
+                    "arg" => command.push(value.to_string()),
+                    "runs" => {
+                        runs = value.parse().map_err(|_| {
+                            ParseError::at(lineno, format!("invalid runs: {value:?}"))
+                        })?
+                    }
+                    "timeout_ms" => {
+                        timeout_ms = Some(value.parse().map_err(|_| {
+                            ParseError::at(lineno, format!("invalid timeout_ms: {value:?}"))
+                        })?)
+                    }
+                    "shuffle_env" => shuffle_env = parse_bool(value, lineno)?,
+                    "seed" => {
+                        seed = value.parse().map_err(|_| {
+                            ParseError::at(lineno, format!("invalid seed: {value:?}"))
+                        })?
+                    }
+                    "workdir" => workdir = Some(value.to_string()),
+                    "expect" => {
+                        expect = Expectation::parse(value)
+                            .map_err(|e| ParseError::at(lineno, e.message))?
