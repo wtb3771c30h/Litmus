@@ -20,3 +20,8 @@
       .f5{animation-delay:1.2s}.f6{animation-delay:1.6s}
       @keyframes fade{0%,10%{opacity:0}25%{opacity:1}100%{opacity:1}}
       t{font-size:13px}
+      @media (prefers-reduced-motion: reduce){
+        .bar,.cursor,.type,.fade{animation:none;opacity:1;transform:none}}
+    </style>
+  </defs>
+
