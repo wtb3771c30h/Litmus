@@ -6,3 +6,5 @@
 # Lesson: sometimes flakiness lives in the *assertion*, not the code. Sorting
 # before comparison removes order-dependence.
 
+name = set-order-fixed
+description = Same shuffled collection, made stable by sorting during normalization.
