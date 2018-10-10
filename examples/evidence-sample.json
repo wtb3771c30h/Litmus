@@ -10,3 +10,16 @@
   "total_runs": 15,
   "distinct_outcomes": 1,
   "expectation": "deterministic",
+  "verdict": "stable",
+  "timeouts": 0,
+  "min_duration_ms": 52,
+  "max_duration_ms": 54,
+  "groups": [
+    {
+      "fingerprint": "ba9b8db45a8f6fe6",
+      "count": 15,
+      "run_indices": [
+        0,
+        1,
+        2,
+        3,
