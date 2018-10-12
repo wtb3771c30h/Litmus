@@ -23,3 +23,16 @@ function requireString(obj: Record<string, unknown>, key: string): string {
     throw new EvidenceError(`field "${key}" must be a string`);
   }
   return v;
+}
+
+function requireNumber(obj: Record<string, unknown>, key: string): number {
+  const v = obj[key];
+  if (typeof v !== "number" || !Number.isFinite(v)) {
+    throw new EvidenceError(`field "${key}" must be a finite number`);
+  }
+  return v;
+}
+
+function requireBool(obj: Record<string, unknown>, key: string): boolean {
+  const v = obj[key];
+  if (typeof v !== "boolean") {
