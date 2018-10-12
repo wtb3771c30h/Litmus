@@ -25,3 +25,9 @@
     </style>
   </defs>
 
+  <!-- window chrome -->
+  <rect x="8" y="8" width="744" height="424" rx="14" fill="#243049"/>
+  <rect x="8" y="8" width="744" height="34" rx="14" fill="#1c2740"/>
+  <circle cx="30" cy="25" r="6" fill="#ff7a59"/>
+  <circle cx="50" cy="25" r="6" fill="#f2c14e"/>
+  <circle cx="70" cy="25" r="6" fill="#4f74f2"/>
