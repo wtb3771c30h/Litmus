@@ -36,3 +36,22 @@ pub fn render_text(report: &Report, color: bool, sample_lines: usize) -> String 
         "{}litmus{} :: {}\n",
         c.bold, c.reset, report.scenario_name
     ));
+    if !report.description.is_empty() {
+        out.push_str(&format!("  {}\n", report.description));
+    }
+    out.push_str(&format!("  command      : {}\n", report.command.join(" ")));
+    out.push_str(&format!(
+        "  runs         : {}  ({} distinct outcome{})\n",
+        report.total_runs,
+        report.distinct_outcomes,
+        if report.distinct_outcomes == 1 {
+            ""
+        } else {
+            "s"
+        }
+    ));
+    out.push_str(&format!("  expectation  : {}\n", report.expectation));
+    out.push_str(&format!(
+        "  duration     : {}ms .. {}ms\n",
+        report.min_duration_ms, report.max_duration_ms
+    ));
