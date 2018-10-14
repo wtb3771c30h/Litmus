@@ -108,3 +108,31 @@ pub fn run_once(cfg: &RunConfig) -> std::io::Result<RunOutput> {
     let _ = out_thread.join();
     let _ = err_thread.join();
 
+    Ok(RunOutput {
+        stdout: String::from_utf8_lossy(&stdout_bytes).into_owned(),
+        stderr: String::from_utf8_lossy(&stderr_bytes).into_owned(),
+        exit_code: status.code(),
+        timed_out,
+        duration_ms,
+    })
+}
+
+/// Choose a polling interval: fine-grained for short timeouts, coarser for long
+/// ones, clamped to a sane range to avoid busy-waiting.
+fn poll_interval(limit: Duration) -> Duration {
+    let ms = (limit.as_millis() / 50).clamp(2, 25) as u64;
+    Duration::from_millis(ms)
+}
+
+/// Build the ordered env list for a run. When `shuffle` is set, the insertion
+/// order is permuted deterministically (driven by the caller's RNG) so that
+/// programs sensitive to environment ordering can be surfaced.
+pub fn ordered_env(env: &BTreeMap<String, String>, order: &[usize]) -> Vec<(String, String)> {
+    let pairs: Vec<(String, String)> = env.iter().map(|(k, v)| (k.clone(), v.clone())).collect();
+    if order.len() == pairs.len() {
+        order.iter().map(|&i| pairs[i].clone()).collect()
+    } else {
+        pairs
+    }
+}
+
