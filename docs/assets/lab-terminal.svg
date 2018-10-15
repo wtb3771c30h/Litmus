@@ -31,3 +31,8 @@
   <circle cx="30" cy="25" r="6" fill="#ff7a59"/>
   <circle cx="50" cy="25" r="6" fill="#f2c14e"/>
   <circle cx="70" cy="25" r="6" fill="#4f74f2"/>
+  <text x="380" y="30" text-anchor="middle" fill="#c9c0b0" font-size="12">litmus: laboratory bench</text>
+
+  <!-- screen -->
+  <rect x="20" y="52" width="720" height="368" rx="8" fill="url(#scr)"/>
+
