@@ -36,3 +36,16 @@ function requireNumber(obj: Record<string, unknown>, key: string): number {
 function requireBool(obj: Record<string, unknown>, key: string): boolean {
   const v = obj[key];
   if (typeof v !== "boolean") {
+    throw new EvidenceError(`field "${key}" must be a boolean`);
+  }
+  return v;
+}
+
+function requireArray(obj: Record<string, unknown>, key: string): unknown[] {
+  const v = obj[key];
+  if (!Array.isArray(v)) {
+    throw new EvidenceError(`field "${key}" must be an array`);
+  }
+  return v;
+}
+
