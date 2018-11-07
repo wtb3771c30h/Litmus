@@ -4,3 +4,6 @@
  * dependency-free: `npm install` pulls nothing, and `tsc` still type-checks.
  *
  * If you prefer the full, official typings, run `npm i -D @types/node` and add
+ * `"types": ["node"]` to tsconfig.json — this file then becomes redundant.
+ */
+
