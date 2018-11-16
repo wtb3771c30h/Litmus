@@ -14,3 +14,7 @@ export interface OutcomeGroup {
   readonly count: number;
   readonly run_indices: readonly number[];
   readonly sample: string;
+}
+
+export interface Outcome {
+  readonly run_index: number;
