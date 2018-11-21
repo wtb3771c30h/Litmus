@@ -176,3 +176,26 @@ impl Scenario {
                     "expect" => {
                         expect = Expectation::parse(value)
                             .map_err(|e| ParseError::at(lineno, e.message))?
+                    }
+                    other => {
+                        return Err(ParseError::at(
+                            lineno,
+                            format!("unknown [run] key: {other:?}"),
+                        ))
+                    }
+                },
+                "env" => {
+                    // Preserve original case for env-var names.
+                    let (orig_key, _) = split_kv(line).unwrap();
+                    env.insert(orig_key.to_string(), value.to_string());
+                }
+                "normalize" => match key.as_str() {
+                    "strip_timestamps" => normalize.strip_timestamps = parse_bool(value, lineno)?,
+                    "strip_hex" => normalize.strip_hex = parse_bool(value, lineno)?,
+                    "strip_temp_paths" => normalize.strip_temp_paths = parse_bool(value, lineno)?,
+                    "trim_trailing_ws" => normalize.trim_trailing_ws = parse_bool(value, lineno)?,
+                    "sort_lines" => normalize.sort_lines = parse_bool(value, lineno)?,
+                    "drop_substring" => normalize.drop_substrings.push(value.to_string()),
+                    other => {
+                        return Err(ParseError::at(
+                            lineno,
