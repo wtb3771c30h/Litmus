@@ -5,3 +5,4 @@
   "type": "module",
   "license": "MIT",
   "bin": {
+    "litmus-report": "dist/cli.js"
