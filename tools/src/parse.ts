@@ -49,3 +49,15 @@ function requireArray(obj: Record<string, unknown>, key: string): unknown[] {
   return v;
 }
 
+const VERDICTS: readonly Verdict[] = [
+  "stable",
+  "diverged",
+  "expectation_violated",
+];
+
+const EXPECTATIONS: readonly Expectation[] = [
+  "deterministic",
+  "flaky",
+  "unspecified",
+];
+
