@@ -6,3 +6,5 @@ description = "A nondeterminism / flaky-test laboratory: run a command repeatedl
 license = "MIT"
 repository = "https://github.com/example/litmus"
 readme = "README.md"
+keywords = ["testing", "flaky", "nondeterminism", "reproducibility", "cli"]
+categories = ["command-line-utilities", "development-tools::testing"]
