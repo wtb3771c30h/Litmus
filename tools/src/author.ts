@@ -31,3 +31,9 @@ export interface ScenarioSpec {
 }
 
 /** Quote a command token if it contains whitespace or quote characters. */
+export function quoteToken(token: string): string {
+  if (token.length === 0) {
+    return '""';
+  }
+  if (!/[\s"']/.test(token)) {
+    return token;
