@@ -1,3 +1,4 @@
 # A classic real-world flakiness source: relying on unordered iteration.
 # In many languages, iterating a set/dict yields a nondeterministic order
 # (hash randomization). Here we simulate it faithfully: we shuffle an array
+# and print it. Without `sort_lines` the output diverges (flaky); the companion
