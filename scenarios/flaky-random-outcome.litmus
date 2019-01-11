@@ -6,3 +6,5 @@
 # Because randomness is real, `expect = flaky` asserts that we DO observe more
 # than one distinct outcome across the runs.
 
+name = flaky-random-outcome
+description = Randomly prints one of several results and sometimes fails.
