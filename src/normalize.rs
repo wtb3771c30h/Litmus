@@ -121,3 +121,24 @@ fn mask_timestamps(line: &str) -> String {
     }
     out
 }
+
+/// Match a full date(+time) starting at `i`, returning the end index if matched.
+fn match_date(c: &[char], i: usize) -> Option<usize> {
+    // YYYY-MM-DD
+    if !run_of_digits(c, i, 4) {
+        return None;
+    }
+    let mut j = i + 4;
+    if !take(c, &mut j, '-') || !run_of_digits(c, j, 2) {
+        return None;
+    }
+    j += 2;
+    if !take(c, &mut j, '-') || !run_of_digits(c, j, 2) {
+        return None;
+    }
+    j += 2;
+    // Optional time separated by 'T' or a single space.
+    let mut k = j;
+    if k < c.len() && (c[k] == 'T' || c[k] == ' ') {
+        let sep = k;
+        k += 1;
