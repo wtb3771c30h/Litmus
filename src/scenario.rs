@@ -199,3 +199,25 @@ impl Scenario {
                     other => {
                         return Err(ParseError::at(
                             lineno,
+                            format!("unknown [normalize] key: {other:?}"),
+                        ))
+                    }
+                },
+                other => {
+                    return Err(ParseError::at(
+                        lineno,
+                        format!("unknown section: {other:?}"),
+                    ))
+                }
+            }
+        }
+
+        if command.is_empty() {
+            return Err(ParseError::new(
+                "scenario is missing a `command` in the [run] section".to_string(),
+            ));
+        }
+        if runs == 0 {
+            return Err(ParseError::new("runs must be >= 1".to_string()));
+        }
+        if name.is_empty() {
