@@ -18,3 +18,10 @@ export function escapeHtml(input: string): string {
 
 function verdictLabel(v: Verdict): string {
   switch (v) {
+    case "stable":
+      return "STABLE";
+    case "diverged":
+      return "DIVERGED";
+    case "expectation_violated":
+      return "EXPECTATION VIOLATED";
+  }
