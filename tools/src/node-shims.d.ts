@@ -7,3 +7,6 @@
  * `"types": ["node"]` to tsconfig.json — this file then becomes redundant.
  */
 
+declare module "node:fs" {
+  /** Read a file (or fd 0 for stdin) as text. */
+  export function readFileSync(path: string | number, encoding: "utf8"): string;
