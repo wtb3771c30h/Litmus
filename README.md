@@ -125,3 +125,67 @@ litmus :: flaky-random-outcome
   expectation  : flaky
   verdict      : DIVERGED
 
+  outcome groups:
+  [0] ████████░░░░░░░░░░░░░░░░   4/12  ( 33.3%)  fp=4688c9756e89ec64   runs: 3, 5, 7-8
+  [1] ██████░░░░░░░░░░░░░░░░░░   3/12  ( 25.0%)  fp=2c28612ab0da1d99   runs: 1, 6, 9
+  [2] ██████░░░░░░░░░░░░░░░░░░   3/12  ( 25.0%)  fp=9e73afba2fac4352   runs: 2, 4, 11
+  [3] ████░░░░░░░░░░░░░░░░░░░░   2/12  ( 16.7%)  fp=fe920309f32cf24f   runs: 0, 10  | exit=1
+```
+
+## Scenario grammar
+
+A scenario is a tiny `key = value` dialect with `[section]` headers — INI-like,
+hand-authorable, and mirrored by the TypeScript author helper. Full reference:
+[`docs/SCENARIO.md`](docs/SCENARIO.md).
+
+```ini
+name = greeting
+description = a deterministic greeting
+
+[run]
+command = node -e "process.stdout.write('hello\n')"   # shell-like quoting
+runs = 12
+timeout_ms = 5000
+expect = deterministic          # deterministic | flaky | unspecified
+
+[env]
+GREETING = hello                # names keep their original case
+
+[normalize]
+strip_timestamps = true
+drop_substring = pid=           # repeatable
+```
+
+Grammar notes, all enforced by the parser in [`src/scenario.rs`](src/scenario.rs):
+
+- **Comments** begin with `#` or `;` and run to end of line — even after a value — *unless*
+  the marker sits inside single or double quotes.
+- **Keys** are case-insensitive (env-var names in `[env]` keep their case). **Booleans**
+  accept `true/false`, `yes/no`, `1/0`, `on/off`.
+- **`command`** is tokenized honoring single and double quotes, so `"my program" --name 'a b'`
+  becomes three tokens. An unterminated quote is a parse error; awkward values can use
+  repeated `arg =` lines instead.
+- Parse errors report the **1-based line number**, e.g.
+  `scenario parse error (line 3): invalid boolean: "maybe"`. Defaults: `runs = 10`,
+  `seed = 0`, `expect = unspecified`; normalization passes default **on** except `sort_lines`.
+
+## Seed & environment injection
+
+Reproducibility is opt-in from the target's side. Every run receives two synthetic
+environment variables in addition to your `[env]` entries:
+
+- **`LITMUS_SEED`** — the derived per-run seed, `seed + run_index` (wrapping). A program can
+  seed its PRNG from this to become reproducible.
+- **`LITMUS_RUN`** — the 0-based run index.
+
+Because the derived seed changes per run, a program that *reads* `LITMUS_SEED` varies
+deterministically across the suite, while one that pins a constant seed internally is
+identical every run — both are legitimate experiments. The
+[`seeded-deterministic`](scenarios/seeded-deterministic.litmus) scenario shows the
+"pin a constant" flavor.
+
+**Environment ordering** is its own nondeterminism source: some programs are sensitive to
+the *insertion order* of variables. Set `shuffle_env = true` and litmus permutes the `[env]`
+order with a seeded Fisher–Yates shuffle (`SplitMix64`, driven by `seed ^ 0xa5a5a5a5`), so
+the shuffle is reproducible per run while still surfacing order-sensitivity.
+
