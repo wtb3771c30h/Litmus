@@ -31,3 +31,11 @@ OPTIONS:
 function readInput(path: string): string {
   if (path === "-") {
     return readFileSync(0, "utf8");
+  }
+  return readFileSync(path, "utf8");
+}
+
+export function main(argv: readonly string[]): number {
+  const args = [...argv];
+  const command = args.shift();
+
