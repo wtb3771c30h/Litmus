@@ -35,3 +35,12 @@ drop_substring = pid=
 
 ## Syntax rules
 
+- **Comments** start with `#` or `;` and run to end of line. They are ignored
+  even after a value (`command = echo hi   # trailing comment`), *except* when
+  the `#`/`;` is inside single or double quotes.
+- **Blank lines** are ignored.
+- **Sections** are written `[name]` on their own line. Recognized sections:
+  the top level (before any header), `[run]`, `[env]`, and `[normalize]`.
+- **Keys** are case-insensitive (except environment-variable names in `[env]`,
+  which keep their original case). Values are trimmed of surrounding whitespace.
+- **Booleans** accept `true/false`, `yes/no`, `1/0`, `on/off`.
