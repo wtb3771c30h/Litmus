@@ -142,3 +142,23 @@ fn match_date(c: &[char], i: usize) -> Option<usize> {
     if k < c.len() && (c[k] == 'T' || c[k] == ' ') {
         let sep = k;
         k += 1;
+        if let Some(end) = match_clock(c, k) {
+            k = end;
+            // fractional seconds
+            if k < c.len() && c[k] == '.' {
+                let mut f = k + 1;
+                while f < c.len() && c[f].is_ascii_digit() {
+                    f += 1;
+                }
+                if f > k + 1 {
+                    k = f;
+                }
+            }
+            // zone: Z or +HH:MM / -HH:MM
+            if k < c.len() && c[k] == 'Z' {
+                k += 1;
+            } else if k < c.len() && (c[k] == '+' || c[k] == '-') {
+                let mut z = k + 1;
+                if run_of_digits(c, z, 2) {
+                    z += 2;
+                    if z < c.len() && c[z] == ':' {
