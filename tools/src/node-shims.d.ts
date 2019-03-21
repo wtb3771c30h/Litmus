@@ -10,3 +10,7 @@
 declare module "node:fs" {
   /** Read a file (or fd 0 for stdin) as text. */
   export function readFileSync(path: string | number, encoding: "utf8"): string;
+  export function writeFileSync(path: string, data: string): void;
+}
+
+declare module "node:test" {
