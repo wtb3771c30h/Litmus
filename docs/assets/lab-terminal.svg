@@ -36,3 +36,9 @@
   <!-- screen -->
   <rect x="20" y="52" width="720" height="368" rx="8" fill="url(#scr)"/>
 
+  <!-- prompt line with a typing command -->
+  <text x="36" y="80" fill="#ff7a59" font-size="13">$</text>
+  <clipPath id="cmd"><rect x="50" y="68" class="type" height="18"/></clipPath>
+  <g clip-path="url(#cmd)">
+    <text x="52" y="80" fill="#243049" font-size="13">litmus run scenarios/normalized-timestamp.litmus</text>
+  </g>
