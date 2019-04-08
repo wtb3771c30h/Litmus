@@ -162,3 +162,24 @@ fn match_date(c: &[char], i: usize) -> Option<usize> {
                 if run_of_digits(c, z, 2) {
                     z += 2;
                     if z < c.len() && c[z] == ':' {
+                        z += 1;
+                    }
+                    if run_of_digits(c, z, 2) {
+                        z += 2;
+                        k = z;
+                    }
+                }
+            }
+            return Some(k);
+        }
+        // 'T'/space was not actually followed by a clock: only consume the date.
+        let _ = sep;
+    }
+    Some(j)
+}
+
+/// Match `HH:MM:SS` (optionally `HH:MM:SS`) starting at `i`.
+fn match_clock(c: &[char], i: usize) -> Option<usize> {
+    if !run_of_digits(c, i, 2) {
+        return None;
+    }
