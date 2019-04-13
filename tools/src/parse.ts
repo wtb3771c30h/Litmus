@@ -61,3 +61,16 @@ const EXPECTATIONS: readonly Expectation[] = [
   "unspecified",
 ];
 
+function asVerdict(value: string): Verdict {
+  if ((VERDICTS as readonly string[]).includes(value)) {
+    return value as Verdict;
+  }
+  throw new EvidenceError(`unknown verdict: ${JSON.stringify(value)}`);
+}
+
+function asExpectation(value: string): Expectation {
+  if ((EXPECTATIONS as readonly string[]).includes(value)) {
+    return value as Expectation;
+  }
+  throw new EvidenceError(`unknown expectation: ${JSON.stringify(value)}`);
+}
