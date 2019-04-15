@@ -18,3 +18,7 @@ fmt-check: ## Check Rust formatting without modifying files.
 	cargo fmt --check
 
 clippy: ## Run clippy with warnings denied.
+	cargo clippy --all-targets -- -D warnings
+
+lint: fmt-check clippy ## Run all Rust lints.
+
