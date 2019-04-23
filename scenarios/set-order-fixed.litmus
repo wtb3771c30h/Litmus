@@ -8,3 +8,4 @@
 
 name = set-order-fixed
 description = Same shuffled collection, made stable by sorting during normalization.
+
