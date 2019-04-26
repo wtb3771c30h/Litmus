@@ -18,3 +18,8 @@ export interface OutcomeGroup {
 
 export interface Outcome {
   readonly run_index: number;
+  readonly seed: number;
+  readonly fingerprint: string;
+  readonly exit_code: number | null;
+  readonly timed_out: boolean;
+  readonly duration_ms: number;
