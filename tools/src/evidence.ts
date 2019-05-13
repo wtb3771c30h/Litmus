@@ -23,3 +23,7 @@ export interface Outcome {
   readonly exit_code: number | null;
   readonly timed_out: boolean;
   readonly duration_ms: number;
+}
+
+export interface Evidence {
+  readonly schema: string;
