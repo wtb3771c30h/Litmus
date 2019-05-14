@@ -55,3 +55,23 @@ pub fn render_text(report: &Report, color: bool, sample_lines: usize) -> String 
         "  duration     : {}ms .. {}ms\n",
         report.min_duration_ms, report.max_duration_ms
     ));
+    if report.timeouts > 0 {
+        out.push_str(&format!(
+            "  {}timeouts     : {}{}\n",
+            c.yellow, report.timeouts, c.reset
+        ));
+    }
+
+    let (label, color_code) = match report.verdict {
+        Verdict::Stable => ("STABLE", c.green),
+        Verdict::Diverged => ("DIVERGED", c.yellow),
+        Verdict::ExpectationViolated => ("EXPECTATION VIOLATED", c.red),
+    };
+    out.push_str(&format!(
+        "  verdict      : {}{}{}\n",
+        color_code, label, c.reset
+    ));
+
+    out.push('\n');
+    out.push_str(&format!("  {}outcome groups:{}\n", c.bold, c.reset));
+    for (i, g) in report.groups.iter().enumerate() {
