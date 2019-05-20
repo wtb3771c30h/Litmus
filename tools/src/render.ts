@@ -25,3 +25,10 @@ function verdictLabel(v: Verdict): string {
     case "expectation_violated":
       return "EXPECTATION VIOLATED";
   }
+}
+
+function verdictClass(v: Verdict): string {
+  switch (v) {
+    case "stable":
+      return "verdict-stable";
+    case "diverged":
