@@ -183,3 +183,24 @@ fn match_clock(c: &[char], i: usize) -> Option<usize> {
     if !run_of_digits(c, i, 2) {
         return None;
     }
+    let mut j = i + 2;
+    if !take(c, &mut j, ':') || !run_of_digits(c, j, 2) {
+        return None;
+    }
+    j += 2;
+    if !take(c, &mut j, ':') || !run_of_digits(c, j, 2) {
+        return None;
+    }
+    j += 2;
+    // Guard against matching a longer digit word like "12:34:56789abc".
+    Some(j)
+}
+
+fn run_of_digits(c: &[char], start: usize, n: usize) -> bool {
+    if start + n > c.len() {
+        return false;
+    }
+    c[start..start + n].iter().all(|ch| ch.is_ascii_digit())
+}
+
+fn take(c: &[char], j: &mut usize, ch: char) -> bool {
