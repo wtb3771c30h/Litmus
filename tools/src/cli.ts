@@ -39,3 +39,11 @@ export function main(argv: readonly string[]): number {
   const args = [...argv];
   const command = args.shift();
 
+  if (!command || command === "--help" || command === "-h") {
+    process.stdout.write(HELP);
+    return command ? 0 : 1;
+  }
+
+  if (command !== "html" && command !== "text") {
+    process.stderr.write(`litmus-report: unknown command ${JSON.stringify(command)}\n`);
+    return 2;
