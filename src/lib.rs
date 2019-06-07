@@ -75,3 +75,22 @@ pub fn render_text(report: &Report, color: bool, sample_lines: usize) -> String 
     out.push('\n');
     out.push_str(&format!("  {}outcome groups:{}\n", c.bold, c.reset));
     for (i, g) in report.groups.iter().enumerate() {
+        render_group(&mut out, &c, i, g, report.total_runs, sample_lines);
+    }
+
+    out
+}
+
+fn render_group(
+    out: &mut String,
+    c: &Palette,
+    index: usize,
+    g: &OutcomeGroup,
+    total: u32,
+    sample_lines: usize,
+) {
+    let pct = if total > 0 {
+        (g.count as f64 / total as f64) * 100.0
+    } else {
+        0.0
+    };
