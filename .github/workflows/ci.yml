@@ -68,3 +68,13 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Type-check and build
+        working-directory: tools
+        run: npx --yes typescript@5.8.3 tsc -p tsconfig.json
+
+      - name: Test
+        working-directory: tools
+        run: node --test dist/litmus.test.js
+
+  pipeline:
+    name: End-to-end (Rust -> TypeScript)
