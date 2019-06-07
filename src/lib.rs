@@ -94,3 +94,22 @@ fn render_group(
     } else {
         0.0
     };
+    let bar = bar(g.count, total, 24);
+    out.push_str(&format!(
+        "  [{}] {} {:>3}/{:<3} ({:5.1}%)  fp={}\n",
+        index, bar, g.count, total, pct, g.fingerprint
+    ));
+    out.push_str(&format!(
+        "      runs: {}\n",
+        summarize_indices(&g.run_indices)
+    ));
+    if sample_lines > 0 {
+        let shown: Vec<&str> = g.sample.lines().take(sample_lines).collect();
+        for line in &shown {
+            out.push_str(&format!("      {}| {}{}\n", c.dim, line, c.reset));
+        }
+        let total_lines = g.sample.lines().count();
+        if total_lines > sample_lines {
+            out.push_str(&format!(
+                "      {}| ... ({} more line{}){}\n",
+                c.dim,
