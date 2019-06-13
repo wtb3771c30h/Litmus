@@ -44,3 +44,12 @@ drop_substring = pid=
 - **Keys** are case-insensitive (except environment-variable names in `[env]`,
   which keep their original case). Values are trimmed of surrounding whitespace.
 - **Booleans** accept `true/false`, `yes/no`, `1/0`, `on/off`.
+- Parse errors report the **1-based line number**.
+
+## Top-level keys
+
+| Key           | Type   | Default              | Meaning                                  |
+| ------------- | ------ | -------------------- | ---------------------------------------- |
+| `name`        | string | `unnamed-scenario`   | Human-readable scenario name.            |
+| `description` | string | *(empty)*            | One-line description shown in reports.   |
+
