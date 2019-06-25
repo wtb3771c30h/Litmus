@@ -8,3 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2026-08-31
 
 ### Added
+
+- **Rust CLI (`litmus`)**, standard-library only:
+  - Scenario file format (`.litmus`) with `[run]`, `[env]`, and `[normalize]`
+    sections, tokenized command parsing, and helpful line-numbered errors.
+  - Repeated execution of a target command with:
