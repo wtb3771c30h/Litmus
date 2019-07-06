@@ -22,3 +22,9 @@ fn deterministic_command_is_stable() {
     // Override runs via the struct since our header does not set it.
     let mut s = s;
     s.runs = 6;
+    s.expect = litmus::Expectation::Deterministic;
+
+    let report = investigate(&s).expect("run should succeed");
+    assert_eq!(report.distinct_outcomes, 1);
+    assert_eq!(report.verdict, Verdict::Stable);
+    assert!(!report.is_failure());
