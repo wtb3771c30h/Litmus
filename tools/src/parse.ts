@@ -74,3 +74,16 @@ function asExpectation(value: string): Expectation {
   }
   throw new EvidenceError(`unknown expectation: ${JSON.stringify(value)}`);
 }
+
+function parseGroup(value: unknown, index: number): OutcomeGroup {
+  if (!isObject(value)) {
+    throw new EvidenceError(`groups[${index}] must be an object`);
+  }
+  const run_indices = requireArray(value, "run_indices").map((n, i) => {
+    if (typeof n !== "number" || !Number.isInteger(n)) {
+      throw new EvidenceError(`groups[${index}].run_indices[${i}] must be an integer`);
+    }
+    return n;
+  });
+  return {
+    fingerprint: requireString(value, "fingerprint"),
