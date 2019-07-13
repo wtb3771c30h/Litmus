@@ -28,3 +28,9 @@ fn deterministic_command_is_stable() {
     assert_eq!(report.distinct_outcomes, 1);
     assert_eq!(report.verdict, Verdict::Stable);
     assert!(!report.is_failure());
+    assert_eq!(report.total_runs, 6);
+}
+
+#[test]
+fn divergent_exit_codes_are_detected() {
+    // A command that alternates exit code based on the injected LITMUS_RUN.
