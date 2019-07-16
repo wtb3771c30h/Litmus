@@ -40,3 +40,14 @@ const VALID = JSON.stringify({
   outcomes: [
     {
       run_index: 0,
+      seed: 0,
+      fingerprint: "aa",
+      exit_code: 0,
+      timed_out: false,
+      duration_ms: 1,
+    },
+  ],
+});
+
+test("parseEvidence accepts a valid document", () => {
+  const ev = parseEvidence(VALID);
