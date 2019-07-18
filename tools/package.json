@@ -6,3 +6,5 @@
   "license": "MIT",
   "bin": {
     "litmus-report": "dist/cli.js"
+  },
+  "files": [
