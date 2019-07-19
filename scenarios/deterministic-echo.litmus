@@ -2,3 +2,5 @@
 #
 # We use `node -e` because Node is available cross-platform and lets us write
 # a self-contained snippet without an external script file. The snippet just
+# prints a fixed string, so every run fingerprints identically.
+
