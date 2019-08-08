@@ -136,3 +136,30 @@ pub fn ordered_env(env: &BTreeMap<String, String>, order: &[usize]) -> Vec<(Stri
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn shell(cmd: &str) -> Vec<String> {
+        if cfg!(windows) {
+            vec!["cmd".into(), "/C".into(), cmd.into()]
+        } else {
+            vec!["sh".into(), "-c".into(), cmd.into()]
+        }
+    }
+
+    #[test]
+    fn captures_stdout_and_exit_code() {
+        let command = shell("echo hello");
+        let cfg = RunConfig {
+            command: &command,
+            env: &[],
+            workdir: None,
+            timeout: None,
+        };
+        let out = run_once(&cfg).unwrap();
+        assert!(out.stdout.contains("hello"));
+        assert_eq!(out.exit_code, Some(0));
+        assert!(!out.timed_out);
+    }
+
