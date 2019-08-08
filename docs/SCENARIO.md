@@ -53,3 +53,13 @@ drop_substring = pid=
 | `name`        | string | `unnamed-scenario`   | Human-readable scenario name.            |
 | `description` | string | *(empty)*            | One-line description shown in reports.   |
 
+## `[run]` section
+
+| Key           | Type    | Default       | Meaning                                                                 |
+| ------------- | ------- | ------------- | ----------------------------------------------------------------------- |
+| `command`     | string  | **required**  | Program + arguments. Tokenized with shell-like single/double quoting.   |
+| `arg`         | string  | —             | Appends a single argument token (repeatable). Useful for tricky values. |
+| `runs`        | integer | `10`          | Number of repetitions (must be ≥ 1).                                    |
+| `timeout_ms`  | integer | *(none)*      | Per-run wall-clock timeout in milliseconds. On timeout the child is killed and the run is recorded as timed out. |
+| `seed`        | integer | `0`           | Base seed. Each run gets `seed + run_index`.                            |
+| `shuffle_env` | bool    | `false`       | Randomize the insertion order of `[env]` variables (deterministic per seed). Surfaces order-sensitive programs. |
