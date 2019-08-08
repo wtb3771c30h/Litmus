@@ -32,3 +32,10 @@ function verdictClass(v: Verdict): string {
     case "stable":
       return "verdict-stable";
     case "diverged":
+      return "verdict-diverged";
+    case "expectation_violated":
+      return "verdict-violated";
+  }
+}
+
+/** Collapse a list of run indices into compact ranges, e.g. "0-3, 5, 7-9". */
