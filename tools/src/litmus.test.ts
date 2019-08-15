@@ -51,3 +51,14 @@ const VALID = JSON.stringify({
 
 test("parseEvidence accepts a valid document", () => {
   const ev = parseEvidence(VALID);
+  assert.equal(ev.scenario, "demo");
+  assert.equal(ev.groups.length, 2);
+  assert.equal(ev.verdict, "diverged");
+});
+
+test("parseEvidence rejects invalid JSON", () => {
+  assert.throws(() => parseEvidence("{not json"), EvidenceError);
+});
+
+test("validateEvidence rejects wrong schema", () => {
+  assert.throws(
