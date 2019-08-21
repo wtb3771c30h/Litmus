@@ -37,3 +37,10 @@ export function quoteToken(token: string): string {
   }
   if (!/[\s"']/.test(token)) {
     return token;
+  }
+  if (!token.includes('"')) {
+    return `"${token}"`;
+  }
+  if (!token.includes("'")) {
+    return `'${token}'`;
+  }
