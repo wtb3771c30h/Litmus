@@ -204,3 +204,23 @@ fn run_of_digits(c: &[char], start: usize, n: usize) -> bool {
 }
 
 fn take(c: &[char], j: &mut usize, ch: char) -> bool {
+    if *j < c.len() && c[*j] == ch {
+        *j += 1;
+        true
+    } else {
+        false
+    }
+}
+
+/// Replace common temp-directory paths with `<tmp>`.
+///
+/// Handles Unix (`/tmp/...`, `/var/folders/...`) and Windows
+/// (`C:\Users\x\AppData\Local\Temp\...`, `%TEMP%\...`) shapes.
+fn mask_temp_paths(line: &str) -> String {
+    let mut result = line.to_string();
+    // Unix.
+    result = mask_path_prefix(&result, "/tmp/");
+    result = mask_path_prefix(&result, "/var/folders/");
+    // Windows temp: look for "\Temp\" (case-insensitive) and mask through the
+    // next whitespace.
+    result = mask_windows_temp(&result);
