@@ -47,3 +47,12 @@ export function main(argv: readonly string[]): number {
   if (command !== "html" && command !== "text") {
     process.stderr.write(`litmus-report: unknown command ${JSON.stringify(command)}\n`);
     return 2;
+  }
+
+  let out: string | undefined;
+  let inputPath: string | undefined;
+  for (let i = 0; i < args.length; i++) {
+    const a = args[i];
+    if (a === "--out") {
+      out = args[++i];
+      if (out === undefined) {
