@@ -41,3 +41,9 @@ impl Rng {
         z ^ (z >> 31)
     }
 
+    /// Uniform integer in `[0, bound)`. Returns 0 when `bound == 0`.
+    pub fn below(&mut self, bound: usize) -> usize {
+        if bound == 0 {
+            return 0;
+        }
+        (self.next_u64() % bound as u64) as usize
