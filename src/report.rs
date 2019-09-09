@@ -143,3 +143,32 @@ impl Report {
                 Json::str(self.expectation.to_string()),
             ),
             ("verdict".into(), Json::str(self.verdict.as_str())),
+            ("timeouts".into(), Json::UInt(self.timeouts as u64)),
+            (
+                "min_duration_ms".into(),
+                Json::UInt(self.min_duration_ms as u64),
+            ),
+            (
+                "max_duration_ms".into(),
+                Json::UInt(self.max_duration_ms as u64),
+            ),
+            ("groups".into(), Json::Array(groups)),
+            ("outcomes".into(), Json::Array(outcomes)),
+        ])
+    }
+}
+
+/// Run every repetition of the scenario and produce a [`Report`].
+///
+/// `seed_env_var`, when set, is injected as an environment variable holding the
+/// per-run seed. This lets target programs opt into deterministic behavior
+/// (e.g. reading `LITMUS_SEED`) while still exercising the harness.
+pub fn investigate(scenario: &Scenario) -> std::io::Result<Report> {
+    let mut outcomes: Vec<Outcome> = Vec::with_capacity(scenario.runs as usize);
+    let timeout = scenario.timeout_ms.map(Duration::from_millis);
+
+    let env_len = scenario.env.len();
+
+    for run_index in 0..scenario.runs {
+        // Each run gets a derived seed so target programs can be reproducible
+        // per-run while the suite as a whole varies.
