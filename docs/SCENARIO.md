@@ -63,3 +63,12 @@ drop_substring = pid=
 | `timeout_ms`  | integer | *(none)*      | Per-run wall-clock timeout in milliseconds. On timeout the child is killed and the run is recorded as timed out. |
 | `seed`        | integer | `0`           | Base seed. Each run gets `seed + run_index`.                            |
 | `shuffle_env` | bool    | `false`       | Randomize the insertion order of `[env]` variables (deterministic per seed). Surfaces order-sensitive programs. |
+| `workdir`     | string  | *(inherited)* | Working directory for the child process.                                |
+| `expect`      | enum    | `unspecified` | Assertion: `deterministic`, `flaky`, or `unspecified`.                  |
+
+### Command tokenization
+
+`command` is split into tokens on whitespace, honoring single (`'`) and double
+(`"`) quotes so arguments may contain spaces:
+
+```ini
