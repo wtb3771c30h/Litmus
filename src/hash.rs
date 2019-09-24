@@ -47,3 +47,8 @@ impl Rng {
             return 0;
         }
         (self.next_u64() % bound as u64) as usize
+    }
+
+    /// In-place Fisher-Yates shuffle.
+    pub fn shuffle<T>(&mut self, items: &mut [T]) {
+        let len = items.len();
