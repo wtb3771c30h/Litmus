@@ -22,3 +22,8 @@ clippy: ## Run clippy with warnings denied.
 
 lint: fmt-check clippy ## Run all Rust lints.
 
+## TypeScript ----------------------------------------------------------------
+
+ts-build: ## Type-check and compile the TypeScript tooling.
+	cd tools && npx tsc -p tsconfig.json
+
