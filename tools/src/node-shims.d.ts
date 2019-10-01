@@ -17,3 +17,6 @@ declare module "node:test" {
   type TestFn = () => void | Promise<void>;
   export function test(name: string, fn: TestFn): void;
 }
+
+declare module "node:assert/strict" {
+  interface Assert {
