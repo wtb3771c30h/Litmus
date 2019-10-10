@@ -10,3 +10,5 @@ keywords = ["testing", "flaky", "nondeterminism", "reproducibility", "cli"]
 categories = ["command-line-utilities", "development-tools::testing"]
 
 [[bin]]
+name = "litmus"
+path = "src/main.rs"
