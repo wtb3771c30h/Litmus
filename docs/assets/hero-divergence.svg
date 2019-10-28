@@ -24,3 +24,8 @@
       @keyframes draw{0%{stroke-dashoffset:560}
         35%{stroke-dashoffset:0}75%{stroke-dashoffset:0;opacity:1}
         92%{opacity:.15}100%{stroke-dashoffset:560;opacity:0}}
+      .pulse{animation:pulse 2.6s ease-in-out infinite}
+      @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+      .blink{animation:blink 1.1s steps(2) infinite}
+      @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+      .glow{animation:glow 3s ease-in-out infinite}
