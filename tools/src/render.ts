@@ -39,3 +39,10 @@ function verdictClass(v: Verdict): string {
 }
 
 /** Collapse a list of run indices into compact ranges, e.g. "0-3, 5, 7-9". */
+export function summarizeIndices(indices: readonly number[]): string {
+  if (indices.length === 0) {
+    return "(none)";
+  }
+  const sorted = [...indices].sort((a, b) => a - b);
+  const parts: string[] = [];
+  let start = sorted[0];
