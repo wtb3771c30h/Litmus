@@ -74,3 +74,19 @@ fn run(args: &[String]) -> Result<ExitCode, String> {
 
     let source = std::fs::read_to_string(&opts.scenario_path)
         .map_err(|e| format!("cannot read {}: {e}", opts.scenario_path))?;
+    let mut scenario = Scenario::parse(&source).map_err(|e| e.to_string())?;
+
+    if let Some(r) = opts.runs {
+        if r == 0 {
+            return Err("--runs must be >= 1".to_string());
+        }
+        scenario.runs = r;
+    }
+    if let Some(t) = opts.timeout_ms {
+        scenario.timeout_ms = Some(t);
+    }
+    if let Some(s) = opts.seed {
+        scenario.seed = s;
+    }
+
+    if let Mode::Explain = command {
