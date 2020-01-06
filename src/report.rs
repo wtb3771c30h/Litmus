@@ -172,3 +172,32 @@ pub fn investigate(scenario: &Scenario) -> std::io::Result<Report> {
     for run_index in 0..scenario.runs {
         // Each run gets a derived seed so target programs can be reproducible
         // per-run while the suite as a whole varies.
+        let seed = scenario.seed.wrapping_add(run_index as u64);
+
+        // Determine env ordering.
+        let mut order: Vec<usize> = (0..env_len).collect();
+        if scenario.shuffle_env && env_len > 1 {
+            let mut rng = Rng::new(seed ^ 0xa5a5_a5a5);
+            rng.shuffle(&mut order);
+        }
+        let mut env = ordered_env(&scenario.env, &order);
+        // Expose the per-run seed to the child.
+        env.push(("LITMUS_SEED".to_string(), seed.to_string()));
+        env.push(("LITMUS_RUN".to_string(), run_index.to_string()));
+
+        let cfg = RunConfig {
+            command: &scenario.command,
+            env: &env,
+            workdir: scenario.workdir.as_deref(),
+            timeout,
+        };
+        let raw = run_once(&cfg)?;
+
+        // Fold exit status + timeout into the fingerprinted material so that a
+        // command that only differs by exit code is still flagged as divergent.
+        let combined = format!(
+            "exit={}\ntimeout={}\n--stdout--\n{}\n--stderr--\n{}",
+            raw.exit_code
+                .map(|c| c.to_string())
+                .unwrap_or_else(|| "none".into()),
+            raw.timed_out,
