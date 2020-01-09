@@ -28,3 +28,18 @@ impl Json {
 
     /// Serialize to a pretty-printed string with 2-space indentation.
     pub fn to_pretty(&self) -> String {
+        let mut out = String::new();
+        self.write(&mut out, 0, true);
+        out.push('\n');
+        out
+    }
+
+    /// Serialize to a compact single-line string.
+    pub fn to_compact(&self) -> String {
+        let mut out = String::new();
+        self.write(&mut out, 0, false);
+        out
+    }
+
+    fn write(&self, out: &mut String, indent: usize, pretty: bool) {
+        match self {
