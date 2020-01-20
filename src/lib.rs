@@ -113,3 +113,23 @@ fn render_group(
             out.push_str(&format!(
                 "      {}| ... ({} more line{}){}\n",
                 c.dim,
+                total_lines - sample_lines,
+                if total_lines - sample_lines == 1 {
+                    ""
+                } else {
+                    "s"
+                },
+                c.reset
+            ));
+        }
+    }
+}
+
+/// Build a unicode bar of `width` cells representing `count/total`.
+fn bar(count: u32, total: u32, width: usize) -> String {
+    if total == 0 {
+        return " ".repeat(width);
+    }
+    let filled = ((count as f64 / total as f64) * width as f64).round() as usize;
+    let filled = filled.min(width);
+    let mut s = String::with_capacity(width);
