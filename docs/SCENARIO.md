@@ -72,3 +72,12 @@ drop_substring = pid=
 (`"`) quotes so arguments may contain spaces:
 
 ```ini
+command = "my program" --name 'John Doe' --flag
+# tokens: ["my program", "--name", "John Doe", "--flag"]
+```
+
+An unterminated quote is a parse error. If quoting is awkward, use repeated
+`arg =` lines instead:
+
+```ini
+command = my-tool
