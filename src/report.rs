@@ -201,3 +201,32 @@ pub fn investigate(scenario: &Scenario) -> std::io::Result<Report> {
                 .map(|c| c.to_string())
                 .unwrap_or_else(|| "none".into()),
             raw.timed_out,
+            raw.stdout,
+            raw.stderr,
+        );
+        let canonical = normalize(&combined, &scenario.normalize);
+        let fp = fingerprint(canonical.as_bytes());
+
+        outcomes.push(Outcome {
+            run_index,
+            seed,
+            fingerprint: fp,
+            exit_code: raw.exit_code,
+            timed_out: raw.timed_out,
+            duration_ms: raw.duration_ms,
+            canonical,
+        });
+    }
+
+    Ok(build_report(scenario, outcomes))
+}
+
+/// Group outcomes by fingerprint and derive the verdict. Split out for testing.
+pub fn build_report(scenario: &Scenario, outcomes: Vec<Outcome>) -> Report {
+    // Preserve first-seen order of fingerprints for stable output.
+    let mut order: Vec<String> = Vec::new();
+    let mut map: BTreeMap<String, OutcomeGroup> = BTreeMap::new();
+
+    let mut min_duration_ms = u128::MAX;
+    let mut max_duration_ms = 0u128;
+    let mut timeouts = 0u32;
