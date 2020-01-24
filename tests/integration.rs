@@ -34,3 +34,9 @@ fn deterministic_command_is_stable() {
 #[test]
 fn divergent_exit_codes_are_detected() {
     // A command that alternates exit code based on the injected LITMUS_RUN.
+    // Even with identical stdout, the differing exit status must diverge.
+    let shell_cmd = if cfg!(windows) {
+        // cmd: use modulo via set /a on LITMUS_RUN.
+        "set /a r=%LITMUS_RUN% %% 2 & exit /b %r%"
+    } else {
+        "exit $(( LITMUS_RUN % 2 ))"
