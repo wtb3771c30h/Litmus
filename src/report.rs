@@ -230,3 +230,32 @@ pub fn build_report(scenario: &Scenario, outcomes: Vec<Outcome>) -> Report {
     let mut min_duration_ms = u128::MAX;
     let mut max_duration_ms = 0u128;
     let mut timeouts = 0u32;
+
+    for o in &outcomes {
+        min_duration_ms = min_duration_ms.min(o.duration_ms);
+        max_duration_ms = max_duration_ms.max(o.duration_ms);
+        if o.timed_out {
+            timeouts += 1;
+        }
+        let entry = map.entry(o.fingerprint.clone()).or_insert_with(|| {
+            order.push(o.fingerprint.clone());
+            OutcomeGroup {
+                fingerprint: o.fingerprint.clone(),
+                count: 0,
+                run_indices: Vec::new(),
+                sample: o.canonical.clone(),
+            }
+        });
+        entry.count += 1;
+        entry.run_indices.push(o.run_index);
+    }
+    if outcomes.is_empty() {
+        min_duration_ms = 0;
+    }
+
+    // Sort groups by descending frequency, then by fingerprint for stability.
+    let mut groups: Vec<OutcomeGroup> =
+        order.into_iter().map(|f| map.remove(&f).unwrap()).collect();
+    groups.sort_by(|a, b| {
+        b.count
+            .cmp(&a.count)
