@@ -259,3 +259,32 @@ pub fn build_report(scenario: &Scenario, outcomes: Vec<Outcome>) -> Report {
     groups.sort_by(|a, b| {
         b.count
             .cmp(&a.count)
+            .then_with(|| a.fingerprint.cmp(&b.fingerprint))
+    });
+
+    let distinct = groups.len() as u32;
+    let diverged = distinct > 1;
+
+    let verdict = match scenario.expect {
+        Expectation::Deterministic => {
+            if diverged {
+                Verdict::ExpectationViolated
+            } else {
+                Verdict::Stable
+            }
+        }
+        Expectation::Flaky => {
+            if diverged {
+                Verdict::Diverged
+            } else {
+                // Expected to be flaky but stayed stable -> a violation.
+                Verdict::ExpectationViolated
+            }
+        }
+        Expectation::Unspecified => {
+            if diverged {
+                Verdict::Diverged
+            } else {
+                Verdict::Stable
+            }
+        }
