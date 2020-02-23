@@ -46,3 +46,10 @@ export function summarizeIndices(indices: readonly number[]): string {
   const sorted = [...indices].sort((a, b) => a - b);
   const parts: string[] = [];
   let start = sorted[0];
+  let prev = sorted[0];
+  for (let i = 1; i < sorted.length; i++) {
+    const v = sorted[i];
+    if (v === prev + 1) {
+      prev = v;
+      continue;
+    }
