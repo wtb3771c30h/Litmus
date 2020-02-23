@@ -27,3 +27,7 @@ export interface Outcome {
 
 export interface Evidence {
   readonly schema: string;
+  readonly scenario: string;
+  readonly description: string;
+  readonly command: readonly string[];
+  readonly total_runs: number;
