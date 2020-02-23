@@ -81,3 +81,13 @@ An unterminated quote is a parse error. If quoting is awkward, use repeated
 
 ```ini
 command = my-tool
+arg = --title
+arg = a value with "both" 'quote' kinds
+```
+
+### Injected environment variables
+
+Every run receives two synthetic variables in addition to any `[env]` entries:
+
+- `LITMUS_SEED` — the derived per-run seed (`seed + run_index`).
+- `LITMUS_RUN`  — the 0-based run index.
