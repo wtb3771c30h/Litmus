@@ -13,3 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Scenario file format (`.litmus`) with `[run]`, `[env]`, and `[normalize]`
     sections, tokenized command parsing, and helpful line-numbered errors.
   - Repeated execution of a target command with:
+    - per-run derived seeds exposed as `LITMUS_SEED` / `LITMUS_RUN`,
+    - injected environment variables with optional deterministic order
+      shuffling (`shuffle_env`),
+    - per-run timeouts enforced via a polling wait + child kill.
+  - Output **normalization** passes: timestamp masking (`<ts>`), hex/address
