@@ -29,3 +29,8 @@
       .blink{animation:blink 1.1s steps(2) infinite}
       @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
       .glow{animation:glow 3s ease-in-out infinite}
+      @keyframes glow{0%,100%{opacity:.6}50%{opacity:1}}
+      @media (prefers-reduced-motion: reduce){
+        .dash,.pulse,.blink,.glow{animation:none;stroke-dashoffset:0;opacity:1}}
+    </style>
+  </defs>
