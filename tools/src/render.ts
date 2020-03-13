@@ -53,3 +53,9 @@ export function summarizeIndices(indices: readonly number[]): string {
       prev = v;
       continue;
     }
+    parts.push(start === prev ? `${start}` : `${start}-${prev}`);
+    start = v;
+    prev = v;
+  }
+  parts.push(start === prev ? `${start}` : `${start}-${prev}`);
+  return parts.join(", ");
