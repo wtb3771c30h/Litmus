@@ -224,3 +224,24 @@ fn mask_temp_paths(line: &str) -> String {
     // Windows temp: look for "\Temp\" (case-insensitive) and mask through the
     // next whitespace.
     result = mask_windows_temp(&result);
+    result
+}
+
+/// Replace `prefix` and everything up to the next whitespace with `<tmp>`.
+fn mask_path_prefix(line: &str, prefix: &str) -> String {
+    let mut out = String::with_capacity(line.len());
+    let mut rest = line;
+    while let Some(pos) = rest.find(prefix) {
+        out.push_str(&rest[..pos]);
+        out.push_str("<tmp>");
+        let after = &rest[pos + prefix.len()..];
+        let end = after.find(char::is_whitespace).unwrap_or(after.len());
+        rest = &after[end..];
+    }
+    out.push_str(rest);
+    out
+}
+
+fn mask_windows_temp(line: &str) -> String {
+    let lower = line.to_ascii_lowercase();
+    let needle = "\\temp\\";
