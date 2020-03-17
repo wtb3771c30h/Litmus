@@ -62,3 +62,14 @@ test("parseEvidence rejects invalid JSON", () => {
 
 test("validateEvidence rejects wrong schema", () => {
   assert.throws(
+    () => validateEvidence({ ...JSON.parse(VALID), schema: "other@1" }),
+    /unexpected schema/,
+  );
+});
+
+test("validateEvidence rejects bad verdict", () => {
+  assert.throws(
+    () => validateEvidence({ ...JSON.parse(VALID), verdict: "boom" }),
+    /unknown verdict/,
+  );
+});
