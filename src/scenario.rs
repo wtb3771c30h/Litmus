@@ -221,3 +221,26 @@ impl Scenario {
             return Err(ParseError::new("runs must be >= 1".to_string()));
         }
         if name.is_empty() {
+            name = "unnamed-scenario".to_string();
+        }
+
+        Ok(Scenario {
+            name,
+            description,
+            command,
+            runs,
+            timeout_ms,
+            shuffle_env,
+            seed,
+            workdir,
+            expect,
+            env,
+            normalize,
+        })
+    }
+}
+
+/// Remove a trailing `#` or `;` comment that is not inside quotes.
+fn strip_comment(line: &str) -> &str {
+    let mut in_single = false;
+    let mut in_double = false;
