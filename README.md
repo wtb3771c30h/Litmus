@@ -189,3 +189,67 @@ the *insertion order* of variables. Set `shuffle_env = true` and litmus permutes
 order with a seeded Fisher–Yates shuffle (`SplitMix64`, driven by `seed ^ 0xa5a5a5a5`), so
 the shuffle is reproducible per run while still surfacing order-sensitivity.
 
+## The normalization bench
+
+Normalization runs *before* fingerprinting, so legitimate noise never masquerades as
+divergence. Every pass is pure and hand-written (no regex crate), keeping the crate
+std-only, applied per line, then optional line-level operations:
+
+| Pass | Default | What it masks / does |
+| --- | --- | --- |
+| `strip_hex` | on | `0x…` with ≥3 hex digits, and bare address-like hex runs (≥6 hex digits, word-isolated, containing a letter) → `<hex>` |
+| `strip_timestamps` | on | ISO-8601 `2026-08-31T21:41:39.347+05:30`, `YYYY-MM-DD HH:MM:SS`, and bare `HH:MM:SS` → `<ts>` |
+| `strip_temp_paths` | on | `/tmp/…`, `/var/folders/…`, and Windows `…\Temp\…` → `<tmp>` |
+| `trim_trailing_ws` | on | trims trailing whitespace per line |
+| `drop_substring` | — | drops any line containing a literal substring (repeatable) |
+| `sort_lines` | off | sorts lines, removing order-dependence |
+
+Two deliberate design choices worth knowing:
+
+- **A single trailing newline is always appended** to the canonical form, so `foo` and
+  `foo\n` compare equal.
+- The masks are conservative to avoid false positives: `strip_hex` won't touch `v0x12`
+  (two hex digits) or plain `123456` (no letters), but *will* mask a standalone `deadbeef`.
+
+The `<hex>` / `<ts>` / `<tmp>` tokens are visible in the sample output, so it's easy to
+confirm the bench masked what you intended.
+
+## Fingerprints & outcome grouping
+
+Each run is reduced to a fingerprint over a *combined* record:
+
+```text
+exit=<code|none>
+timeout=<bool>
+--stdout--
+<normalized stdout>
+--stderr--
+<normalized stderr>
+```
+
+That block is normalized, then hashed with **64-bit FNV-1a** rendered as lowercase hex
+(`fp=ba9b8db45a8f6fe6`). FNV-1a is chosen over `DefaultHasher` because its output is
+**stable across Rust versions** — essential when fingerprints are persisted into JSON and
+compared later. Folding in the exit code and timeout flag means a command that differs
+*only* by exit status is still flagged divergent. Runs sharing a fingerprint are grouped;
+groups sort by descending frequency, ties broken by fingerprint for stable output.
+
+## Verdicts: stable / diverged / expectation
+
+The verdict is a function of what you asserted (`expect`) and what was observed:
+
+| `expect` | observed **stable** (1 group) | observed **divergent** (2+ groups) |
+| --- | --- | --- |
+| `deterministic` | `stable` ✓ | `expectation_violated` ✗ |
+| `flaky` | `expectation_violated` ✗ | `diverged` ✓ |
+| `unspecified` | `stable` | `diverged` |
+
+Note the symmetry: declaring `expect = flaky` and then observing perfect stability is
+*also* a violation — useful for asserting that a known-flaky reproduction still reproduces.
+`litmus check` exits `1` on `expectation_violated`; that is the signal you wire into CI.
+
+## Evidence → HTML pipeline
+
+`litmus emit` (or `run --out FILE`) writes JSON with schema `litmus/evidence@1`:
+
+```json
