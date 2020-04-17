@@ -43,3 +43,18 @@ impl Json {
 
     fn write(&self, out: &mut String, indent: usize, pretty: bool) {
         match self {
+            Json::Null => out.push_str("null"),
+            Json::Bool(b) => out.push_str(if *b { "true" } else { "false" }),
+            Json::Int(n) => {
+                let _ = write!(out, "{n}");
+            }
+            Json::UInt(n) => {
+                let _ = write!(out, "{n}");
+            }
+            Json::Str(s) => write_escaped(out, s),
+            Json::Array(items) => {
+                if items.is_empty() {
+                    out.push_str("[]");
+                    return;
+                }
+                out.push('[');
