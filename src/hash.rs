@@ -52,3 +52,8 @@ impl Rng {
     /// In-place Fisher-Yates shuffle.
     pub fn shuffle<T>(&mut self, items: &mut [T]) {
         let len = items.len();
+        if len <= 1 {
+            return;
+        }
+        for i in (1..len).rev() {
+            let j = self.below(i + 1);
