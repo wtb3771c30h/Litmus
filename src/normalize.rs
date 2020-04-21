@@ -245,3 +245,23 @@ fn mask_path_prefix(line: &str, prefix: &str) -> String {
 fn mask_windows_temp(line: &str) -> String {
     let lower = line.to_ascii_lowercase();
     let needle = "\\temp\\";
+    let mut out = String::with_capacity(line.len());
+    let mut search_from = 0;
+    let mut copied_to = 0;
+    while let Some(rel) = lower[search_from..].find(needle) {
+        let hit = search_from + rel;
+        // Walk left to the start of the drive/path token.
+        let start = token_start(line, hit);
+        // Walk right to the end of the path token.
+        let end = token_end(line, hit + needle.len());
+        out.push_str(&line[copied_to..start]);
+        out.push_str("<tmp>");
+        copied_to = end;
+        search_from = end;
+        if search_from >= lower.len() {
+            break;
+        }
+    }
+    out.push_str(&line[copied_to..]);
+    out
+}
