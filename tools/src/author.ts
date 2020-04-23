@@ -44,3 +44,9 @@ export function quoteToken(token: string): string {
   if (!token.includes("'")) {
     return `'${token}'`;
   }
+  // Contains both quote types: fall back to double-quotes and rely on the
+  // authoring caller to avoid embedding raw double quotes (documented).
+  return `"${token.replace(/"/g, "")}"`;
+}
+
+function assertValid(spec: ScenarioSpec): void {
