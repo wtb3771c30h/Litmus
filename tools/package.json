@@ -9,3 +9,5 @@
   },
   "files": [
     "dist"
+  ],
+  "scripts": {
