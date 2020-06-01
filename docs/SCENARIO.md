@@ -91,3 +91,12 @@ Every run receives two synthetic variables in addition to any `[env]` entries:
 
 - `LITMUS_SEED` — the derived per-run seed (`seed + run_index`).
 - `LITMUS_RUN`  — the 0-based run index.
+
+Target programs can read these to become reproducible (seed their PRNG) or to
+vary behavior for testing the harness.
+
+## `[env]` section
+
+Each `KEY = VALUE` line adds an environment variable for the child process.
+Names preserve their original case. Example:
+
