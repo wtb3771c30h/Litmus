@@ -20,3 +20,6 @@ declare module "node:test" {
 
 declare module "node:assert/strict" {
   interface Assert {
+    (value: unknown, message?: string): void;
+    equal(actual: unknown, expected: unknown, message?: string): void;
+    deepEqual(actual: unknown, expected: unknown, message?: string): void;
