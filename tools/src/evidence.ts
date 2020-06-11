@@ -31,3 +31,7 @@ export interface Evidence {
   readonly description: string;
   readonly command: readonly string[];
   readonly total_runs: number;
+  readonly distinct_outcomes: number;
+  readonly expectation: Expectation;
+  readonly verdict: Verdict;
+  readonly timeouts: number;
