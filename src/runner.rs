@@ -163,3 +163,31 @@ mod tests {
         assert!(!out.timed_out);
     }
 
+    #[test]
+    fn captures_nonzero_exit() {
+        let command = shell("exit 3");
+        let cfg = RunConfig {
+            command: &command,
+            env: &[],
+            workdir: None,
+            timeout: None,
+        };
+        let out = run_once(&cfg).unwrap();
+        assert_eq!(out.exit_code, Some(3));
+    }
+
+    #[test]
+    fn enforces_timeout() {
+        // Sleep well beyond the timeout; expect it to be killed.
+        let command = if cfg!(windows) {
+            // ping delays ~1s per count; 5 counts ~4s of waiting.
+            shell("ping -n 5 127.0.0.1 >NUL")
+        } else {
+            shell("sleep 3")
+        };
+        let cfg = RunConfig {
+            command: &command,
+            env: &[],
+            workdir: None,
+            timeout: Some(Duration::from_millis(300)),
+        };
