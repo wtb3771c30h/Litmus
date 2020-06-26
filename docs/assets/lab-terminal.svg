@@ -42,3 +42,8 @@
   <g clip-path="url(#cmd)">
     <text x="52" y="80" fill="#243049" font-size="13">litmus run scenarios/normalized-timestamp.litmus</text>
   </g>
+
+  <!-- STABLE report block -->
+  <g fill="#243049">
+    <text class="fade f2" x="36" y="108" font-size="13" font-weight="700">litmus :: normalized-timestamp</text>
+    <text class="fade f2" x="36" y="126" font-size="12" fill="#6b6152">runs : 15  (1 distinct outcome)</text>
