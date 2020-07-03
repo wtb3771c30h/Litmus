@@ -50,3 +50,10 @@ export function quoteToken(token: string): string {
 }
 
 function assertValid(spec: ScenarioSpec): void {
+  if (!spec.name || spec.name.trim() === "") {
+    throw new Error("scenario name is required");
+  }
+  if (!spec.command || spec.command.length === 0) {
+    throw new Error("scenario command must have at least one token");
+  }
+  if (spec.runs !== undefined && (!Number.isInteger(spec.runs) || spec.runs < 1)) {
