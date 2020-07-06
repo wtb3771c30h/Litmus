@@ -288,3 +288,32 @@ pub fn build_report(scenario: &Scenario, outcomes: Vec<Outcome>) -> Report {
                 Verdict::Stable
             }
         }
+    };
+
+    Report {
+        scenario_name: scenario.name.clone(),
+        description: scenario.description.clone(),
+        command: scenario.command.clone(),
+        total_runs: outcomes.len() as u32,
+        distinct_outcomes: distinct,
+        expectation: scenario.expect,
+        verdict,
+        groups,
+        outcomes,
+        min_duration_ms,
+        max_duration_ms,
+        timeouts,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::scenario::Scenario;
+
+    fn scen(expect: &str) -> Scenario {
+        Scenario::parse(&format!(
+            "name = t\n[run]\ncommand = echo x\nexpect = {expect}"
+        ))
+        .unwrap()
+    }
