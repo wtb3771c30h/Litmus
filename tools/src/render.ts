@@ -59,3 +59,10 @@ export function summarizeIndices(indices: readonly number[]): string {
   }
   parts.push(start === prev ? `${start}` : `${start}-${prev}`);
   return parts.join(", ");
+}
+
+function pct(count: number, total: number): number {
+  return total > 0 ? (count / total) * 100 : 0;
+}
+
+function renderGroup(g: OutcomeGroup, index: number, total: number): string {
