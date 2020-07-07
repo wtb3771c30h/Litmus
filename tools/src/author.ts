@@ -57,3 +57,10 @@ function assertValid(spec: ScenarioSpec): void {
     throw new Error("scenario command must have at least one token");
   }
   if (spec.runs !== undefined && (!Number.isInteger(spec.runs) || spec.runs < 1)) {
+    throw new Error("runs must be an integer >= 1");
+  }
+  if (
+    spec.timeout_ms !== undefined &&
+    (!Number.isInteger(spec.timeout_ms) || spec.timeout_ms < 0)
+  ) {
+    throw new Error("timeout_ms must be a non-negative integer");
