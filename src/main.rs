@@ -90,3 +90,18 @@ fn run(args: &[String]) -> Result<ExitCode, String> {
     }
 
     if let Mode::Explain = command {
+        print_explain(&scenario);
+        return Ok(ExitCode::SUCCESS);
+    }
+
+    let report = investigate(&scenario).map_err(|e| format!("execution failed: {e}"))?;
+
+    match command {
+        Mode::Emit => {
+            let json = report.to_json().to_pretty();
+            match &opts.out {
+                Some(path) => {
+                    std::fs::write(path, &json).map_err(|e| format!("cannot write {path}: {e}"))?;
+                    eprintln!("litmus: wrote evidence to {path}");
+                }
+                None => print!("{json}"),
