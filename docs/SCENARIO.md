@@ -100,3 +100,12 @@ vary behavior for testing the harness.
 Each `KEY = VALUE` line adds an environment variable for the child process.
 Names preserve their original case. Example:
 
+```ini
+[env]
+RUST_BACKTRACE = 1
+TZ = UTC
+```
+
+## `[normalize]` section
+
+Normalization canonicalizes output *before* fingerprinting, so that legitimate
