@@ -7,3 +7,6 @@
 # each run gets a DIFFERENT but DETERMINISTIC seed. To make every run identical
 # we instead have the program ignore the run offset and read a stable value.
 #
+# Demonstrates: controlled seeding makes an otherwise-random program stable.
+
+name = seeded-deterministic
