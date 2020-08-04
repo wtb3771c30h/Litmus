@@ -265,3 +265,24 @@ fn mask_windows_temp(line: &str) -> String {
     out.push_str(&line[copied_to..]);
     out
 }
+
+fn token_start(line: &str, mut idx: usize) -> usize {
+    let bytes = line.as_bytes();
+    while idx > 0 {
+        let c = bytes[idx - 1] as char;
+        if c.is_whitespace() || c == '"' || c == '\'' {
+            break;
+        }
+        idx -= 1;
+    }
+    idx
+}
+
+fn token_end(line: &str, mut idx: usize) -> usize {
+    let bytes = line.as_bytes();
+    while idx < bytes.len() {
+        let c = bytes[idx] as char;
+        if c.is_whitespace() || c == '"' || c == '\'' {
+            break;
+        }
+        idx += 1;
