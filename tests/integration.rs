@@ -40,3 +40,9 @@ fn divergent_exit_codes_are_detected() {
         "set /a r=%LITMUS_RUN% %% 2 & exit /b %r%"
     } else {
         "exit $(( LITMUS_RUN % 2 ))"
+    };
+    let mut s = scenario_with_command("name = exitdiverge\n#", shell_cmd);
+    s.runs = 6;
+    s.expect = litmus::Expectation::Unspecified;
+
+    let report = investigate(&s).expect("run should succeed");
