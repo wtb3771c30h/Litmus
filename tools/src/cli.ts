@@ -56,3 +56,11 @@ export function main(argv: readonly string[]): number {
     if (a === "--out") {
       out = args[++i];
       if (out === undefined) {
+        process.stderr.write("litmus-report: --out requires a value\n");
+        return 2;
+      }
+    } else if (a.startsWith("-") && a !== "-") {
+      process.stderr.write(`litmus-report: unknown option ${JSON.stringify(a)}\n`);
+      return 2;
+    } else if (inputPath === undefined) {
+      inputPath = a;
