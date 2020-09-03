@@ -57,3 +57,9 @@ impl Rng {
         }
         for i in (1..len).rev() {
             let j = self.below(i + 1);
+            items.swap(i, j);
+        }
+    }
+}
+
+#[cfg(test)]
