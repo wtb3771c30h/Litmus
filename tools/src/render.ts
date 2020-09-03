@@ -73,3 +73,10 @@ function renderGroup(g: OutcomeGroup, index: number, total: number): string {
         <div class="group-head">
           <span class="badge">#${index}</span>
           <code class="fp">${escapeHtml(g.fingerprint)}</code>
+          <span class="count">${g.count}/${total} (${percent}%)</span>
+        </div>
+        <div class="bar"><div class="bar-fill" style="width:${width}%"></div></div>
+        <div class="runs">runs: ${escapeHtml(summarizeIndices(g.run_indices))}</div>
+        <pre class="sample">${escapeHtml(g.sample)}</pre>
+      </div>`;
+}
