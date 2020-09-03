@@ -66,3 +66,10 @@ function pct(count: number, total: number): number {
 }
 
 function renderGroup(g: OutcomeGroup, index: number, total: number): string {
+  const percent = pct(g.count, total).toFixed(1);
+  const width = Math.round(pct(g.count, total));
+  return `
+      <div class="group">
+        <div class="group-head">
+          <span class="badge">#${index}</span>
+          <code class="fp">${escapeHtml(g.fingerprint)}</code>
