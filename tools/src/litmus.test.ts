@@ -73,3 +73,13 @@ test("validateEvidence rejects bad verdict", () => {
     /unknown verdict/,
   );
 });
+
+test("validateEvidence rejects non-integer run_indices", () => {
+  const data = JSON.parse(VALID);
+  data.groups[0].run_indices = [0, 1.5];
+  assert.throws(() => validateEvidence(data), /run_indices/);
+});
+
+test("validateEvidence allows null exit_code", () => {
+  const data = JSON.parse(VALID);
+  data.outcomes[0].exit_code = null;
