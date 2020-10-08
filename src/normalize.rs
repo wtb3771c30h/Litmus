@@ -286,3 +286,24 @@ fn token_end(line: &str, mut idx: usize) -> usize {
             break;
         }
         idx += 1;
+    }
+    idx
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn opts() -> NormalizeOptions {
+        NormalizeOptions::default()
+    }
+
+    #[test]
+    fn trailing_ws_and_newline() {
+        let out = normalize("foo   \nbar\t", &opts());
+        assert_eq!(out, "foo\nbar\n");
+    }
+
+    #[test]
+    fn masks_0x_hex() {
+        let out = normalize("ptr at 0x7ffee3b1c0d0 done", &opts());
