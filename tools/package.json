@@ -11,3 +11,4 @@
     "dist"
   ],
   "scripts": {
+    "build": "tsc -p tsconfig.json",
