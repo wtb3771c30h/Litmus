@@ -317,3 +317,32 @@ mod tests {
         ))
         .unwrap()
     }
+
+    fn outcome(idx: u32, fp: &str) -> Outcome {
+        Outcome {
+            run_index: idx,
+            seed: idx as u64,
+            fingerprint: fp.to_string(),
+            exit_code: Some(0),
+            timed_out: false,
+            duration_ms: idx as u128,
+            canonical: format!("out-{fp}"),
+        }
+    }
+
+    #[test]
+    fn stable_when_all_identical() {
+        let s = scen("deterministic");
+        let r = build_report(&s, vec![outcome(0, "aa"), outcome(1, "aa")]);
+        assert_eq!(r.distinct_outcomes, 1);
+        assert_eq!(r.verdict, Verdict::Stable);
+        assert!(!r.is_failure());
+    }
+
+    #[test]
+    fn deterministic_expectation_violated_on_divergence() {
+        let s = scen("deterministic");
+        let r = build_report(&s, vec![outcome(0, "aa"), outcome(1, "bb")]);
+        assert_eq!(r.distinct_outcomes, 2);
+        assert_eq!(r.verdict, Verdict::ExpectationViolated);
+        assert!(r.is_failure());
