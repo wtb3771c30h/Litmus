@@ -5,3 +5,5 @@ Cargo.lock
 
 # Node / TypeScript tooling
 tools/dist/
+tools/node_modules/
+node_modules/
