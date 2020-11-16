@@ -105,3 +105,19 @@ fn run(args: &[String]) -> Result<ExitCode, String> {
                     eprintln!("litmus: wrote evidence to {path}");
                 }
                 None => print!("{json}"),
+            }
+            Ok(ExitCode::SUCCESS)
+        }
+        Mode::Run | Mode::Check => {
+            if opts.json {
+                print!("{}", report.to_json().to_pretty());
+            } else {
+                print!("{}", render_text(&report, opts.color, opts.sample_lines));
+            }
+            if let Some(path) = &opts.out {
+                std::fs::write(path, report.to_json().to_pretty())
+                    .map_err(|e| format!("cannot write {path}: {e}"))?;
+                eprintln!("litmus: wrote evidence to {path}");
+            }
+            if matches!(command, Mode::Check) && report.is_failure() {
+                Ok(ExitCode::from(1))
