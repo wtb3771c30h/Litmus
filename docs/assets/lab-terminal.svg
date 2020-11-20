@@ -47,3 +47,9 @@
   <g fill="#243049">
     <text class="fade f2" x="36" y="108" font-size="13" font-weight="700">litmus :: normalized-timestamp</text>
     <text class="fade f2" x="36" y="126" font-size="12" fill="#6b6152">runs : 15  (1 distinct outcome)</text>
+    <text class="fade f3" x="36" y="144" font-size="12" fill="#6b6152">expectation : deterministic</text>
+    <text class="fade f3" x="36" y="164" font-size="13" font-weight="700" fill="#1f8f4e">verdict : STABLE ✓</text>
+  </g>
+  <g class="fade f4">
+    <text x="36" y="188" fill="#6b6152" font-size="12">[0] 15/15 100.0%  fp=ba9b8db45a8f6fe6</text>
+    <rect x="230" y="178" width="330" height="10" rx="5" fill="#e7d5b8"/>
