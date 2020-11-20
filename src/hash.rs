@@ -63,3 +63,8 @@ impl Rng {
 }
 
 #[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn fnv_is_stable() {
