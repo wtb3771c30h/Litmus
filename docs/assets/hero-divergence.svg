@@ -34,3 +34,9 @@
         .dash,.pulse,.blink,.glow{animation:none;stroke-dashoffset:0;opacity:1}}
     </style>
   </defs>
+
+  <rect width="880" height="360" fill="url(#bench)"/>
+  <rect x="1" y="1" width="878" height="358" fill="none" stroke="#e7d5b8" stroke-width="2"/>
+
+  <g stroke="#ecdcc0" stroke-width="1">
+    <line x1="0" y1="90" x2="880" y2="90"/><line x1="0" y1="180" x2="880" y2="180"/>
