@@ -80,3 +80,10 @@ function renderGroup(g: OutcomeGroup, index: number, total: number): string {
         <pre class="sample">${escapeHtml(g.sample)}</pre>
       </div>`;
 }
+
+const STYLE = `
+    :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      margin: 0; padding: 2rem; line-height: 1.5;
