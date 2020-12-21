@@ -40,3 +40,8 @@
 
   <g stroke="#ecdcc0" stroke-width="1">
     <line x1="0" y1="90" x2="880" y2="90"/><line x1="0" y1="180" x2="880" y2="180"/>
+    <line x1="0" y1="270" x2="880" y2="270"/>
+    <line x1="220" y1="70" x2="220" y2="330"/><line x1="620" y1="70" x2="620" y2="330"/>
+  </g>
+
+  <text x="28" y="40" class="ink" font-size="26" font-weight="700">litmus</text>
