@@ -18,3 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       shuffling (`shuffle_env`),
     - per-run timeouts enforced via a polling wait + child kill.
   - Output **normalization** passes: timestamp masking (`<ts>`), hex/address
+    masking (`<hex>`), temp-path masking (`<tmp>`, Unix + Windows), trailing
+    whitespace trimming, line sorting, and substring dropping.
+  - **Fingerprinting** with a stable FNV-1a/64 hash over the normalized
+    stdout + stderr + exit status + timeout flag.
+  - **Divergence analysis**: groups identical outcomes, computes a verdict
