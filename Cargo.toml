@@ -13,3 +13,5 @@ categories = ["command-line-utilities", "development-tools::testing"]
 name = "litmus"
 path = "src/main.rs"
 
+[lib]
+name = "litmus"
