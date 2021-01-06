@@ -4,3 +4,5 @@
 # a self-contained snippet without an external script file. The snippet just
 # prints a fixed string, so every run fingerprints identically.
 
+name = deterministic-echo
+description = A command that prints the same thing every time.
