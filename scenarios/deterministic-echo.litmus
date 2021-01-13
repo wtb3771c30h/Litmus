@@ -6,3 +6,6 @@
 
 name = deterministic-echo
 description = A command that prints the same thing every time.
+
+[run]
+command = node -e "process.stdout.write('hello from litmus\n')"
