@@ -87,3 +87,16 @@ function parseGroup(value: unknown, index: number): OutcomeGroup {
   });
   return {
     fingerprint: requireString(value, "fingerprint"),
+    count: requireNumber(value, "count"),
+    run_indices,
+    sample: requireString(value, "sample"),
+  };
+}
+
+function parseOutcome(value: unknown, index: number): Outcome {
+  if (!isObject(value)) {
+    throw new EvidenceError(`outcomes[${index}] must be an object`);
+  }
+  const rawExit = value["exit_code"];
+  let exit_code: number | null;
+  if (rawExit === null) {
