@@ -35,3 +35,16 @@
         13,
         14
       ],
+      "sample": "exit=0\ntimeout=false\n--stdout--\nevent at <ts> processed\n\n--stderr--\n"
+    }
+  ],
+  "outcomes": [
+    {
+      "run_index": 0,
+      "seed": 0,
+      "fingerprint": "ba9b8db45a8f6fe6",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 53
+    },
+    {
