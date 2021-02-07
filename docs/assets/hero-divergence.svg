@@ -45,3 +45,8 @@
   </g>
 
   <text x="28" y="40" class="ink" font-size="26" font-weight="700">litmus</text>
+  <text x="122" y="40" class="muted" font-size="14">flaky-behavior experiment bench</text>
+  <text x="28" y="60" class="muted" font-size="12">run → normalize → fingerprint → verdict</text>
+
+  <!-- LEFT: the source scenario emitting runs -->
+  <rect x="26" y="150" width="150" height="60" rx="10" class="cream" stroke="#ff7a59" stroke-width="2"/>
