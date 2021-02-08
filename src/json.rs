@@ -58,3 +58,18 @@ impl Json {
                     return;
                 }
                 out.push('[');
+                for (i, item) in items.iter().enumerate() {
+                    if i > 0 {
+                        out.push(',');
+                    }
+                    if pretty {
+                        out.push('\n');
+                        push_indent(out, indent + 1);
+                    }
+                    item.write(out, indent + 1, pretty);
+                }
+                if pretty {
+                    out.push('\n');
+                    push_indent(out, indent);
+                }
+                out.push(']');
