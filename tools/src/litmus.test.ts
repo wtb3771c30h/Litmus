@@ -83,3 +83,14 @@ test("validateEvidence rejects non-integer run_indices", () => {
 test("validateEvidence allows null exit_code", () => {
   const data = JSON.parse(VALID);
   data.outcomes[0].exit_code = null;
+  const ev = validateEvidence(data);
+  assert.equal(ev.outcomes[0].exit_code, null);
+});
+
+test("escapeHtml escapes dangerous characters", () => {
+  assert.equal(
+    escapeHtml(`<script>"'&`),
+    "&lt;script&gt;&quot;&#39;&amp;",
+  );
+});
+
