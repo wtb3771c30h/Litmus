@@ -53,3 +53,8 @@
   <g class="fade f4">
     <text x="36" y="188" fill="#6b6152" font-size="12">[0] 15/15 100.0%  fp=ba9b8db45a8f6fe6</text>
     <rect x="230" y="178" width="330" height="10" rx="5" fill="#e7d5b8"/>
+    <rect class="bar" x="230" y="178" width="330" height="10" rx="5" fill="#1f4bd8"/>
+  </g>
+
+  <line x1="36" y1="206" x2="724" y2="206" stroke="#e7d5b8" stroke-width="1"/>
+
