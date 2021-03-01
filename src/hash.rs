@@ -68,3 +68,9 @@ mod tests {
 
     #[test]
     fn fnv_is_stable() {
+        // Known FNV-1a/64 value for the empty input is the offset basis.
+        assert_eq!(fingerprint(b""), "cbf29ce484222325");
+        // Same input always hashes the same.
+        assert_eq!(fingerprint(b"litmus"), fingerprint(b"litmus"));
+        assert_ne!(fingerprint(b"a"), fingerprint(b"b"));
+    }
