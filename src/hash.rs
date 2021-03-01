@@ -74,3 +74,8 @@ mod tests {
         assert_eq!(fingerprint(b"litmus"), fingerprint(b"litmus"));
         assert_ne!(fingerprint(b"a"), fingerprint(b"b"));
     }
+
+    #[test]
+    fn rng_is_deterministic() {
+        let mut a = Rng::new(1234);
+        let mut b = Rng::new(1234);
