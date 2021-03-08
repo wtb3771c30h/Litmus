@@ -100,3 +100,15 @@ function parseOutcome(value: unknown, index: number): Outcome {
   const rawExit = value["exit_code"];
   let exit_code: number | null;
   if (rawExit === null) {
+    exit_code = null;
+  } else if (typeof rawExit === "number" && Number.isInteger(rawExit)) {
+    exit_code = rawExit;
+  } else {
+    throw new EvidenceError(`outcomes[${index}].exit_code must be an integer or null`);
+  }
+  return {
+    run_index: requireNumber(value, "run_index"),
+    seed: requireNumber(value, "seed"),
+    fingerprint: requireString(value, "fingerprint"),
+    exit_code,
+    timed_out: requireBool(value, "timed_out"),
