@@ -64,3 +64,9 @@ function assertValid(spec: ScenarioSpec): void {
     (!Number.isInteger(spec.timeout_ms) || spec.timeout_ms < 0)
   ) {
     throw new Error("timeout_ms must be a non-negative integer");
+  }
+}
+
+/** Serialize a {@link ScenarioSpec} into `.litmus` file text. */
+export function toScenarioText(spec: ScenarioSpec): string {
+  assertValid(spec);
