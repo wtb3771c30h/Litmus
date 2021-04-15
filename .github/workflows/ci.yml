@@ -88,3 +88,13 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
+          node-version: "20"
+
+      - name: Build both sides
+        run: |
+          cargo build --release
+          cd tools && npx --yes typescript@5.8.3 tsc -p tsconfig.json
+
+      - name: Emit evidence and render HTML
+        run: |
+          ./target/release/litmus emit scenarios/flaky-random-outcome.litmus --out evidence.json
