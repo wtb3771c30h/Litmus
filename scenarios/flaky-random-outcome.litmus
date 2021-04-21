@@ -11,3 +11,4 @@ description = Randomly prints one of several results and sometimes fails.
 
 [run]
 command = node -e "const n=Math.floor(Math.random()*4); if(n===3){console.error('transient failure'); process.exit(1);} console.log('result variant '+n);"
+runs = 30
