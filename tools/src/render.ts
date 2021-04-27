@@ -87,3 +87,10 @@ const STYLE = `
     body {
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       margin: 0; padding: 2rem; line-height: 1.5;
+      background: #0f1115; color: #e6e6e6;
+    }
+    .card {
+      max-width: 960px; margin: 0 auto; background: #171a21;
+      border: 1px solid #262b36; border-radius: 12px; padding: 1.5rem 2rem;
+    }
+    h1 { font-size: 1.4rem; margin: 0 0 .25rem; }
