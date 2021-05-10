@@ -94,3 +94,10 @@ const STYLE = `
       border: 1px solid #262b36; border-radius: 12px; padding: 1.5rem 2rem;
     }
     h1 { font-size: 1.4rem; margin: 0 0 .25rem; }
+    .desc { color: #9aa4b2; margin: 0 0 1rem; }
+    .meta { display: grid; grid-template-columns: max-content 1fr; gap: .25rem 1rem;
+      font-size: .9rem; margin-bottom: 1rem; }
+    .meta dt { color: #9aa4b2; }
+    .meta dd { margin: 0; }
+    .verdict { display: inline-block; padding: .3rem .8rem; border-radius: 999px;
+      font-weight: 700; letter-spacing: .03em; }
