@@ -191,3 +191,31 @@ mod tests {
             workdir: None,
             timeout: Some(Duration::from_millis(300)),
         };
+        let out = run_once(&cfg).unwrap();
+        assert!(out.timed_out, "expected the run to time out");
+    }
+
+    #[test]
+    fn spawn_error_for_missing_program() {
+        let command = vec!["this-program-does-not-exist-xyz".to_string()];
+        let cfg = RunConfig {
+            command: &command,
+            env: &[],
+            workdir: None,
+            timeout: None,
+        };
+        assert!(run_once(&cfg).is_err());
+    }
+
+    #[test]
+    fn ordered_env_respects_order() {
+        let mut env = BTreeMap::new();
+        env.insert("A".to_string(), "1".to_string());
+        env.insert("B".to_string(), "2".to_string());
+        env.insert("C".to_string(), "3".to_string());
+        let out = ordered_env(&env, &[2, 0, 1]);
+        assert_eq!(out[0].0, "C");
+        assert_eq!(out[1].0, "A");
+        assert_eq!(out[2].0, "B");
+    }
+}
