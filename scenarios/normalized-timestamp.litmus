@@ -1,3 +1,5 @@
 # A command whose *raw* output changes every run (it prints the current time),
 # but which is DETERMINISTIC once litmus normalizes timestamps away.
 #
+# This demonstrates the core value proposition: distinguishing "meaningful"
+# divergence from legitimate, ignorable noise. With `strip_timestamps = true`
