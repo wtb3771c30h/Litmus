@@ -58,3 +58,9 @@
 
   <line x1="36" y1="206" x2="724" y2="206" stroke="#e7d5b8" stroke-width="1"/>
 
+  <!-- prompt line 2 -->
+  <text x="36" y="230" fill="#ff7a59" font-size="13">$</text>
+  <text class="fade f4" x="52" y="230" fill="#243049" font-size="13">litmus run scenarios/flaky-random-outcome.litmus</text>
+
+  <!-- DIVERGED report block -->
+  <g fill="#243049">
