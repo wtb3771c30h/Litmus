@@ -253,3 +253,67 @@ Note the symmetry: declaring `expect = flaky` and then observing perfect stabili
 `litmus emit` (or `run --out FILE`) writes JSON with schema `litmus/evidence@1`:
 
 ```json
+{
+  "schema": "litmus/evidence@1",
+  "scenario": "normalized-timestamp",
+  "verdict": "stable",
+  "total_runs": 15, "distinct_outcomes": 1, "timeouts": 0,
+  "min_duration_ms": 52, "max_duration_ms": 54,
+  "groups": [
+    { "fingerprint": "ba9b8db45a8f6fe6", "count": 15, "run_indices": [0], "sample": "exit=0\ntimeout=false\n--stdout--\nevent at <ts> processed\n\n--stderr--\n" }
+  ],
+  "outcomes": [
+    { "run_index": 0, "seed": 0, "fingerprint": "ba9b8db45a8f6fe6", "exit_code": 0, "timed_out": false, "duration_ms": 53 }
+  ]
+}
+```
+
+A complete sample lives at [`examples/evidence-sample.json`](examples/evidence-sample.json).
+Hand it to the dependency-free renderer to produce a self-contained HTML report or plain
+text:
+
+```bash
+node tools/dist/cli.js html evidence.json --out report.html   # inlined CSS, no external assets
+node tools/dist/cli.js text evidence.json                     # or plain text
+node tools/dist/cli.js html - < evidence.json                 # read from stdin
+```
+
+## Scenario gallery
+
+Every example uses `node -e` so it behaves identically across platforms. Each one isolates a
+single lesson:
+
+| Scenario | Demonstrates | Verdict |
+| --- | --- | --- |
+| [`deterministic-echo`](scenarios/deterministic-echo.litmus) | A genuinely stable command; defaults are idempotent on clean output. | stable |
+| [`normalized-timestamp`](scenarios/normalized-timestamp.litmus) | Raw output varies by clock, but timestamp masking makes it stable. | stable |
+| [`seeded-deterministic`](scenarios/seeded-deterministic.litmus) | A pseudo-random program pinned to a fixed internal seed. | stable |
+| [`set-order-flaky`](scenarios/set-order-flaky.litmus) | Unordered iteration → nondeterministic line order. | diverged |
+| [`set-order-fixed`](scenarios/set-order-fixed.litmus) | The fix: `sort_lines` removes order-dependence. | stable |
+| [`flaky-random-outcome`](scenarios/flaky-random-outcome.litmus) | Random payload plus an occasional non-zero exit. | diverged |
+
+The `set-order-*` pair is the most instructive: the *code* is identical between them; the
+flakiness lived in the assertion, and `sort_lines` moved comparison to a canonical form.
+
+## CI recipes
+
+Use `check` to fail a build when a scenario's expectation is violated. A minimal gate:
+
+```yaml
+# .github/workflows/flaky-gate.yml
+- run: cargo build --release
+- name: Assert stability
+  run: |
+    bin=./target/release/litmus
+    [ -f "$bin.exe" ] && bin="$bin.exe"
+    "$bin" check scenarios/deterministic-echo.litmus
+    "$bin" check scenarios/normalized-timestamp.litmus
+    "$bin" check scenarios/set-order-fixed.litmus
+```
+
+To attach evidence to a run, emit JSON and render HTML as an artifact:
+
+```yaml
+- run: ./target/release/litmus emit scenarios/flaky-random-outcome.litmus --out evidence.json
+- run: node tools/dist/cli.js html evidence.json --out report.html
+- uses: actions/upload-artifact@v4
