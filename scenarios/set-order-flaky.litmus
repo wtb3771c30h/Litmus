@@ -5,3 +5,4 @@
 # scenario `set-order-fixed.litmus` shows the fix.
 
 name = set-order-flaky
+description = Prints a shuffled collection; iteration order is nondeterministic.
