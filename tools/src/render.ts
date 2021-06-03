@@ -101,3 +101,10 @@ const STYLE = `
     .meta dd { margin: 0; }
     .verdict { display: inline-block; padding: .3rem .8rem; border-radius: 999px;
       font-weight: 700; letter-spacing: .03em; }
+    .verdict-stable { background: #123d1f; color: #6ee7a0; }
+    .verdict-diverged { background: #3d3312; color: #f5d67a; }
+    .verdict-violated { background: #3d1212; color: #f58a8a; }
+    .group { border: 1px solid #262b36; border-radius: 10px; padding: 1rem;
+      margin: .75rem 0; background: #12151b; }
+    .group-head { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+    .badge { background: #262b36; border-radius: 6px; padding: .1rem .5rem; font-size: .8rem; }
