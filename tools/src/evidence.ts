@@ -35,3 +35,7 @@ export interface Evidence {
   readonly expectation: Expectation;
   readonly verdict: Verdict;
   readonly timeouts: number;
+  readonly min_duration_ms: number;
+  readonly max_duration_ms: number;
+  readonly groups: readonly OutcomeGroup[];
+  readonly outcomes: readonly Outcome[];
