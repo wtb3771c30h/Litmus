@@ -108,3 +108,9 @@ const STYLE = `
       margin: .75rem 0; background: #12151b; }
     .group-head { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
     .badge { background: #262b36; border-radius: 6px; padding: .1rem .5rem; font-size: .8rem; }
+    .fp { color: #8ab4f8; }
+    .count { margin-left: auto; color: #9aa4b2; }
+    .bar { height: 8px; background: #262b36; border-radius: 999px; overflow: hidden; margin: .5rem 0; }
+    .bar-fill { height: 100%; background: linear-gradient(90deg,#4f8cff,#8ab4f8); }
+    .runs { font-size: .8rem; color: #9aa4b2; margin-bottom: .5rem; }
+    .sample { background: #0b0d11; border-radius: 8px; padding: .75rem;
