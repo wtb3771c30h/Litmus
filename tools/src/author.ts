@@ -70,3 +70,10 @@ function assertValid(spec: ScenarioSpec): void {
 /** Serialize a {@link ScenarioSpec} into `.litmus` file text. */
 export function toScenarioText(spec: ScenarioSpec): string {
   assertValid(spec);
+  const lines: string[] = [];
+
+  lines.push(`name = ${spec.name}`);
+  if (spec.description) {
+    lines.push(`description = ${spec.description}`);
+  }
+  lines.push("");
