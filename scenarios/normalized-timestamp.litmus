@@ -4,3 +4,4 @@
 # This demonstrates the core value proposition: distinguishing "meaningful"
 # divergence from legitimate, ignorable noise. With `strip_timestamps = true`
 # the varying clock is masked to `<ts>` and all runs fingerprint identically.
+
