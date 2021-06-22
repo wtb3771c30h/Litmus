@@ -77,3 +77,9 @@ export function toScenarioText(spec: ScenarioSpec): string {
     lines.push(`description = ${spec.description}`);
   }
   lines.push("");
+  lines.push("[run]");
+  lines.push(`command = ${spec.command.map(quoteToken).join(" ")}`);
+  if (spec.runs !== undefined) lines.push(`runs = ${spec.runs}`);
+  if (spec.timeout_ms !== undefined) lines.push(`timeout_ms = ${spec.timeout_ms}`);
+  if (spec.seed !== undefined) lines.push(`seed = ${spec.seed}`);
+  if (spec.shuffle_env !== undefined) {
