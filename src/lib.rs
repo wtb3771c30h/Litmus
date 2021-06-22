@@ -133,3 +133,22 @@ fn bar(count: u32, total: u32, width: usize) -> String {
     let filled = ((count as f64 / total as f64) * width as f64).round() as usize;
     let filled = filled.min(width);
     let mut s = String::with_capacity(width);
+    for _ in 0..filled {
+        s.push('█');
+    }
+    for _ in filled..width {
+        s.push('░');
+    }
+    s
+}
+
+/// Collapse a sorted-ish index list into compact ranges, e.g. `0-3, 5, 7-9`.
+fn summarize_indices(indices: &[u32]) -> String {
+    if indices.is_empty() {
+        return "(none)".to_string();
+    }
+    let mut sorted = indices.to_vec();
+    sorted.sort_unstable();
+    let mut parts: Vec<String> = Vec::new();
+    let mut start = sorted[0];
+    let mut prev = sorted[0];
