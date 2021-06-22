@@ -46,3 +46,9 @@ fn divergent_exit_codes_are_detected() {
     s.expect = litmus::Expectation::Unspecified;
 
     let report = investigate(&s).expect("run should succeed");
+    assert!(
+        report.distinct_outcomes >= 2,
+        "expected divergence from alternating exit codes, got {} distinct",
+        report.distinct_outcomes
+    );
+    assert_eq!(report.verdict, Verdict::Diverged);
