@@ -114,3 +114,10 @@ const STYLE = `
     .bar-fill { height: 100%; background: linear-gradient(90deg,#4f8cff,#8ab4f8); }
     .runs { font-size: .8rem; color: #9aa4b2; margin-bottom: .5rem; }
     .sample { background: #0b0d11; border-radius: 8px; padding: .75rem;
+      overflow-x: auto; font-size: .8rem; margin: 0; white-space: pre-wrap; }
+    footer { max-width: 960px; margin: 1rem auto 0; color: #6b7280; font-size: .8rem; text-align: center; }
+`;
+
+/** Produce a complete HTML document string for the given evidence. */
+export function renderHtml(ev: Evidence): string {
+  const groupsHtml = ev.groups
