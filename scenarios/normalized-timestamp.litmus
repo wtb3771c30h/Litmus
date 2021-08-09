@@ -5,3 +5,5 @@
 # divergence from legitimate, ignorable noise. With `strip_timestamps = true`
 # the varying clock is masked to `<ts>` and all runs fingerprint identically.
 
+name = normalized-timestamp
+description = Raw output varies by wall-clock time, but is stable after normalization.
