@@ -346,3 +346,32 @@ mod tests {
         assert_eq!(r.distinct_outcomes, 2);
         assert_eq!(r.verdict, Verdict::ExpectationViolated);
         assert!(r.is_failure());
+    }
+
+    #[test]
+    fn flaky_expectation_ok_on_divergence() {
+        let s = scen("flaky");
+        let r = build_report(&s, vec![outcome(0, "aa"), outcome(1, "bb")]);
+        assert_eq!(r.verdict, Verdict::Diverged);
+        assert!(!r.is_failure());
+    }
+
+    #[test]
+    fn flaky_expectation_violated_when_stable() {
+        let s = scen("flaky");
+        let r = build_report(&s, vec![outcome(0, "aa"), outcome(1, "aa")]);
+        assert_eq!(r.verdict, Verdict::ExpectationViolated);
+        assert!(r.is_failure());
+    }
+
+    #[test]
+    fn groups_sorted_by_frequency() {
+        let s = scen("");
+        let r = build_report(
+            &s,
+            vec![
+                outcome(0, "rare"),
+                outcome(1, "common"),
+                outcome(2, "common"),
+                outcome(3, "common"),
+            ],
