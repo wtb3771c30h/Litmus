@@ -9,3 +9,5 @@ description = A command that prints the same thing every time.
 
 [run]
 command = node -e "process.stdout.write('hello from litmus\n')"
+runs = 12
+timeout_ms = 5000
