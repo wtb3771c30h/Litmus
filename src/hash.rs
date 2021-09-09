@@ -79,3 +79,9 @@ mod tests {
     fn rng_is_deterministic() {
         let mut a = Rng::new(1234);
         let mut b = Rng::new(1234);
+        for _ in 0..100 {
+            assert_eq!(a.next_u64(), b.next_u64());
+        }
+    }
+
+    #[test]
