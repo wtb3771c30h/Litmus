@@ -27,3 +27,7 @@ lint: fmt-check clippy ## Run all Rust lints.
 ts-build: ## Type-check and compile the TypeScript tooling.
 	cd tools && npx tsc -p tsconfig.json
 
+ts-test: ts-build ## Run the TypeScript test suite.
+	cd tools && node --test dist/litmus.test.js
+
+tools: ts-build ## Alias for ts-build.
