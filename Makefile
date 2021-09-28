@@ -31,3 +31,7 @@ ts-test: ts-build ## Run the TypeScript test suite.
 	cd tools && node --test dist/litmus.test.js
 
 tools: ts-build ## Alias for ts-build.
+
+## Demos ---------------------------------------------------------------------
+
+demo: build ## Run every example scenario with the release binary.
