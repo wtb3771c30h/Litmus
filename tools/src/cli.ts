@@ -64,3 +64,11 @@ export function main(argv: readonly string[]): number {
       return 2;
     } else if (inputPath === undefined) {
       inputPath = a;
+    } else {
+      process.stderr.write(`litmus-report: unexpected argument ${JSON.stringify(a)}\n`);
+      return 2;
+    }
+  }
+
+  if (inputPath === undefined) {
+    process.stderr.write("litmus-report: missing evidence file (use '-' for stdin)\n");
