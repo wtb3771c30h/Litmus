@@ -112,3 +112,16 @@ function parseOutcome(value: unknown, index: number): Outcome {
     fingerprint: requireString(value, "fingerprint"),
     exit_code,
     timed_out: requireBool(value, "timed_out"),
+    duration_ms: requireNumber(value, "duration_ms"),
+  };
+}
+
+/** Parse and validate a raw JSON string into typed {@link Evidence}. */
+export function parseEvidence(raw: string): Evidence {
+  let data: unknown;
+  try {
+    data = JSON.parse(raw);
+  } catch (err) {
+    throw new EvidenceError(
+      `input is not valid JSON: ${(err as Error).message}`,
+    );
