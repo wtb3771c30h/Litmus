@@ -15,3 +15,5 @@ path = "src/main.rs"
 
 [lib]
 name = "litmus"
+path = "src/lib.rs"
+
