@@ -121,3 +121,10 @@ const STYLE = `
 /** Produce a complete HTML document string for the given evidence. */
 export function renderHtml(ev: Evidence): string {
   const groupsHtml = ev.groups
+    .map((g, i) => renderGroup(g, i, ev.total_runs))
+    .join("");
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
