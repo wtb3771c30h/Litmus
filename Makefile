@@ -35,3 +35,7 @@ tools: ts-build ## Alias for ts-build.
 ## Demos ---------------------------------------------------------------------
 
 demo: build ## Run every example scenario with the release binary.
+	./target/release/litmus run scenarios/deterministic-echo.litmus
+	./target/release/litmus run scenarios/normalized-timestamp.litmus
+	./target/release/litmus run scenarios/flaky-random-outcome.litmus
+	./target/release/litmus run scenarios/set-order-flaky.litmus
