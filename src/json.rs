@@ -73,3 +73,19 @@ impl Json {
                     push_indent(out, indent);
                 }
                 out.push(']');
+            }
+            Json::Object(fields) => {
+                if fields.is_empty() {
+                    out.push_str("{}");
+                    return;
+                }
+                out.push('{');
+                for (i, (key, value)) in fields.iter().enumerate() {
+                    if i > 0 {
+                        out.push(',');
+                    }
+                    if pretty {
+                        out.push('\n');
+                        push_indent(out, indent + 1);
+                    }
+                    write_escaped(out, key);
