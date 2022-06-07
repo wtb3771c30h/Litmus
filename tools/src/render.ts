@@ -128,3 +128,10 @@ export function renderHtml(ev: Evidence): string {
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>litmus report — ${escapeHtml(ev.scenario)}</title>
+  <style>${STYLE}</style>
+</head>
+<body>
+  <main class="card">
+    <h1>litmus :: ${escapeHtml(ev.scenario)}</h1>
