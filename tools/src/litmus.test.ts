@@ -94,3 +94,14 @@ test("escapeHtml escapes dangerous characters", () => {
   );
 });
 
+test("summarizeIndices collapses ranges", () => {
+  assert.equal(summarizeIndices([0, 1, 2, 3]), "0-3");
+  assert.equal(summarizeIndices([0, 2, 3, 5]), "0, 2-3, 5");
+  assert.equal(summarizeIndices([]), "(none)");
+  assert.equal(summarizeIndices([5, 4, 3]), "3-5");
+});
+
+test("renderHtml produces a self-contained document", () => {
+  const html = renderHtml(parseEvidence(VALID));
+  assert.match(html, /<!DOCTYPE html>/);
+  assert.match(html, /litmus :: demo/);
