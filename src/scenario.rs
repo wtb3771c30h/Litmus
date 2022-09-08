@@ -244,3 +244,25 @@ impl Scenario {
 fn strip_comment(line: &str) -> &str {
     let mut in_single = false;
     let mut in_double = false;
+    for (i, ch) in line.char_indices() {
+        match ch {
+            '\'' if !in_double => in_single = !in_single,
+            '"' if !in_single => in_double = !in_double,
+            '#' | ';' if !in_single && !in_double => return &line[..i],
+            _ => {}
+        }
+    }
+    line
+}
+
+fn split_kv(line: &str) -> Option<(&str, &str)> {
+    let eq = line.find('=')?;
+    let key = line[..eq].trim();
+    let value = line[eq + 1..].trim();
+    if key.is_empty() {
+        return None;
+    }
+    Some((key, value))
+}
+
+fn parse_bool(value: &str, lineno: usize) -> Result<bool, ParseError> {
