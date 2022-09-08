@@ -85,3 +85,8 @@ mod tests {
     }
 
     #[test]
+    fn rng_below_bounds() {
+        let mut r = Rng::new(9);
+        for _ in 0..1000 {
+            assert!(r.below(7) < 7);
+        }
