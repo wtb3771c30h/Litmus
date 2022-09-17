@@ -121,3 +121,18 @@ fn run(args: &[String]) -> Result<ExitCode, String> {
             }
             if matches!(command, Mode::Check) && report.is_failure() {
                 Ok(ExitCode::from(1))
+            } else {
+                Ok(ExitCode::SUCCESS)
+            }
+        }
+        Mode::Explain => unreachable!("handled above"),
+    }
+}
+
+fn parse_options(args: &[String]) -> Result<Options, String> {
+    let mut scenario_path: Option<String> = None;
+    let mut runs = None;
+    let mut timeout_ms = None;
+    let mut seed = None;
+    let mut json = false;
+    let mut out = None;
