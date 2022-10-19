@@ -89,3 +89,18 @@ impl Json {
                         push_indent(out, indent + 1);
                     }
                     write_escaped(out, key);
+                    out.push(':');
+                    if pretty {
+                        out.push(' ');
+                    }
+                    value.write(out, indent + 1, pretty);
+                }
+                if pretty {
+                    out.push('\n');
+                    push_indent(out, indent);
+                }
+                out.push('}');
+            }
+        }
+    }
+}
