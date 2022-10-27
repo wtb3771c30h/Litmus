@@ -10,3 +10,5 @@
 # Demonstrates: controlled seeding makes an otherwise-random program stable.
 
 name = seeded-deterministic
+description = A pseudo-random program made reproducible by honoring LITMUS_SEED.
+
