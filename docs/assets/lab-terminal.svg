@@ -64,3 +64,8 @@
 
   <!-- DIVERGED report block -->
   <g fill="#243049">
+    <text class="fade f5" x="36" y="256" font-size="13" font-weight="700">litmus :: flaky-random-outcome</text>
+    <text class="fade f5" x="36" y="274" font-size="12" fill="#6b6152">runs : 12  (4 distinct outcomes)</text>
+    <text class="fade f5" x="36" y="294" font-size="13" font-weight="700" fill="#c0491f">verdict : DIVERGED</text>
+  </g>
+
