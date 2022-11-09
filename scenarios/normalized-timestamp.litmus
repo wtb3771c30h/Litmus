@@ -8,3 +8,4 @@
 name = normalized-timestamp
 description = Raw output varies by wall-clock time, but is stable after normalization.
 
+[run]
