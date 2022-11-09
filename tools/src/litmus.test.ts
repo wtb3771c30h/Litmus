@@ -105,3 +105,14 @@ test("renderHtml produces a self-contained document", () => {
   const html = renderHtml(parseEvidence(VALID));
   assert.match(html, /<!DOCTYPE html>/);
   assert.match(html, /litmus :: demo/);
+  assert.match(html, /DIVERGED/);
+  assert.match(html, /<style>/);
+  // No external asset references.
+  assert.doesNotMatch(html, /https?:\/\//);
+});
+
+test("renderHtml escapes scenario content", () => {
+  const data = JSON.parse(VALID);
+  data.scenario = "<evil>";
+  const html = renderHtml(validateEvidence(data));
+  assert.match(html, /&lt;evil&gt;/);
