@@ -135,3 +135,10 @@ export function renderHtml(ev: Evidence): string {
 <body>
   <main class="card">
     <h1>litmus :: ${escapeHtml(ev.scenario)}</h1>
+    <p class="desc">${escapeHtml(ev.description)}</p>
+    <p><span class="verdict ${verdictClass(ev.verdict)}">${verdictLabel(ev.verdict)}</span></p>
+    <dl class="meta">
+      <dt>command</dt><dd><code>${escapeHtml(ev.command.join(" "))}</code></dd>
+      <dt>runs</dt><dd>${ev.total_runs} (${ev.distinct_outcomes} distinct)</dd>
+      <dt>expectation</dt><dd>${escapeHtml(ev.expectation)}</dd>
+      <dt>duration</dt><dd>${ev.min_duration_ms}ms .. ${ev.max_duration_ms}ms</dd>
