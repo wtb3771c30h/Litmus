@@ -52,3 +52,9 @@ fn divergent_exit_codes_are_detected() {
         report.distinct_outcomes
     );
     assert_eq!(report.verdict, Verdict::Diverged);
+}
+
+#[test]
+fn deterministic_expectation_violated_when_output_varies() {
+    // Print the run index -> every run differs -> violates a determinism claim.
+    let shell_cmd = if cfg!(windows) {
