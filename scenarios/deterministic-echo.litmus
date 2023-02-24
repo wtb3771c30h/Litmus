@@ -13,3 +13,5 @@ runs = 12
 timeout_ms = 5000
 expect = deterministic
 
+[normalize]
+# Nothing to strip here, but we keep the defaults on to prove they are
