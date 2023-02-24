@@ -85,3 +85,16 @@
       "fingerprint": "ba9b8db45a8f6fe6",
       "exit_code": 0,
       "timed_out": false,
+      "duration_ms": 52
+    },
+    {
+      "run_index": 6,
+      "seed": 6,
+      "fingerprint": "ba9b8db45a8f6fe6",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 53
+    },
+    {
+      "run_index": 7,
+      "seed": 7,
