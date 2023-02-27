@@ -28,3 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Commands: `run`, `check` (CI-friendly non-zero exit on violation), `emit`
     (JSON evidence), `explain`, `version`, `help`.
   - Human-readable, colorized text report with proportional outcome bars and
+    compact run-index ranges.
+  - Machine-readable JSON evidence (`schema: litmus/evidence@1`) via a
+    hand-written, dependency-free JSON writer.
+- **TypeScript tooling (`litmus-report`)**, dependency-free:
+  - Strongly-typed evidence parser/validator.
