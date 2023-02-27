@@ -136,3 +136,18 @@ fn parse_options(args: &[String]) -> Result<Options, String> {
     let mut seed = None;
     let mut json = false;
     let mut out = None;
+    let mut color = supports_color();
+    let mut sample_lines = 4usize;
+
+    let mut i = 0;
+    while i < args.len() {
+        let arg = args[i].as_str();
+        match arg {
+            "--runs" => {
+                runs = Some(parse_num(next(args, &mut i, "--runs")?)?);
+            }
+            "--timeout-ms" => {
+                timeout_ms = Some(parse_num(next(args, &mut i, "--timeout-ms")?)?);
+            }
+            "--seed" => {
+                seed = Some(parse_num(next(args, &mut i, "--seed")?)?);
