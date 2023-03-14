@@ -125,3 +125,16 @@ export function parseEvidence(raw: string): Evidence {
     throw new EvidenceError(
       `input is not valid JSON: ${(err as Error).message}`,
     );
+  }
+  return validateEvidence(data);
+}
+
+/** Validate an already-parsed value into typed {@link Evidence}. */
+export function validateEvidence(data: unknown): Evidence {
+  if (!isObject(data)) {
+    throw new EvidenceError("evidence must be a JSON object");
+  }
+  const schema = requireString(data, "schema");
+  if (!schema.startsWith("litmus/evidence@")) {
+    throw new EvidenceError(`unexpected schema: ${JSON.stringify(schema)}`);
+  }
