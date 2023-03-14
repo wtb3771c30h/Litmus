@@ -266,3 +266,25 @@ fn split_kv(line: &str) -> Option<(&str, &str)> {
 }
 
 fn parse_bool(value: &str, lineno: usize) -> Result<bool, ParseError> {
+    match value.trim().to_ascii_lowercase().as_str() {
+        "true" | "yes" | "1" | "on" => Ok(true),
+        "false" | "no" | "0" | "off" => Ok(false),
+        other => Err(ParseError::at(
+            lineno,
+            format!("invalid boolean: {other:?}"),
+        )),
+    }
+}
+
+/// Split a command string into tokens, honoring single and double quotes.
+fn tokenize_command(input: &str) -> Result<Vec<String>, ParseError> {
+    let mut tokens = Vec::new();
+    let mut cur = String::new();
+    let mut in_single = false;
+    let mut in_double = false;
+    let mut has_token = false;
+
+    for ch in input.chars() {
+        match ch {
+            '\'' if !in_double => {
+                in_single = !in_single;
