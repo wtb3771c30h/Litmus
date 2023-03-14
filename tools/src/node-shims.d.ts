@@ -30,3 +30,6 @@ declare module "node:assert/strict" {
   const assert: Assert;
   export default assert;
 }
+
+interface ProcessStream {
+  write(data: string): void;
