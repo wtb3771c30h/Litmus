@@ -33,3 +33,6 @@ declare module "node:assert/strict" {
 
 interface ProcessStream {
   write(data: string): void;
+}
+
+interface Process {
