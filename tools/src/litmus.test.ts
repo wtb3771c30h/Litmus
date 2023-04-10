@@ -116,3 +116,13 @@ test("renderHtml escapes scenario content", () => {
   data.scenario = "<evil>";
   const html = renderHtml(validateEvidence(data));
   assert.match(html, /&lt;evil&gt;/);
+  assert.doesNotMatch(html, /<evil>/);
+});
+
+test("renderText summarizes groups", () => {
+  const text = renderText(parseEvidence(VALID));
+  assert.match(text, /litmus :: demo/);
+  assert.match(text, /\[#0\] aa 3\/4/);
+});
+
+test("quoteToken quotes only when needed", () => {
