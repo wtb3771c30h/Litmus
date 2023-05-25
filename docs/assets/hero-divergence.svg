@@ -56,3 +56,8 @@
 
   <!-- MIDDLE: run waveforms, a stable family (coral + cobalt) and one diverging (cobalt) -->
   <g class="wave" stroke="#ff7a59" filter="url(#soft)">
+    <path class="dash"    d="M220 120 q30 -26 60 0 t60 0 t60 0 t60 0 t60 0"/>
+    <path class="dash d2" d="M220 150 q30 -26 60 0 t60 0 t60 0 t60 0 t60 0"/>
+    <path class="dash d3" d="M220 210 q30 -26 60 0 t60 0 t60 0 t60 0 t60 0"/>
+  </g>
+  <g class="wave" stroke="#4f74f2" filter="url(#soft)">
