@@ -138,3 +138,16 @@ export function validateEvidence(data: unknown): Evidence {
   if (!schema.startsWith("litmus/evidence@")) {
     throw new EvidenceError(`unexpected schema: ${JSON.stringify(schema)}`);
   }
+
+  const groups = requireArray(data, "groups").map(parseGroup);
+  const outcomes = requireArray(data, "outcomes").map(parseOutcome);
+  const command = requireArray(data, "command").map((c, i) => {
+    if (typeof c !== "string") {
+      throw new EvidenceError(`command[${i}] must be a string`);
+    }
+    return c;
+  });
+
+  return {
+    schema,
+    scenario: requireString(data, "scenario"),
