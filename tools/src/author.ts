@@ -83,3 +83,10 @@ export function toScenarioText(spec: ScenarioSpec): string {
   if (spec.timeout_ms !== undefined) lines.push(`timeout_ms = ${spec.timeout_ms}`);
   if (spec.seed !== undefined) lines.push(`seed = ${spec.seed}`);
   if (spec.shuffle_env !== undefined) {
+    lines.push(`shuffle_env = ${spec.shuffle_env}`);
+  }
+  if (spec.workdir !== undefined) lines.push(`workdir = ${spec.workdir}`);
+  if (spec.expect !== undefined) lines.push(`expect = ${spec.expect}`);
+
+  if (spec.env && Object.keys(spec.env).length > 0) {
+    lines.push("");
