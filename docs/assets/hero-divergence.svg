@@ -61,3 +61,8 @@
     <path class="dash d3" d="M220 210 q30 -26 60 0 t60 0 t60 0 t60 0 t60 0"/>
   </g>
   <g class="wave" stroke="#4f74f2" filter="url(#soft)">
+    <path class="dash d2" d="M220 180 q30 -26 60 0 t60 0 t60 0 t60 0 t60 0"/>
+  </g>
+  <!-- the divergent run -->
+  <g class="wave" stroke="#1f4bd8" filter="url(#soft)">
+    <path class="dash d4" d="M220 250 q20 34 40 0 t40 -22 t40 30 t40 -18 t40 12 t40 0 t40 0"/>
