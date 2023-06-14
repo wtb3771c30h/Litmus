@@ -58,3 +58,9 @@ fn divergent_exit_codes_are_detected() {
 fn deterministic_expectation_violated_when_output_varies() {
     // Print the run index -> every run differs -> violates a determinism claim.
     let shell_cmd = if cfg!(windows) {
+        "echo %LITMUS_RUN%"
+    } else {
+        "echo $LITMUS_RUN"
+    };
+    let mut s = scenario_with_command("name = violate\n#", shell_cmd);
+    s.runs = 4;
