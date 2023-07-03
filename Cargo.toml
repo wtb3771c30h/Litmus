@@ -17,3 +17,5 @@ path = "src/main.rs"
 name = "litmus"
 path = "src/lib.rs"
 
+[profile.release]
+opt-level = 3
