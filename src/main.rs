@@ -151,3 +151,19 @@ fn parse_options(args: &[String]) -> Result<Options, String> {
             }
             "--seed" => {
                 seed = Some(parse_num(next(args, &mut i, "--seed")?)?);
+            }
+            "--sample-lines" => {
+                sample_lines = parse_num::<usize>(next(args, &mut i, "--sample-lines")?)?;
+            }
+            "--out" => {
+                out = Some(next(args, &mut i, "--out")?.to_string());
+            }
+            "--json" => json = true,
+            "--no-color" => color = false,
+            "--color" => color = true,
+            other if other.starts_with('-') => {
+                return Err(format!("unknown option {other:?}"));
+            }
+            other => {
+                if scenario_path.is_some() {
+                    return Err(format!("unexpected extra argument {other:?}"));
