@@ -6,3 +6,5 @@
     "outDir": "dist",
     "rootDir": "src",
     "declaration": true,
+    "sourceMap": false,
+    "strict": true,
