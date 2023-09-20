@@ -33,3 +33,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     hand-written, dependency-free JSON writer.
 - **TypeScript tooling (`litmus-report`)**, dependency-free:
   - Strongly-typed evidence parser/validator.
+  - Self-contained HTML report renderer (inlined CSS, no external assets) and
+    a plain-text renderer.
+  - Programmatic scenario **authoring helper** that serializes typed specs to
+    `.litmus` files.
+  - `litmus-report html|text <evidence.json>` CLI.
