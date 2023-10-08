@@ -288,3 +288,26 @@ fn tokenize_command(input: &str) -> Result<Vec<String>, ParseError> {
         match ch {
             '\'' if !in_double => {
                 in_single = !in_single;
+                has_token = true;
+            }
+            '"' if !in_single => {
+                in_double = !in_double;
+                has_token = true;
+            }
+            c if c.is_whitespace() && !in_single && !in_double => {
+                if has_token {
+                    tokens.push(std::mem::take(&mut cur));
+                    has_token = false;
+                }
+            }
+            c => {
+                cur.push(c);
+                has_token = true;
+            }
+        }
+    }
+    if in_single || in_double {
+        return Err(ParseError::new("unterminated quote in command".to_string()));
+    }
+    if has_token {
+        tokens.push(cur);
