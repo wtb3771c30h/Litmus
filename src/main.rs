@@ -167,3 +167,18 @@ fn parse_options(args: &[String]) -> Result<Options, String> {
             other => {
                 if scenario_path.is_some() {
                     return Err(format!("unexpected extra argument {other:?}"));
+                }
+                scenario_path = Some(other.to_string());
+            }
+        }
+        i += 1;
+    }
+
+    let scenario_path = scenario_path.ok_or("missing scenario file path")?;
+    Ok(Options {
+        scenario_path,
+        runs,
+        timeout_ms,
+        seed,
+        json,
+        out,
