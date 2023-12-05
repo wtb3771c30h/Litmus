@@ -317,3 +317,67 @@ To attach evidence to a run, emit JSON and render HTML as an artifact:
 - run: ./target/release/litmus emit scenarios/flaky-random-outcome.litmus --out evidence.json
 - run: node tools/dist/cli.js html evidence.json --out report.html
 - uses: actions/upload-artifact@v4
+  with: { name: litmus-report, path: "evidence.json\nreport.html" }
+```
+
+The shipped [`.github/workflows/ci.yml`](.github/workflows/ci.yml) goes further: Rust suite
+on Linux/macOS/Windows, TypeScript on Linux, and an end-to-end job that emits and uploads a
+rendered report.
+
+## Interpretation cautions
+
+A verdict is only as trustworthy as the experiment that produced it:
+
+- **"Stable" means stable at your normalization resolution**, not "correct." Over-aggressive
+  masking can hide real divergence — read the sample output and confirm the
+  `<ts>`/`<hex>`/`<tmp>` tokens landed where you expected.
+- **Absence of divergence is not proof of determinism.** A 1-in-10,000 race needs far more
+  than `runs = 12`; raise `--runs` for rare flakes. Group frequencies estimate, not
+  guarantee, the true distribution.
+- **The harness controls what it can, not the world.** It does not sandbox network,
+  filesystem, or clock; external state can leak in and show up as divergence you must judge.
+- **Timeouts are recorded, not retried** — a timed-out run is a distinct observation
+  (`timeout=true`), not an error. **Duration is wall-clock and noisy**, so treat `min`/`max`
+  as informational, not a benchmark.
+
+## Install & build
+
+Requirements: a stable Rust toolchain (CLI) and Node.js ≥ 18 (only for the optional
+TypeScript tooling). Nothing is downloaded — both sides are dependency-free.
+
+```bash
+# Build the CLI
+cargo build --release
+# binary at target/release/litmus (litmus.exe on Windows)
+
+# Build & test the TypeScript tooling (optional)
+cd tools
+npx tsc -p tsconfig.json
+node --test dist/litmus.test.js
+```
+
+Or drive everything through the [`Makefile`](Makefile):
+
+```bash
+make all      # build + test Rust and TypeScript
+make demo     # run every example scenario
+make emit     # emit evidence and render an HTML report
+make lint     # cargo fmt --check + clippy -D warnings
+```
+
+## Command reference
+
+| Command | Purpose |
+| --- | --- |
+| `litmus run <scenario>` | Run the scenario and print a text report. |
+| `litmus check <scenario>` | Like `run`, but **exit 1** if the expectation is violated. Use in CI. |
+| `litmus emit <scenario>` | Run and write JSON evidence (`--out FILE`, or stdout). |
+| `litmus explain <scenario>` | Parse the scenario and print its resolved configuration. |
+| `litmus version` / `help` | Version / usage. |
+
+Common options: `--runs N`, `--timeout-ms N`, `--seed N`, `--json`, `--out FILE`,
+`--sample-lines N`, `--no-color` (honors `NO_COLOR`).
+
+Exit codes: `0` success · `1` expectation violated (`check` only) · `2` usage or execution
+error (unreadable scenario, or the program cannot be spawned).
+
