@@ -12,3 +12,5 @@ node_modules/
 *.local.json
 /report.html
 /evidence.json
+examples/report.html
+
