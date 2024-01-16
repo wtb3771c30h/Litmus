@@ -14,3 +14,5 @@ node_modules/
 /evidence.json
 examples/report.html
 
+# Editor / OS
+.DS_Store
