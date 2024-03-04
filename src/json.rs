@@ -104,3 +104,18 @@ impl Json {
         }
     }
 }
+
+fn push_indent(out: &mut String, level: usize) {
+    for _ in 0..level {
+        out.push_str("  ");
+    }
+}
+
+/// Write a JSON string literal with proper escaping per RFC 8259.
+fn write_escaped(out: &mut String, s: &str) {
+    out.push('"');
+    for ch in s.chars() {
+        match ch {
+            '"' => out.push_str("\\\""),
+            '\\' => out.push_str("\\\\"),
+            '\n' => out.push_str("\\n"),
