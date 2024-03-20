@@ -16,3 +16,5 @@ examples/report.html
 
 # Editor / OS
 .DS_Store
+Thumbs.db
+.idea/
