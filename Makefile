@@ -39,3 +39,7 @@ demo: build ## Run every example scenario with the release binary.
 	./target/release/litmus run scenarios/normalized-timestamp.litmus
 	./target/release/litmus run scenarios/flaky-random-outcome.litmus
 	./target/release/litmus run scenarios/set-order-flaky.litmus
+	./target/release/litmus run scenarios/set-order-fixed.litmus
+
+emit: build ts-build ## Emit evidence and render an HTML report end-to-end.
+	./target/release/litmus emit scenarios/flaky-random-outcome.litmus --out examples/evidence.local.json
