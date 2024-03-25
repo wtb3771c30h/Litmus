@@ -182,3 +182,19 @@ fn parse_options(args: &[String]) -> Result<Options, String> {
         seed,
         json,
         out,
+        color,
+        sample_lines,
+    })
+}
+
+fn next<'a>(args: &'a [String], i: &mut usize, flag: &str) -> Result<&'a str, String> {
+    *i += 1;
+    args.get(*i)
+        .map(String::as_str)
+        .ok_or_else(|| format!("{flag} requires a value"))
+}
+
+fn parse_num<T: std::str::FromStr>(s: &str) -> Result<T, String> {
+    s.parse::<T>().map_err(|_| format!("invalid number: {s:?}"))
+}
+
