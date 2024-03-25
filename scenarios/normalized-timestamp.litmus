@@ -9,3 +9,4 @@ name = normalized-timestamp
 description = Raw output varies by wall-clock time, but is stable after normalization.
 
 [run]
+command = node -e "process.stdout.write('event at ' + new Date().toISOString() + ' processed\n')"
