@@ -38,3 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Programmatic scenario **authoring helper** that serializes typed specs to
     `.litmus` files.
   - `litmus-report html|text <evidence.json>` CLI.
+- **Example scenarios** (cross-platform via Node): deterministic echo,
+  timestamp-normalized, genuinely flaky random outcome, seed-controlled
+  determinism, and a set-ordering flaky/fixed pair.
+- **Docs**: rich README with Mermaid diagrams and a live demo transcript,
+  `docs/SCENARIO.md` reference.
