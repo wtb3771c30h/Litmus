@@ -311,3 +311,25 @@ fn tokenize_command(input: &str) -> Result<Vec<String>, ParseError> {
     }
     if has_token {
         tokens.push(cur);
+    }
+    Ok(tokens)
+}
+
+/// Error produced while parsing a scenario file.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ParseError {
+    pub line: Option<usize>,
+    pub message: String,
+}
+
+impl ParseError {
+    fn new(message: String) -> ParseError {
+        ParseError {
+            line: None,
+            message,
+        }
+    }
+    fn at(line: usize, message: String) -> ParseError {
+        ParseError {
+            line: Some(line),
+            message,
