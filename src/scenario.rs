@@ -333,3 +333,25 @@ impl ParseError {
         ParseError {
             line: Some(line),
             message,
+        }
+    }
+}
+
+impl fmt::Display for ParseError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self.line {
+            Some(l) => write!(f, "scenario parse error (line {l}): {}", self.message),
+            None => write!(f, "scenario parse error: {}", self.message),
+        }
+    }
+}
+
+impl std::error::Error for ParseError {}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parses_minimal_scenario() {
+        let s = Scenario::parse("[run]\ncommand = echo hello").unwrap();
