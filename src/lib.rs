@@ -152,3 +152,22 @@ fn summarize_indices(indices: &[u32]) -> String {
     let mut parts: Vec<String> = Vec::new();
     let mut start = sorted[0];
     let mut prev = sorted[0];
+    for &v in &sorted[1..] {
+        if v == prev + 1 {
+            prev = v;
+            continue;
+        }
+        parts.push(fmt_range(start, prev));
+        start = v;
+        prev = v;
+    }
+    parts.push(fmt_range(start, prev));
+    parts.join(", ")
+}
+
+fn fmt_range(start: u32, end: u32) -> String {
+    if start == end {
+        start.to_string()
+    } else {
+        format!("{start}-{end}")
+    }
