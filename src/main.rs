@@ -198,3 +198,18 @@ fn parse_num<T: std::str::FromStr>(s: &str) -> Result<T, String> {
     s.parse::<T>().map_err(|_| format!("invalid number: {s:?}"))
 }
 
+/// Respect `NO_COLOR` (https://no-color.org) and disable color when stdout is
+/// likely not a terminal is hard without extra deps, so we default to on and
+/// let `--no-color` / `NO_COLOR` turn it off.
+fn supports_color() -> bool {
+    std::env::var_os("NO_COLOR").is_none()
+}
+
+fn print_explain(s: &Scenario) {
+    println!("scenario     : {}", s.name);
+    if !s.description.is_empty() {
+        println!("description  : {}", s.description);
+    }
+    println!("command      : {}", s.command.join(" "));
+    println!("runs         : {}", s.runs);
+    println!(
