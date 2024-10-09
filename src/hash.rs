@@ -90,3 +90,9 @@ mod tests {
         for _ in 0..1000 {
             assert!(r.below(7) < 7);
         }
+        assert_eq!(r.below(0), 0);
+        assert_eq!(r.below(1), 0);
+    }
+
+    #[test]
+    fn shuffle_is_a_permutation() {
