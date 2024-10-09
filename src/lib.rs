@@ -171,3 +171,23 @@ fn fmt_range(start: u32, end: u32) -> String {
     } else {
         format!("{start}-{end}")
     }
+}
+
+/// ANSI palette; every field is empty when color is disabled.
+struct Palette {
+    reset: &'static str,
+    bold: &'static str,
+    dim: &'static str,
+    red: &'static str,
+    green: &'static str,
+    yellow: &'static str,
+}
+
+impl Palette {
+    fn new(color: bool) -> Palette {
+        if color {
+            Palette {
+                reset: "\x1b[0m",
+                bold: "\x1b[1m",
+                dim: "\x1b[2m",
+                red: "\x1b[31m",
