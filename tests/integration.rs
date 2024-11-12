@@ -70,3 +70,9 @@ fn deterministic_expectation_violated_when_output_varies() {
     assert_eq!(report.verdict, Verdict::ExpectationViolated);
     assert!(report.is_failure());
 
+    // The text report should surface the violation.
+    let text = render_text(&report, false, 2);
+    assert!(text.contains("EXPECTATION VIOLATED"), "report was:\n{text}");
+}
+
+#[test]
