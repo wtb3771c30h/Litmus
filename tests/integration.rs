@@ -64,3 +64,9 @@ fn deterministic_expectation_violated_when_output_varies() {
     };
     let mut s = scenario_with_command("name = violate\n#", shell_cmd);
     s.runs = 4;
+    s.expect = litmus::Expectation::Deterministic;
+
+    let report = investigate(&s).expect("run should succeed");
+    assert_eq!(report.verdict, Verdict::ExpectationViolated);
+    assert!(report.is_failure());
+
