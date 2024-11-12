@@ -90,3 +90,10 @@ export function toScenarioText(spec: ScenarioSpec): string {
 
   if (spec.env && Object.keys(spec.env).length > 0) {
     lines.push("");
+    lines.push("[env]");
+    for (const [k, v] of Object.entries(spec.env)) {
+      lines.push(`${k} = ${v}`);
+    }
+  }
+
+  const n = spec.normalize;
