@@ -72,3 +72,12 @@ export function main(argv: readonly string[]): number {
 
   if (inputPath === undefined) {
     process.stderr.write("litmus-report: missing evidence file (use '-' for stdin)\n");
+    return 2;
+  }
+
+  let raw: string;
+  try {
+    raw = readInput(inputPath);
+  } catch (err) {
+    process.stderr.write(`litmus-report: cannot read ${inputPath}: ${(err as Error).message}\n`);
+    return 1;
