@@ -97,3 +97,9 @@ export function toScenarioText(spec: ScenarioSpec): string {
   }
 
   const n = spec.normalize;
+  if (n && Object.keys(n).length > 0) {
+    lines.push("");
+    lines.push("[normalize]");
+    if (n.strip_timestamps !== undefined)
+      lines.push(`strip_timestamps = ${n.strip_timestamps}`);
+    if (n.strip_hex !== undefined) lines.push(`strip_hex = ${n.strip_hex}`);
