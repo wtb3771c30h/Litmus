@@ -75,3 +75,8 @@
     <rect class="fade f6" x="300" y="309" width="240" height="9" rx="4" fill="#e7d5b8"/>
     <rect class="bar fade f6" x="300" y="309" width="80"  height="9" rx="4" fill="#ff7a59"/>
 
+    <text class="fade f6" x="36" y="340">[1] 3/12  25.0%  fp=2c28612ab0da1d99</text>
+    <rect class="fade f6" x="300" y="331" width="240" height="9" rx="4" fill="#e7d5b8"/>
+    <rect class="bar fade f6" x="300" y="331" width="60"  height="9" rx="4" fill="#ff9d78"/>
+
+    <text class="fade f6" x="36" y="362">[2] 3/12  25.0%  fp=9e73afba2fac4352</text>
