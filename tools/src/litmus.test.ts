@@ -126,3 +126,14 @@ test("renderText summarizes groups", () => {
 });
 
 test("quoteToken quotes only when needed", () => {
+  assert.equal(quoteToken("echo"), "echo");
+  assert.equal(quoteToken("a b"), '"a b"');
+  assert.equal(quoteToken('has"dq'), "'has\"dq'");
+  assert.equal(quoteToken(""), '""');
+});
+
+test("toScenarioText round-trips through the grammar", () => {
+  const text = toScenarioText({
+    name: "gen",
+    description: "generated",
+    command: ["node", "-e", "console.log(1)"],
