@@ -18,3 +18,5 @@ examples/report.html
 .DS_Store
 Thumbs.db
 .idea/
+.vscode/
+*.swp
