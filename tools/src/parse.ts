@@ -151,3 +151,16 @@ export function validateEvidence(data: unknown): Evidence {
   return {
     schema,
     scenario: requireString(data, "scenario"),
+    description: requireString(data, "description"),
+    command,
+    total_runs: requireNumber(data, "total_runs"),
+    distinct_outcomes: requireNumber(data, "distinct_outcomes"),
+    expectation: asExpectation(requireString(data, "expectation")),
+    verdict: asVerdict(requireString(data, "verdict")),
+    timeouts: requireNumber(data, "timeouts"),
+    min_duration_ms: requireNumber(data, "min_duration_ms"),
+    max_duration_ms: requireNumber(data, "max_duration_ms"),
+    groups,
+    outcomes,
+  };
+}
