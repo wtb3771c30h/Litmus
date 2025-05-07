@@ -109,3 +109,13 @@ TZ = UTC
 ## `[normalize]` section
 
 Normalization canonicalizes output *before* fingerprinting, so that legitimate
+noise does not masquerade as divergence.
+
+| Key                | Type | Default | Effect                                                                 |
+| ------------------ | ---- | ------- | ---------------------------------------------------------------------- |
+| `strip_timestamps` | bool | `true`  | Replace ISO-8601 / `YYYY-MM-DD HH:MM:SS` / bare `HH:MM:SS` with `<ts>`.|
+| `strip_hex`        | bool | `true`  | Replace `0x…` (≥3 hex digits) and bare address-like hex runs with `<hex>`. |
+| `strip_temp_paths` | bool | `true`  | Replace `/tmp/…`, `/var/folders/…`, and Windows `…\Temp\…` with `<tmp>`. |
+| `trim_trailing_ws` | bool | `true`  | Trim trailing whitespace from each line.                               |
+| `sort_lines`       | bool | `false` | Sort lines. Removes order-dependence (e.g. unordered set iteration).   |
+| `drop_substring`   | string | —     | Drop any line containing this literal substring (repeatable).          |
