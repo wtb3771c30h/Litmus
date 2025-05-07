@@ -81,3 +81,11 @@ export function main(argv: readonly string[]): number {
   } catch (err) {
     process.stderr.write(`litmus-report: cannot read ${inputPath}: ${(err as Error).message}\n`);
     return 1;
+  }
+
+  let output: string;
+  try {
+    const evidence = parseEvidence(raw);
+    output = command === "html" ? renderHtml(evidence) : renderText(evidence);
+  } catch (err) {
+    process.stderr.write(`litmus-report: ${(err as Error).message}\n`);
