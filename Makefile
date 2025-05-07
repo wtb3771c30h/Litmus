@@ -43,3 +43,7 @@ demo: build ## Run every example scenario with the release binary.
 
 emit: build ts-build ## Emit evidence and render an HTML report end-to-end.
 	./target/release/litmus emit scenarios/flaky-random-outcome.litmus --out examples/evidence.local.json
+	cd tools && node dist/cli.js html ../examples/evidence.local.json --out ../examples/report.html
+
+clean: ## Remove build artifacts.
+	cargo clean
