@@ -15,3 +15,5 @@
     "exactOptionalPropertyTypes": false,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
+    "types": []
+  },
