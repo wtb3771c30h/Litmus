@@ -98,3 +98,14 @@ jobs:
       - name: Emit evidence and render HTML
         run: |
           ./target/release/litmus emit scenarios/flaky-random-outcome.litmus --out evidence.json
+          node tools/dist/cli.js html evidence.json --out report.html
+          test -s report.html
+          grep -q "litmus ::" report.html
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: litmus-report
+          path: |
+            evidence.json
+            report.html
