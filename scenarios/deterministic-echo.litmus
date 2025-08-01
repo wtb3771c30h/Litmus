@@ -15,3 +15,6 @@ expect = deterministic
 
 [normalize]
 # Nothing to strip here, but we keep the defaults on to prove they are
+# idempotent for already-clean output.
+strip_timestamps = true
+strip_hex = true
