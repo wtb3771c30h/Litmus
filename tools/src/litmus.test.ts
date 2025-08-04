@@ -137,3 +137,14 @@ test("toScenarioText round-trips through the grammar", () => {
     name: "gen",
     description: "generated",
     command: ["node", "-e", "console.log(1)"],
+    runs: 5,
+    expect: "deterministic",
+    env: { FOO: "bar" },
+    normalize: { sort_lines: true, drop_substrings: ["noise"] },
+  });
+  assert.match(text, /name = gen/);
+  assert.match(text, /\[run\]/);
+  assert.match(text, /command = node -e console\.log\(1\)/);
+  assert.match(text, /runs = 5/);
+  assert.match(text, /\[env\]\nFOO = bar/);
+  assert.match(text, /sort_lines = true/);
