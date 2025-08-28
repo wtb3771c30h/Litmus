@@ -156,3 +156,10 @@ export function renderHtml(ev: Evidence): string {
 /** Produce a compact plain-text summary (used for terminal previews / tests). */
 export function renderText(ev: Evidence): string {
   const lines: string[] = [];
+  lines.push(`litmus :: ${ev.scenario}`);
+  if (ev.description) lines.push(`  ${ev.description}`);
+  lines.push(`  command : ${ev.command.join(" ")}`);
+  lines.push(`  runs    : ${ev.total_runs} (${ev.distinct_outcomes} distinct)`);
+  lines.push(`  verdict : ${verdictLabel(ev.verdict)}`);
+  for (let i = 0; i < ev.groups.length; i++) {
+    const g = ev.groups[i];
