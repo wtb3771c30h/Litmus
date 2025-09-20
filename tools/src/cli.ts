@@ -89,3 +89,11 @@ export function main(argv: readonly string[]): number {
     output = command === "html" ? renderHtml(evidence) : renderText(evidence);
   } catch (err) {
     process.stderr.write(`litmus-report: ${(err as Error).message}\n`);
+    return 1;
+  }
+
+  if (out !== undefined) {
+    writeFileSync(out, output);
+    process.stderr.write(`litmus-report: wrote ${out}\n`);
+  } else {
+    process.stdout.write(output);
