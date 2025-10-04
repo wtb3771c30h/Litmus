@@ -119,3 +119,12 @@ noise does not masquerade as divergence.
 | `trim_trailing_ws` | bool | `true`  | Trim trailing whitespace from each line.                               |
 | `sort_lines`       | bool | `false` | Sort lines. Removes order-dependence (e.g. unordered set iteration).   |
 | `drop_substring`   | string | —     | Drop any line containing this literal substring (repeatable).          |
+
+The exit code and timeout flag are always folded into the fingerprint, so two
+runs that differ *only* by exit status are still reported as divergent.
+
+## Verdicts
+
+After all runs, `litmus` groups outcomes by fingerprint and assigns a verdict:
+
+| `expect`        | Observed stable          | Observed divergent        |
