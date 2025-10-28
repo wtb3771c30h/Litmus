@@ -210,3 +210,22 @@ impl Palette {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn summarize_ranges() {
+        assert_eq!(summarize_indices(&[0, 1, 2, 3]), "0-3");
+        assert_eq!(summarize_indices(&[0, 2, 3, 5]), "0, 2-3, 5");
+        assert_eq!(summarize_indices(&[7]), "7");
+        assert_eq!(summarize_indices(&[]), "(none)");
+        // Unsorted input is handled.
+        assert_eq!(summarize_indices(&[3, 0, 1, 2]), "0-3");
+    }
+
+    #[test]
+    fn bar_fills_proportionally() {
+        assert_eq!(bar(0, 10, 10), "░░░░░░░░░░");
+        assert_eq!(bar(10, 10, 10), "██████████");
+        assert_eq!(bar(5, 10, 10), "█████░░░░░");
+        assert_eq!(bar(1, 0, 4), "    ");
+    }
+
