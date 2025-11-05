@@ -148,3 +148,14 @@ test("toScenarioText round-trips through the grammar", () => {
   assert.match(text, /runs = 5/);
   assert.match(text, /\[env\]\nFOO = bar/);
   assert.match(text, /sort_lines = true/);
+  assert.match(text, /drop_substring = noise/);
+});
+
+test("toScenarioText validates input", () => {
+  assert.throws(() => toScenarioText({ name: "", command: ["x"] }), /name is required/);
+  assert.throws(() => toScenarioText({ name: "x", command: [] }), /at least one token/);
+  assert.throws(
+    () => toScenarioText({ name: "x", command: ["y"], runs: 0 }),
+    /runs must be/,
+  );
+});
