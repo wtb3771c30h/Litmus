@@ -97,3 +97,12 @@ export function main(argv: readonly string[]): number {
     process.stderr.write(`litmus-report: wrote ${out}\n`);
   } else {
     process.stdout.write(output);
+  }
+  return 0;
+}
+
+// Execute only when run directly (not when imported by tests).
+const invokedPath = process.argv[1] ?? "";
+if (invokedPath.endsWith("cli.js") || invokedPath.endsWith("cli.ts")) {
+  process.exitCode = main(process.argv.slice(2));
+}
