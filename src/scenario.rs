@@ -355,3 +355,26 @@ mod tests {
     #[test]
     fn parses_minimal_scenario() {
         let s = Scenario::parse("[run]\ncommand = echo hello").unwrap();
+        assert_eq!(s.command, vec!["echo", "hello"]);
+        assert_eq!(s.runs, 10);
+        assert_eq!(s.expect, Expectation::Unspecified);
+    }
+
+    #[test]
+    fn parses_full_scenario() {
+        let text = r#"
+            name = demo
+            description = a demo scenario
+            [run]
+            command = "my prog" --flag 'a b'
+            runs = 5
+            timeout_ms = 1500
+            shuffle_env = true
+            seed = 42
+            expect = deterministic
+            [env]
+            GREETING = hi there
+            [normalize]
+            sort_lines = true
+            drop_substring = noise
+        "#;
