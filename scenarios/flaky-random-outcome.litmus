@@ -15,3 +15,4 @@ runs = 30
 timeout_ms = 5000
 expect = flaky
 
+[normalize]
