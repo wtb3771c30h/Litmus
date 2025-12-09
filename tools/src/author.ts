@@ -110,3 +110,10 @@ export function toScenarioText(spec: ScenarioSpec): string {
     if (n.sort_lines !== undefined) lines.push(`sort_lines = ${n.sort_lines}`);
     if (n.drop_substrings) {
       for (const d of n.drop_substrings) {
+        lines.push(`drop_substring = ${d}`);
+      }
+    }
+  }
+
+  return lines.join("\n") + "\n";
+}
