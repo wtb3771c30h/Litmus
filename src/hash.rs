@@ -96,3 +96,8 @@ mod tests {
 
     #[test]
     fn shuffle_is_a_permutation() {
+        let mut r = Rng::new(2024);
+        let mut v: Vec<u32> = (0..50).collect();
+        let original: Vec<u32> = v.clone();
+        r.shuffle(&mut v);
+        let mut sorted = v.clone();
