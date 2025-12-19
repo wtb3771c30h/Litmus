@@ -307,3 +307,23 @@ mod tests {
     #[test]
     fn masks_0x_hex() {
         let out = normalize("ptr at 0x7ffee3b1c0d0 done", &opts());
+        assert_eq!(out, "ptr at <hex> done\n");
+    }
+
+    #[test]
+    fn keeps_short_hex_like_versions() {
+        // "0x12" has only 2 hex digits -> not masked.
+        let out = normalize("v0x12", &opts());
+        assert_eq!(out, "v0x12\n");
+    }
+
+    #[test]
+    fn masks_bare_address_with_letters() {
+        let out = normalize("addr deadbeef here", &opts());
+        assert_eq!(out, "addr <hex> here\n");
+    }
+
+    #[test]
+    fn does_not_mask_plain_decimal() {
+        let out = normalize("count 123456 items", &opts());
+        assert_eq!(out, "count 123456 items\n");
