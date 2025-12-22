@@ -128,3 +128,12 @@ runs that differ *only* by exit status are still reported as divergent.
 After all runs, `litmus` groups outcomes by fingerprint and assigns a verdict:
 
 | `expect`        | Observed stable          | Observed divergent        |
+| --------------- | ------------------------ | ------------------------- |
+| `deterministic` | `stable`                 | `expectation_violated` ✗  |
+| `flaky`         | `expectation_violated` ✗ | `diverged`                |
+| `unspecified`   | `stable`                 | `diverged`                |
+
+`litmus check` exits non-zero (`1`) when the verdict is `expectation_violated`,
+which is what you wire into CI. `litmus run` always exits `0` unless there is a
+usage or execution error (exit `2`).
+
