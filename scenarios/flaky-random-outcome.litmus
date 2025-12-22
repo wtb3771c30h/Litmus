@@ -16,3 +16,5 @@ timeout_ms = 5000
 expect = flaky
 
 [normalize]
+strip_timestamps = false
+strip_hex = false
