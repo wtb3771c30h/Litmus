@@ -327,3 +327,24 @@ mod tests {
     fn does_not_mask_plain_decimal() {
         let out = normalize("count 123456 items", &opts());
         assert_eq!(out, "count 123456 items\n");
+    }
+
+    #[test]
+    fn masks_iso_timestamp() {
+        let out = normalize("[2026-08-31T21:41:39.347+05:30] start", &opts());
+        assert_eq!(out, "[<ts>] start\n");
+    }
+
+    #[test]
+    fn masks_space_datetime() {
+        let out = normalize("at 2026-08-31 21:41:39 now", &opts());
+        assert_eq!(out, "at <ts> now\n");
+    }
+
+    #[test]
+    fn masks_bare_clock() {
+        let out = normalize("elapsed 00:00:12 total", &opts());
+        assert_eq!(out, "elapsed <ts> total\n");
+    }
+
+    #[test]
