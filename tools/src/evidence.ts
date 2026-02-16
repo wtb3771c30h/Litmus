@@ -43,3 +43,8 @@ export interface Evidence {
 
 /** Thrown when a parsed JSON blob does not conform to the evidence schema. */
 export class EvidenceError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "EvidenceError";
+  }
+}
