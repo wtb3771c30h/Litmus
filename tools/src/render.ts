@@ -163,3 +163,10 @@ export function renderText(ev: Evidence): string {
   lines.push(`  verdict : ${verdictLabel(ev.verdict)}`);
   for (let i = 0; i < ev.groups.length; i++) {
     const g = ev.groups[i];
+    lines.push(
+      `  [#${i}] ${g.fingerprint} ${g.count}/${ev.total_runs} ` +
+        `(${pct(g.count, ev.total_runs).toFixed(1)}%) runs ${summarizeIndices(g.run_indices)}`,
+    );
+  }
+  return lines.join("\n") + "\n";
+}
