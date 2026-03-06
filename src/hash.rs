@@ -101,3 +101,9 @@ mod tests {
         let original: Vec<u32> = v.clone();
         r.shuffle(&mut v);
         let mut sorted = v.clone();
+        sorted.sort_unstable();
+        assert_eq!(sorted, original);
+        // Extremely unlikely to be identical after shuffling 50 items.
+        assert_ne!(v, original);
+    }
+}
