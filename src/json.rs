@@ -134,3 +134,18 @@ fn write_escaped(out: &mut String, s: &str) {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+
+    #[test]
+    fn compact_object() {
+        let j = Json::Object(vec![
+            ("a".into(), Json::Int(1)),
+            ("b".into(), Json::Bool(true)),
+        ]);
+        assert_eq!(j.to_compact(), r#"{"a":1,"b":true}"#);
+    }
+
+    #[test]
+    fn empty_containers() {
+        assert_eq!(Json::Array(vec![]).to_compact(), "[]");
+        assert_eq!(Json::Object(vec![]).to_compact(), "{}");
