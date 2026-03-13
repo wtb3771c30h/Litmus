@@ -149,3 +149,18 @@ mod tests {
     fn empty_containers() {
         assert_eq!(Json::Array(vec![]).to_compact(), "[]");
         assert_eq!(Json::Object(vec![]).to_compact(), "{}");
+    }
+
+    #[test]
+    fn string_escaping() {
+        let j = Json::str("line1\ntab\tquote\"back\\slash");
+        assert_eq!(j.to_compact(), r#""line1\ntab\tquote\"back\\slash""#);
+    }
+
+    #[test]
+    fn control_char_escaping() {
+        let j = Json::str("\u{01}");
+        assert_eq!(j.to_compact(), r#""\u0001""#);
+    }
+
+    #[test]
