@@ -14,3 +14,5 @@ runs = 15
 timeout_ms = 5000
 expect = deterministic
 
+[normalize]
+strip_timestamps = true
