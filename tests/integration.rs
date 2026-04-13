@@ -76,3 +76,9 @@ fn deterministic_expectation_violated_when_output_varies() {
 }
 
 #[test]
+fn json_evidence_round_trips_shape() {
+    let mut s = scenario_with_command("name = evidence\n#", "echo ok");
+    s.runs = 3;
+    let report = investigate(&s).expect("run should succeed");
+    let json = report.to_json().to_compact();
+
