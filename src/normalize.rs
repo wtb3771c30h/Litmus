@@ -348,3 +348,24 @@ mod tests {
     }
 
     #[test]
+    fn masks_unix_temp() {
+        let out = normalize("wrote /tmp/litmus-abc123/data.bin ok", &opts());
+        assert_eq!(out, "wrote <tmp> ok\n");
+    }
+
+    #[test]
+    fn masks_windows_temp() {
+        let line = "path C:\\Users\\joe\\AppData\\Local\\Temp\\x9.tmp end";
+        let out = normalize(line, &opts());
+        assert_eq!(out, "path <tmp> end\n");
+    }
+
+    #[test]
+    fn sort_and_drop() {
+        let mut o = opts();
+        o.sort_lines = true;
+        o.drop_substrings = vec!["noise".to_string()];
+        let out = normalize("c\na\nnoise line\nb", &o);
+        assert_eq!(out, "a\nb\nc\n");
+    }
+}
