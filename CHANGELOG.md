@@ -43,3 +43,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   determinism, and a set-ordering flaky/fixed pair.
 - **Docs**: rich README with Mermaid diagrams and a live demo transcript,
   `docs/SCENARIO.md` reference.
+- **Project infrastructure**: `Makefile`, GitHub Actions CI (Rust + TypeScript
+  on Linux/macOS/Windows), `.gitignore`, MIT `LICENSE`.
+- **Tests**: 43 Rust unit tests, 4 Rust integration tests exercising real child
+  processes, and 14 TypeScript tests via the built-in `node:test` runner.
+
+[0.1.0]: https://github.com/example/litmus/releases/tag/v0.1.0
