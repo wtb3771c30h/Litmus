@@ -213,3 +213,18 @@ fn print_explain(s: &Scenario) {
     println!("command      : {}", s.command.join(" "));
     println!("runs         : {}", s.runs);
     println!(
+        "timeout_ms   : {}",
+        s.timeout_ms
+            .map(|t| t.to_string())
+            .unwrap_or_else(|| "none".into())
+    );
+    println!("seed         : {}", s.seed);
+    println!("shuffle_env  : {}", s.shuffle_env);
+    println!(
+        "workdir      : {}",
+        s.workdir.as_deref().unwrap_or("(inherited)")
+    );
+    println!("expect       : {}", s.expect);
+    if !s.env.is_empty() {
+        println!("env:");
+        for (k, v) in &s.env {
