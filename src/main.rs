@@ -244,3 +244,18 @@ fn print_explain(s: &Scenario) {
 
 fn print_help() {
     println!(
+        r#"litmus {ver} — a nondeterminism / flaky-test laboratory
+
+USAGE:
+    litmus <command> <scenario-file> [options]
+
+COMMANDS:
+    run       Run the scenario and print a report.
+    check     Like `run`, but exit non-zero if the scenario's expectation
+              (deterministic / flaky) is violated. Use this in CI.
+    emit      Run the scenario and write JSON evidence (stdout or --out).
+    explain   Parse the scenario and print its resolved configuration.
+    version   Print the version.
+    help      Show this help.
+
+OPTIONS:
