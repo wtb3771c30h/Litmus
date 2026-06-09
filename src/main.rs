@@ -228,3 +228,19 @@ fn print_explain(s: &Scenario) {
     if !s.env.is_empty() {
         println!("env:");
         for (k, v) in &s.env {
+            println!("  {k} = {v}");
+        }
+    }
+    println!("normalize:");
+    println!("  strip_timestamps = {}", s.normalize.strip_timestamps);
+    println!("  strip_hex        = {}", s.normalize.strip_hex);
+    println!("  strip_temp_paths = {}", s.normalize.strip_temp_paths);
+    println!("  trim_trailing_ws = {}", s.normalize.trim_trailing_ws);
+    println!("  sort_lines       = {}", s.normalize.sort_lines);
+    if !s.normalize.drop_substrings.is_empty() {
+        println!("  drop_substrings  = {:?}", s.normalize.drop_substrings);
+    }
+}
+
+fn print_help() {
+    println!(
