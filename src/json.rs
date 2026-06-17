@@ -164,3 +164,19 @@ mod tests {
     }
 
     #[test]
+    fn pretty_has_indentation_and_newline() {
+        let j = Json::Object(vec![("k".into(), Json::str("v"))]);
+        let out = j.to_pretty();
+        assert!(out.contains("\n  \"k\": \"v\""));
+        assert!(out.ends_with("}\n"));
+    }
+
+    #[test]
+    fn nested_arrays() {
+        let j = Json::Array(vec![
+            Json::Int(1),
+            Json::Array(vec![Json::Int(2), Json::Int(3)]),
+        ]);
+        assert_eq!(j.to_compact(), "[1,[2,3]]");
+    }
+}
