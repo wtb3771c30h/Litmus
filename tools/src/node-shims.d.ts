@@ -36,3 +36,6 @@ interface ProcessStream {
 }
 
 interface Process {
+  argv: string[];
+  exitCode?: number;
+  stdout: ProcessStream;
