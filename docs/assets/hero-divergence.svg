@@ -87,3 +87,9 @@
 
   <!-- flow arrows into the fingerprint cards -->
   <g stroke="#c9b48f" stroke-width="1.6" fill="none" marker-end="url(#arrow)">
+    <path d="M602 132 H636"/>
+    <path d="M602 231 H636"/>
+  </g>
+
+  <text x="852" y="350" text-anchor="end" class="muted" font-size="10">grouped by FNV-1a fingerprint · stable + diverged</text>
+</svg>
