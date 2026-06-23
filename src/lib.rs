@@ -229,3 +229,23 @@ mod tests {
         assert_eq!(bar(1, 0, 4), "    ");
     }
 
+    #[test]
+    fn text_report_mentions_verdict_and_command() {
+        let s = Scenario::parse("name = demo\n[run]\ncommand = echo hi\nexpect = deterministic")
+            .unwrap();
+        let outcomes = vec![report::Outcome {
+            run_index: 0,
+            seed: 0,
+            fingerprint: "abc".into(),
+            exit_code: Some(0),
+            timed_out: false,
+            duration_ms: 1,
+            canonical: "hi\n".into(),
+        }];
+        let r = report::build_report(&s, outcomes);
+        let text = render_text(&r, false, 3);
+        assert!(text.contains("demo"));
+        assert!(text.contains("echo hi"));
+        assert!(text.contains("STABLE"));
+    }
+}
