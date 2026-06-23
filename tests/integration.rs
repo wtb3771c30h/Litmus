@@ -82,3 +82,10 @@ fn json_evidence_round_trips_shape() {
     let report = investigate(&s).expect("run should succeed");
     let json = report.to_json().to_compact();
 
+    assert!(json.contains(r#""schema":"litmus/evidence@1""#));
+    assert!(json.contains(r#""scenario":"evidence""#));
+    assert!(json.contains(r#""total_runs":3"#));
+    assert!(json.contains(r#""verdict":"stable""#));
+    // Every outcome has a fingerprint field.
+    assert!(json.contains(r#""fingerprint":"#));
+}
