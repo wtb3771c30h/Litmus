@@ -17,3 +17,6 @@ description = A pseudo-random program made reproducible by honoring LITMUS_SEED.
 # offset) so output is identical every run, proving seed control works.
 command = node -e "let s=1337>>>0; s=(s*1664525+1013904223)>>>0; console.log('seeded value '+s);"
 runs = 10
+seed = 7
+timeout_ms = 5000
+expect = deterministic
