@@ -381,3 +381,67 @@ Common options: `--runs N`, `--timeout-ms N`, `--seed N`, `--json`, `--out FILE`
 Exit codes: `0` success · `1` expectation violated (`check` only) · `2` usage or execution
 error (unreadable scenario, or the program cannot be spawned).
 
+## Project layout
+
+```text
+litmus/
+├── Cargo.toml
+├── src/
+│   ├── main.rs        # CLI: argument parsing, subcommands
+│   ├── lib.rs         # library root + text report renderer
+│   ├── scenario.rs    # .litmus parser
+│   ├── runner.rs      # command execution with timeout
+│   ├── normalize.rs   # output canonicalization
+│   ├── hash.rs        # FNV-1a fingerprint + SplitMix64 RNG
+│   ├── json.rs        # dependency-free JSON writer
+│   └── report.rs      # orchestration + divergence analysis
+├── tests/integration.rs   # end-to-end tests against real processes
+├── scenarios/             # example .litmus files (the gallery)
+├── tools/src/             # TS: evidence types, parser, renderer, author, CLI, tests
+├── docs/SCENARIO.md       # full scenario reference
+├── docs/assets/           # README artwork (animated SVG)
+├── examples/evidence-sample.json
+├── Makefile
+└── .github/workflows/ci.yml
+```
+
+## Troubleshooting
+
+- **`scenario is missing a command in the [run] section`** — add a `command`, or accumulate
+  arguments with `arg =` lines.
+- **`unterminated quote in command`** — a `'` or `"` was opened but not closed; close it or
+  switch to repeated `arg =` lines.
+- **`scenario parse error (line N): …`** — the parser points at the line. Common causes: a
+  bad boolean (only `true/false/yes/no/1/0/on/off`) or an unknown key in a section.
+- **Everything reports `diverged` unexpectedly** — a needed normalization pass is off, or the
+  noise isn't recognized. Inspect the sample lines, then enable the matching pass or add a
+  `drop_substring`.
+- **A `deterministic` scenario flips to `expectation_violated`** — the command really
+  diverged; the group samples show how, the run indices show which repetitions.
+- **`cannot read <path>`** — wrong working directory; `litmus` reads the scenario relative to
+  where you invoke it.
+
+## Limitations
+
+- **No sandboxing.** litmus controls seeds, env, order, timeout, and workdir — not network,
+  filesystem, or clock. Interpret external divergence accordingly.
+- **Line-oriented normalization.** Masks operate per line over a fixed set of shapes
+  (ISO-ish timestamps, `0x`/bare hex, common temp roots); exotic formats need a
+  `drop_substring` or a code change.
+- **Fingerprints are equality, not similarity.** Outcomes match only if their canonical forms
+  are byte-identical; litmus does not compute a diff or a distance.
+- **Sequential runs.** Repetitions execute one after another — no built-in parallel execution.
+- **UTF-8 lossy capture.** Output is decoded with `from_utf8_lossy`; raw binary is not
+  preserved byte-for-byte.
+
+## Roadmap
+
+- Parallel run execution with a bounded worker pool.
+- A `diff` subcommand showing the minimal delta between two outcome groups.
+- More normalization passes (UUIDs, durations, PIDs) behind explicit flags.
+- A `--baseline evidence.json` mode for `check`, failing only on *new* fingerprints.
+- JUnit-style XML output alongside the HTML renderer for CI dashboards.
+
+## License
+
+MIT — see [`LICENSE`](LICENSE).
