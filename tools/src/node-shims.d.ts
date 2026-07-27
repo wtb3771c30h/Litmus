@@ -39,3 +39,7 @@ interface Process {
   argv: string[];
   exitCode?: number;
   stdout: ProcessStream;
+  stderr: ProcessStream;
+}
+
+declare const process: Process;
