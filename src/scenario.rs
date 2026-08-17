@@ -378,3 +378,25 @@ mod tests {
             sort_lines = true
             drop_substring = noise
         "#;
+        let s = Scenario::parse(text).unwrap();
+        assert_eq!(s.name, "demo");
+        assert_eq!(s.command, vec!["my prog", "--flag", "a b"]);
+        assert_eq!(s.runs, 5);
+        assert_eq!(s.timeout_ms, Some(1500));
+        assert!(s.shuffle_env);
+        assert_eq!(s.seed, 42);
+        assert_eq!(s.expect, Expectation::Deterministic);
+        assert_eq!(s.env.get("GREETING").map(String::as_str), Some("hi there"));
+        assert!(s.normalize.sort_lines);
+        assert_eq!(s.normalize.drop_substrings, vec!["noise".to_string()]);
+    }
+
+    #[test]
+    fn comments_and_blanks_ignored() {
+        let text = "# top comment\n\n[run] ; section\ncommand = echo hi ; trailing\n";
+        let s = Scenario::parse(text).unwrap();
+        assert_eq!(s.command, vec!["echo", "hi"]);
+    }
+
+    #[test]
+    fn arg_accumulation() {
