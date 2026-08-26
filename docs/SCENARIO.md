@@ -137,3 +137,13 @@ After all runs, `litmus` groups outcomes by fingerprint and assigns a verdict:
 which is what you wire into CI. `litmus run` always exits `0` unless there is a
 usage or execution error (exit `2`).
 
+## Emitting evidence
+
+`litmus emit <scenario> --out evidence.json` writes a JSON document with schema
+`litmus/evidence@1` containing the verdict, per-group fingerprints and run
+indices, and per-run metadata (exit code, timeout, duration). Feed it to the
+TypeScript renderer:
+
+```bash
+node tools/dist/cli.js html evidence.json --out report.html
+```
