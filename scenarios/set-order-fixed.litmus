@@ -15,3 +15,5 @@ runs = 25
 timeout_ms = 5000
 expect = deterministic
 
+[normalize]
+sort_lines = true
