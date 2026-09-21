@@ -86,3 +86,9 @@
     <text class="fade f6" x="36" y="384">[3] 2/12  16.7%  fp=fe920309f32cf24f · exit=1</text>
     <rect class="fade f6" x="300" y="375" width="240" height="9" rx="4" fill="#e7d5b8"/>
     <rect class="bar fade f6" x="300" y="375" width="40"  height="9" rx="4" fill="#1f4bd8"/>
+  </g>
+
+  <!-- live cursor -->
+  <text x="36" y="410" fill="#ff7a59" font-size="13">$</text>
+  <rect class="cursor" x="52" y="399" width="9" height="14" fill="#243049"/>
+</svg>
