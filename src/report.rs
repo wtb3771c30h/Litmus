@@ -375,3 +375,32 @@ mod tests {
                 outcome(2, "common"),
                 outcome(3, "common"),
             ],
+        );
+        assert_eq!(r.groups[0].fingerprint, "common");
+        assert_eq!(r.groups[0].count, 3);
+        assert_eq!(r.groups[1].fingerprint, "rare");
+    }
+
+    #[test]
+    fn duration_and_timeout_stats() {
+        let s = scen("");
+        let mut o1 = outcome(0, "aa");
+        o1.duration_ms = 5;
+        let mut o2 = outcome(1, "aa");
+        o2.duration_ms = 20;
+        o2.timed_out = true;
+        let r = build_report(&s, vec![o1, o2]);
+        assert_eq!(r.min_duration_ms, 5);
+        assert_eq!(r.max_duration_ms, 20);
+        assert_eq!(r.timeouts, 1);
+    }
+
+    #[test]
+    fn json_has_schema_and_verdict() {
+        let s = scen("deterministic");
+        let r = build_report(&s, vec![outcome(0, "aa"), outcome(1, "aa")]);
+        let text = r.to_json().to_compact();
+        assert!(text.contains(r#""schema":"litmus/evidence@1""#));
+        assert!(text.contains(r#""verdict":"stable""#));
+    }
+}
