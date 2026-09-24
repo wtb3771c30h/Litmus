@@ -17,3 +17,5 @@
     "skipLibCheck": true,
     "types": []
   },
+  "include": ["src/**/*.ts"]
+}
