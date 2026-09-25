@@ -259,3 +259,19 @@ COMMANDS:
     help      Show this help.
 
 OPTIONS:
+    --runs N            Override the scenario run count.
+    --timeout-ms N      Override the per-run timeout (milliseconds).
+    --seed N            Override the base seed.
+    --json              Emit JSON evidence to stdout instead of a text report.
+    --out FILE          Also write JSON evidence to FILE.
+    --sample-lines N    Sample output lines shown per outcome group (default 4).
+    --no-color          Disable ANSI color output (also honors NO_COLOR).
+
+EXAMPLES:
+    litmus run scenarios/deterministic-echo.litmus
+    litmus check scenarios/flaky-timestamp.litmus
+    litmus emit scenarios/flaky-timestamp.litmus --out evidence.json
+"#,
+        ver = env!("CARGO_PKG_VERSION")
+    );
+}
