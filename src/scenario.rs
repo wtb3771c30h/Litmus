@@ -400,3 +400,26 @@ mod tests {
 
     #[test]
     fn arg_accumulation() {
+        let text = "[run]\ncommand = prog\narg = one\narg = two";
+        let s = Scenario::parse(text).unwrap();
+        assert_eq!(s.command, vec!["prog", "one", "two"]);
+    }
+
+    #[test]
+    fn missing_command_is_error() {
+        let err = Scenario::parse("name = x").unwrap_err();
+        assert!(err.message.contains("command"));
+    }
+
+    #[test]
+    fn unterminated_quote_errors() {
+        let err = Scenario::parse("[run]\ncommand = \"oops").unwrap_err();
+        assert!(err.message.contains("unterminated"));
+    }
+
+    #[test]
+    fn bad_bool_reports_line() {
+        let err = Scenario::parse("[run]\ncommand = x\nshuffle_env = maybe").unwrap_err();
+        assert_eq!(err.line, Some(3));
+    }
+}
