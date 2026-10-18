@@ -1,0 +1,15 @@
+# A scenario that reads the wall clock: every run prints a different timestamp, but
+# strip_timestamps masks it to <ts>, so the normalized fingerprint must come out stable.
+
+name = clock-read
+description = A command that prints the current time; normalization makes it stable.
+
+[run]
+command = node -e "process.stdout.write(new Date().toISOString() + '\n')"
+runs = 8
+timeout_ms = 5000
+expect = deterministic
+
+[normalize]
+strip_timestamps = true
+strip_hex = false
