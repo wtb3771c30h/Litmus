@@ -445,3 +445,5 @@ litmus/
 ## License
 
 MIT — see [`LICENSE`](LICENSE).
+
+> Scenario grammar lives in `docs/SCENARIO.md`; the shipped set is under `scenarios/`.

@@ -153,3 +153,5 @@ node tools/dist/cli.js html evidence.json --out report.html
 The fingerprint is computed over **normalized** output: `stable` means every run normalized to the
 same bytes, not that the raw output was byte-identical. The `clock-read` scenario is the smallest
 demonstration - the raw timestamps change every run while the verdict stays stable.
+
+> See the README's project layout for where scenario files live.
