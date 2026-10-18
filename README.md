@@ -445,3 +445,6 @@ litmus/
 ## License
 
 MIT — see [`LICENSE`](LICENSE).
+
+Scenarios shipped with the bench are listed under [`scenarios/`](scenarios/); `clock-read`
+demonstrates the normalization boundary described in [`docs/SCENARIO.md`](docs/SCENARIO.md).
