@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Changed
+
+- CI reconciled with the tree: the Rust matrix is the whole gate until `tools/` lands.
+
 # Changelog
 
 All notable changes to this project are documented in this file.

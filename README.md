@@ -453,3 +453,5 @@ demonstrates the normalization boundary described in [`docs/SCENARIO.md`](docs/S
 
 The Rust CLI and its scenarios are the whole of this tree; the TypeScript report tooling
 (`tools/`) has not landed yet, and the workflow and Makefile no longer pretend otherwise.
+
+CI runs the scenarios on Linux, macOS and Windows on every push.
