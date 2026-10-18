@@ -448,3 +448,8 @@ MIT — see [`LICENSE`](LICENSE).
 
 Scenarios shipped with the bench are listed under [`scenarios/`](scenarios/); `clock-read`
 demonstrates the normalization boundary described in [`docs/SCENARIO.md`](docs/SCENARIO.md).
+
+## What ships today
+
+The Rust CLI and its scenarios are the whole of this tree; the TypeScript report tooling
+(`tools/`) has not landed yet, and the workflow and Makefile no longer pretend otherwise.

@@ -1,7 +1,7 @@
-.PHONY: all build test fmt fmt-check lint clippy ts-build ts-test tools demo emit clean help
+.PHONY: all build test fmt fmt-check lint clippy demo emit clean help
 
 # Default: build and test everything.
-all: build ts-build test ts-test
+all: build test
 
 ## Rust ----------------------------------------------------------------------
 
@@ -22,16 +22,6 @@ clippy: ## Run clippy with warnings denied.
 
 lint: fmt-check clippy ## Run all Rust lints.
 
-## TypeScript ----------------------------------------------------------------
-
-ts-build: ## Type-check and compile the TypeScript tooling.
-	cd tools && npx tsc -p tsconfig.json
-
-ts-test: ts-build ## Run the TypeScript test suite.
-	cd tools && node --test dist/litmus.test.js
-
-tools: ts-build ## Alias for ts-build.
-
 ## Demos ---------------------------------------------------------------------
 
 demo: build ## Run every example scenario with the release binary.
@@ -41,13 +31,11 @@ demo: build ## Run every example scenario with the release binary.
 	./target/release/litmus run scenarios/set-order-flaky.litmus
 	./target/release/litmus run scenarios/set-order-fixed.litmus
 
-emit: build ts-build ## Emit evidence and render an HTML report end-to-end.
+emit: build ## Emit an evidence file for the flaky scenario.
 	./target/release/litmus emit scenarios/flaky-random-outcome.litmus --out examples/evidence.local.json
-	cd tools && node dist/cli.js html ../examples/evidence.local.json --out ../examples/report.html
 
 clean: ## Remove build artifacts.
 	cargo clean
-	cd tools && node -e "require('fs').rmSync('dist',{recursive:true,force:true})"
 
 help: ## Show this help.
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
